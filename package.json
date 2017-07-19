@@ -1,0 +1,14 @@
+{
+  "name": "philter",
+  "version": "0.0.1",
+  "description": "A native app for filtering and syncing img files to local and cloud directories",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/lionsdwarf/philter",
+  "author": "lionsdwarf",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  }
+}
