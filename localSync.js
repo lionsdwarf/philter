@@ -6,7 +6,7 @@ const {
 } = require('electron')
 const fs = require('fs')
 const path = require('path')
-const main = remote.require("./main.js")
+const main = remote.require('./main.js')
 
 const parseUserDir = (path) => {
   const delimiter = '/'

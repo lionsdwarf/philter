@@ -2,15 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Philter</title>
   </head>
   <body>
-    <div onClick='copy("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div>
+    <div onClick='syncToDrive("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div>
+    <!-- <div onClick='copy("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
     <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
     const copy = (path, fileName) => {
-      require('./renderer.js').copyToDesktop(path, fileName)
+      require('./localSync.js').copyToDesktop(path, fileName)
+    }
+    const syncToDrive = () => {
+      require('./gDriveSync.js').obtainAccessToken()
     }
   </script>
 </html>

@@ -10,5 +10,8 @@
   "author": "lionsdwarf",
   "devDependencies": {
     "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "electron-oauth2": "^3.0.0"
   }
 }
