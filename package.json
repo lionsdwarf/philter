@@ -9,9 +9,11 @@
   "repository": "https://github.com/lionsdwarf/philter",
   "author": "lionsdwarf",
   "devDependencies": {
-    "electron": "~1.6.2"
+    "electron": "~1.6.2",
+    "electron-rebuild": "^1.5.11"
   },
   "dependencies": {
-    "electron-oauth2": "^3.0.0"
+    "electron-oauth2": "^3.0.0",
+    "keytar": "^4.0.3"
   }
 }

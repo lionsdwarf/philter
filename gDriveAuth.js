@@ -1,8 +1,11 @@
 const electronOauth2 = require('electron-oauth2')
+const keytar = require('keytar')
 const gDriveCreds = require(process.argv[2]).googleDrive
 
 const GOOGLE_AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_TOKEN_URL = 'https://www.googleapis.com/oauth2/v4/token'
+const REDIRECT_URI = 'http://localhost'
+const ACCESS_TYPE = 'offline'
 const SCOPE = [
   'https://www.googleapis.com/auth/drive.file'
 ]
@@ -13,7 +16,7 @@ const config = {
     authorizationUrl: GOOGLE_AUTHORIZATION_URL,
     tokenUrl: GOOGLE_TOKEN_URL,
     useBasicAuthorizationHeader: false,
-    redirectUri: 'http://localhost'
+    redirectUri: REDIRECT_URI
 }
 
 const windowParams = {
@@ -25,25 +28,35 @@ const windowParams = {
 
 const options = {
   scope: SCOPE,
-  accessType: 'offline'
+  accessType: ACCESS_TYPE
 };
 
-const initLogin = () => {
-  const myApiOauth = electronOauth2(config, windowParams);
-  myApiOauth.getAccessToken(options)
-    .then(token => {
-      console.log('access_token', token)
-      // use your token.access_token 
+const myApiOauth = electronOauth2(config, windowParams);
 
-      myApiOauth.refreshToken(token.refresh_token)
-        .then(newToken => {
-          console.log('refresh_token', newToken)
-          //use your new token 
-        });
-    });
+async function getAccessToken() {
+  return await refreshAccessToken() || await initLogin()
 }
 
-// const refreshToken = () => null
+//use refresh token to obtain access token
+async function refreshAccessToken() {
+  const refreshToken = await keytar.getPassword('Philter', 'GoogleDriveRefreshToken')
+  if (!refreshToken) {
+    return null
+  }
+  return await myApiOauth.refreshToken(refreshToken).access_token
+}
 
-// module.exports = refreshToken || initLogin
-module.exports = initLogin
+//initiate google login flow
+async function initLogin() {
+  const tokens = await myApiOauth.getAccessToken(options)
+  if (tokens.refresh_token) {
+    persistRefreshToken(tokens.refresh_token)    
+  }
+  return tokens.access_token
+}
+
+const persistRefreshToken = (refreshToken) => {
+  keytar.setPassword('Philter', 'GoogleDriveRefreshToken', refreshToken)
+}
+
+module.exports = getAccessToken
