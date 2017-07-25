@@ -10,11 +10,9 @@
     <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
+    require('./gDriveSync.js')
     const copy = (path, fileName) => {
       require('./localSync.js').copyToDesktop(path, fileName)
-    }
-    const syncToDrive = () => {
-      require('./gDriveSync.js').obtainAccessToken()
     }
   </script>
 </html>

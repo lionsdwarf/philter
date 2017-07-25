@@ -1,4 +1,7 @@
 const electron = require('electron')
+const {
+  ipcMain
+} = electron
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
@@ -36,7 +39,8 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  gDriveAuth()
+  gDriveAuth(mainWindow.webContents)
+  // ipcMain.send('gDrive-access-token', gDriveAuth())
 })
 
 // Quit when all windows are closed.

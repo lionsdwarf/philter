@@ -31,10 +31,9 @@ const options = {
   accessType: ACCESS_TYPE
 };
 
-const myApiOauth = electronOauth2(config, windowParams);
-
-async function getAccessToken() {
-  return await refreshAccessToken() || await initLogin()
+async function getAccessToken(eventEmitter) {
+  const accessToken = await refreshAccessToken() || await initLogin()
+  eventEmitter.send('gDrive-access-token', accessToken)
 }
 
 //use refresh token to obtain access token
@@ -43,12 +42,12 @@ async function refreshAccessToken() {
   if (!refreshToken) {
     return null
   }
-  return await myApiOauth.refreshToken(refreshToken).access_token
+  return await electronOauth2(config, windowParams).refreshToken(refreshToken).access_token
 }
 
 //initiate google login flow
 async function initLogin() {
-  const tokens = await myApiOauth.getAccessToken(options)
+  const tokens = await electronOauth2(config, windowParams).getAccessToken(options)
   if (tokens.refresh_token) {
     persistRefreshToken(tokens.refresh_token)    
   }
