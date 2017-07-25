@@ -15,11 +15,11 @@ const parseUserDir = (path) => {
   return tokens.join(delimiter)
 }
 
-const copyToDesktop = (filePath, fileName) => {
+const copyToDesktop = (sourceDirPath, fileName) => {
   const userDir = parseUserDir(main.envPath())
   const targetDir = path.join(userDir, '/Desktop/testCopy')
   const targetFile = path.join(targetDir, fileName)
-  const sourceFile = path.join(filePath, fileName)
+  const sourceFile = path.join(sourceDirPath, fileName)
 
   // ensure that file doesn't already exist && return list of dupe filenames
   fs.createReadStream(sourceFile).pipe(fs.createWriteStream(targetFile))
