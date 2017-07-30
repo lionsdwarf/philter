@@ -15,7 +15,7 @@
       require('./localSync.js').copyToDesktop(sourceDirPath, fileName)
     }
     const syncToDrive = (sourceDirPath, fileName) => {
-      gDriveUtil.uploadToDrive(sourceDirPath, fileName)
+      gDriveUtil.createDriveFolder(sourceDirPath, fileName)
     }
   </script>
 </html>

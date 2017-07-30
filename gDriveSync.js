@@ -6,8 +6,6 @@ const {
 const google = require('googleapis')
 const OAuth2 = google.auth.OAuth2
 const {
-  // AUTHORIZATION_URL,
-  // TOKEN_URL,
   ACCESS_TYPE,
   SCOPE,
   REDIRECT_URI
@@ -16,10 +14,10 @@ const {
 let drive
 
 ipcRenderer.on('gDrive-Data', (event, gDrive) => {
-  establishDriveConnection(gDrive)
+  establishConnection(gDrive)
 })
 
-const establishDriveConnection = gDrive => {
+const establishConnection = gDrive => {
   const oauth2Client = new OAuth2(
     gDrive.app.clientId,
     gDrive.app.clientSecret,
@@ -42,12 +40,24 @@ const establishDriveConnection = gDrive => {
   })
 }
 
-const uploadToDrive = (sourceDirPath, fileName) => {
+const createFolder = (sourceDirPath, fileName) => {
+  drive.files.create({
+    resource: {
+      name: 'User Input',
+      mimeType: 'application/vnd.google-apps.folder'
+    },
+    fields: 'id'
+  }, (err, folder) => {
+    !err && uploadFile(sourceDirPath, fileName)
+  })
+}
+
+const uploadFile = (sourceDirPath, fileName, parentFolderId) => {
   const sourceFile = path.join(sourceDirPath, fileName)
   drive.files.create({
     resource: {
       name: fileName,
-      mimeType: 'image/jpeg'
+      parents: parentFolderId ? [ parentFolderId ] : []
     },
     media: {
       mimeType: 'image/jpeg',
@@ -60,5 +70,6 @@ const uploadToDrive = (sourceDirPath, fileName) => {
 }
 
 module.exports = {
-  uploadToDrive: uploadToDrive
+  uploadFileToDrive: uploadFile,
+  createDriveFolder: createFolder
 }
