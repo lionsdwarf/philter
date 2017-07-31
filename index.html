@@ -6,10 +6,15 @@
   </head>
   <body>
     <div onClick='syncToDrive("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div>
+    <button id='sourceSelect'>Select Source Dir</button>
+    <button id='targetSelect'>Select Target Dir</button>
+    <input id='sourceDirInput' type='file' style='display: none' webkitdirectory/>
+    <div id='imgNav'></div>
     <!-- <div onClick='copy("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
     <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
+    require('./dirManager.js')
     const gDriveUtil = require('./gDriveSync.js')
     const copy = (sourceDirPath, fileName) => {
       require('./localSync.js').copyToDesktop(sourceDirPath, fileName)

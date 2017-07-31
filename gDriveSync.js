@@ -48,7 +48,7 @@ const createFolder = (sourceDirPath, fileName) => {
     },
     fields: 'id'
   }, (err, folder) => {
-    !err && uploadFile(sourceDirPath, fileName)
+    !err && uploadFile(sourceDirPath, fileName, folder.id)
   })
 }
 
