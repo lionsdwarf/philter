@@ -16,7 +16,7 @@ const parseUserDir = (path) => {
 }
 
 const copyToDesktop = (sourceDirPath, fileName) => {
-  const userDir = parseUserDir(main.envPath())
+  const userDir = parseUserDir(main.envPath)
   const targetDir = path.join(userDir, '/Desktop/testCopy')
   const targetFile = path.join(targetDir, fileName)
   const sourceFile = path.join(sourceDirPath, fileName)

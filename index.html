@@ -14,10 +14,11 @@
     <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
-    require('./dirManager.js')
-    const gDriveUtil = require('./gDriveSync.js')
+    require('./dirManager')
+    require('./thumbnailsManager')
+    const gDriveUtil = require('./gDriveSync')
     const copy = (sourceDirPath, fileName) => {
-      require('./localSync.js').copyToDesktop(sourceDirPath, fileName)
+      require('./localSync').copyToDesktop(sourceDirPath, fileName)
     }
     const syncToDrive = (sourceDirPath, fileName) => {
       gDriveUtil.createDriveFolder(sourceDirPath, fileName)

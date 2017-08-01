@@ -1,27 +1,32 @@
 const electron = require('electron')
 const {
-  // ipcMain,
   app,
   dialog
 } = electron
+const fs = require('fs')
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 const gDriveAuth = require('./gDriveAuth')
-const thumbsMgr = require('./thumbnailsManager')
+const {
+  THUMBS_DIR
+} = require('./constants/thumbnails')
 
 let mainWindow
 let dirs = {}
 let existingThumbs
 
-const selectDir = dirType => {
-  dialog.showOpenDialog(mainWindow, {
-    properties: ['openDirectory']
-  }, 
-  selectedDir => {
-    dirs[dirType] = selectedDir[0]
-    exports.dirs = dirs
-    mainWindow.webContents.send('source-dir-selection', dirs)
+const thumbsDirExists = () => {
+  return fs.existsSync(THUMBS_DIR)
+}
+
+const generateThumbsDir = () => {
+  fs.mkdirSync(THUMBS_DIR)
+}
+
+const indexThumbs = () => {
+  fs.readdir(THUMBS_DIR, (err, dirContents) => {
+    existingThumbs = new Set(dirContents)
   })
 }
 
@@ -54,9 +59,10 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  !thumbsMgr.thumbsDirExists() && thumbsMgr.generateThumbsDir()
-  existingThumbs = thumbsMgr.indexThumbs()
-  console.log('existingThumbs', existingThumbs)
+  !thumbsDirExists() && generateThumbsDir()
+  // existingThumbs = new Set(indexThumbs())
+  indexThumbs()
+
   gDriveAuth(mainWindow.webContents)
 })
 
@@ -77,9 +83,23 @@ app.on('activate', () => {
   }
 })
 
-exports.envPath = process.argv[0]
+exports.envPath = () => {
+  return process.argv[0]
+}
 
-exports.selectDir = selectDir
+exports.selectDir = dirType => {
+  //open chrome directory select dialog
+  dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory']
+  }, 
+  selectedDir => {
+    dirs[dirType] = selectedDir[0]
+    exports.dirs = dirs
+    mainWindow.webContents.send('source-dir-selection', dirs)
+  })
+}
 
-exports.existingThumbs = existingThumbs
+exports.existingThumbs = () => {
+  return existingThumbs
+}
 

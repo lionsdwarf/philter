@@ -4,7 +4,10 @@ const {
   ipcRenderer
 } = require('electron')
 const main = remote.require('./main')
-const thumbsMgr = require('./thumbnailsManager')
+const {
+  thumbExists,
+  generateThumb
+} = require('./thumbnailsManager')
 
 const jpgExtension = '.jpg'
 
@@ -46,8 +49,10 @@ const renderFolderContents = (sourceDir) => {
       if (isJPG(fileName)) {
         renderItem(fileName, sourceDir)
 
-        if (!thumbsMgr.thumbExists(fileName)) {
-          // thumbsMgr.generateThumbnail(sourceDir, fileName)
+        if (!thumbExists(fileName)) {
+          generateThumb(sourceDir, fileName)
+        } else {
+          console.log('exists', fileName)
         }
 
       }
