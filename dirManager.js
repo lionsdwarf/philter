@@ -5,6 +5,20 @@ const {
 } = require('electron')
 const main = remote.require('./main.js')
 
+
+const sharp = require('sharp')
+const resize = (sourceDir, fileName) => {
+  console.log(sourceDir + '/' + fileName)
+  sharp(sourceDir + '/' + fileName)
+    .resize(120, 80)
+    .toFile('/Users/sparklemotion/Desktop/tmp/' + fileName)
+    .then( thumbnail => console.log(thumbnail))
+}
+
+
+
+
+
 const jpgExtension = '.jpg'
 
 const configureDirSelect = dirType => {
@@ -23,10 +37,14 @@ ipcRenderer.on('source-dir-selection', (event, dirs) => {
 const renderItem = (fileName, sourceDir) => {
   const navItem = document.createElement('div')
   const text = document.createTextNode(fileName)
-  // const thumbnail = document.createElement('img')
-  // thumbnail.src = sourceDir + '/' + fileName
-  // console.log(thumbnail)
-  // navItem.appendChild(thumbnail)
+  
+
+  const thumbnail = document.createElement('img')
+  thumbnail.src = '/Users/sparklemotion/Desktop/tmp/' + fileName
+  console.log(thumbnail)
+  navItem.appendChild(thumbnail)
+
+
   navItem.appendChild(text)
   document.getElementById('imgNav').appendChild(navItem)
 }
@@ -34,7 +52,9 @@ const renderItem = (fileName, sourceDir) => {
 const renderFolderContents = (sourceDir) => {
   fs.readdir(sourceDir, (err, dirContents) => {
     dirContents.forEach( fileName => {
+      fileName = fileName.slice(2)
       if (isJPG(fileName)) {
+        resize(sourceDir, fileName)
         renderItem(fileName, sourceDir)
       }
     })

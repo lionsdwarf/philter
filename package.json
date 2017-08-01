@@ -15,6 +15,7 @@
   "dependencies": {
     "electron-oauth2": "^3.0.0",
     "googleapis": "^20.1.0",
-    "keytar": "^4.0.3"
+    "keytar": "^4.0.3",
+    "sharp": "git+https://github.com/lovell/sharp.git#suit"
   }
 }
