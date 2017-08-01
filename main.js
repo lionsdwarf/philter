@@ -5,12 +5,14 @@ const {
   dialog
 } = electron
 const BrowserWindow = electron.BrowserWindow
-
-let mainWindow
-let dirs = {}
 const path = require('path')
 const url = require('url')
 const gDriveAuth = require('./gDriveAuth')
+const thumbsMgr = require('./thumbnailsManager')
+
+let mainWindow
+let dirs = {}
+let existingThumbs
 
 const selectDir = dirType => {
   dialog.showOpenDialog(mainWindow, {
@@ -52,6 +54,9 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
+  !thumbsMgr.thumbsDirExists() && thumbsMgr.generateThumbsDir()
+  existingThumbs = thumbsMgr.indexThumbs()
+  console.log('existingThumbs', existingThumbs)
   gDriveAuth(mainWindow.webContents)
 })
 
@@ -75,4 +80,6 @@ app.on('activate', () => {
 exports.envPath = process.argv[0]
 
 exports.selectDir = selectDir
+
+exports.existingThumbs = existingThumbs
 
