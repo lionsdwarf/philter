@@ -22,6 +22,7 @@ const renderThumb = (thumbsDir, fileName) => {
   const parentDiv = document.getElementById(fileName)
   const thumb = document.createElement('img')
   thumb.src = thumbsDir + fileName
+  thumb.dataset.fileName = fileName
   parentDiv.appendChild(thumb)
 }
 

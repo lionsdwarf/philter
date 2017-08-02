@@ -23,23 +23,34 @@ const configureDirSelect = dirType => {
 
 configureDirSelect('source')
 configureDirSelect('target')
+
 document.getElementById('imgNav').addEventListener('click', (e) => {
-  console.log(e)
+  renderMainImg(e.srcElement.dataset.fileName)
 })
 
 ipcRenderer.on('source-dir-selection', (event, dirs) => {
-  renderFolderContents(dirs.source)  
+  //clear thumbs dir
+  sourceDir = dirs.source
+  renderFolderContents()  
 })
 
-const renderItem = (fileName, sourceDir) => {
+const renderMainImg = fileName => {
+  document.getElementById('mainImg').src = sourceDir + '/' + fileName
+}
+
+const renderItem = (fileName) => {
   const navItem = document.createElement('div')
+  const textWrapper = document.createElement('span')
   const text = document.createTextNode(fileName)
   navItem.id = fileName
-  navItem.appendChild(text)
+  navItem.dataset.fileName = fileName
+  textWrapper.dataset.fileName = fileName
+  textWrapper.appendChild(text)
+  navItem.appendChild(textWrapper)
   document.getElementById('imgNav').appendChild(navItem)
 }
   
-const renderFolderContents = (sourceDir) => {
+const renderFolderContents = () => {
   const thumbsDirEmpty = main.existingThumbs().size == 0
   fs.readdir(sourceDir, (err, dirContents) => {
 
@@ -48,7 +59,7 @@ const renderFolderContents = (sourceDir) => {
       fileName = fileName.slice(2)
 
       if (isJPG(fileName)) {
-        renderItem(fileName, sourceDir)
+        renderItem(fileName)
 
         if (thumbsDirEmpty || !thumbExists(fileName)) {
           generateThumb(sourceDir, fileName)
