@@ -8,11 +8,21 @@ const {
   THUMBS_DIR
 } = require('./constants/thumbnails')
 
+const THUMB_WIDTH = 120
+const THUMB_HEIGHT = 80
+
 const generateThumb = (sourceDir, fileName) => {
   sharp(sourceDir + '/' + fileName)
-    .resize(120, 80)
+    .resize(THUMB_WIDTH, THUMB_HEIGHT)
     .toFile(THUMBS_DIR + fileName)
-    .then( thumbnail => console.log(thumbnail))
+    .then( thumb => renderThumb(THUMBS_DIR, fileName))
+}
+
+const renderThumb = (thumbsDir, fileName) => {
+  const parentDiv = document.getElementById(fileName)
+  const thumb = document.createElement('img')
+  thumb.src = thumbsDir + fileName
+  parentDiv.appendChild(thumb)
 }
 
 const thumbExists = (fileName) => {
@@ -21,5 +31,6 @@ const thumbExists = (fileName) => {
 
 module.exports = {
   generateThumb: generateThumb,
-  thumbExists: thumbExists
+  thumbExists: thumbExists,
+  renderThumb: renderThumb
 }

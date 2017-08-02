@@ -6,8 +6,12 @@ const {
 const main = remote.require('./main')
 const {
   thumbExists,
-  generateThumb
+  generateThumb,
+  renderThumb
 } = require('./thumbnailsManager')
+const {
+  THUMBS_DIR
+} = require('./constants/thumbnails')
 
 const jpgExtension = '.jpg'
 
@@ -19,6 +23,9 @@ const configureDirSelect = dirType => {
 
 configureDirSelect('source')
 configureDirSelect('target')
+document.getElementById('imgNav').addEventListener('click', (e) => {
+  console.log(e)
+})
 
 ipcRenderer.on('source-dir-selection', (event, dirs) => {
   renderFolderContents(dirs.source)  
@@ -27,19 +34,13 @@ ipcRenderer.on('source-dir-selection', (event, dirs) => {
 const renderItem = (fileName, sourceDir) => {
   const navItem = document.createElement('div')
   const text = document.createTextNode(fileName)
-  
-
-  // const thumbnail = document.createElement('img')
-  // thumbnail.src = '/Users/sparklemotion/Desktop/tmp/' + fileName
-  // console.log(thumbnail)
-  // navItem.appendChild(thumbnail)
-
-
+  navItem.id = fileName
   navItem.appendChild(text)
   document.getElementById('imgNav').appendChild(navItem)
 }
   
 const renderFolderContents = (sourceDir) => {
+  const thumbsDirEmpty = main.existingThumbs().size == 0
   fs.readdir(sourceDir, (err, dirContents) => {
 
     dirContents.forEach( fileName => {
@@ -49,10 +50,10 @@ const renderFolderContents = (sourceDir) => {
       if (isJPG(fileName)) {
         renderItem(fileName, sourceDir)
 
-        if (!thumbExists(fileName)) {
+        if (thumbsDirEmpty || !thumbExists(fileName)) {
           generateThumb(sourceDir, fileName)
         } else {
-          console.log('exists', fileName)
+          renderThumb(THUMBS_DIR, fileName)
         }
 
       }

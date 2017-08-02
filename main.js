@@ -8,13 +8,14 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 const gDriveAuth = require('./gDriveAuth')
+
 const {
   THUMBS_DIR
 } = require('./constants/thumbnails')
 
 let mainWindow
 let dirs = {}
-let existingThumbs
+let existingThumbs = new Set()
 
 const thumbsDirExists = () => {
   return fs.existsSync(THUMBS_DIR)
@@ -59,10 +60,11 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  !thumbsDirExists() && generateThumbsDir()
-  // existingThumbs = new Set(indexThumbs())
-  indexThumbs()
-
+  if (thumbsDirExists()) {
+    indexThumbs()
+  } else {
+    generateThumbsDir()
+  }
   gDriveAuth(mainWindow.webContents)
 })
 
