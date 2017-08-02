@@ -6,25 +6,39 @@
   </head>
   <body>
     <!-- <div onClick='syncToDrive("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
+    <input id='sourceDirInput' type='file' style='display: none' webkitdirectory/>
     <button id='sourceSelect'>Select Source Dir</button>
     <button id='targetSelect'>Select Target Dir</button>
-    <input id='sourceDirInput' type='file' style='display: none' webkitdirectory/>
-    <div id='imgNav'></div>
     <div>
       <img id='mainImg'/>
     </div>
+    <!-- <button id='sync' onClick=''>SYNC</button> -->
+    <fieldset>
+      <legend>Sync destination</legend>
+      <div>
+        <input id='drive' type='checkbox' value='drive' onClick='syncManager.syncSelection(this, "drive")'>
+        <label for='drive'>DRIVE</label>
+      <div>
+      <div>
+        <input id='disk' type='checkbox' value='disk' onClick='syncManager.syncSelection(this, "disk")'>
+        <label for='disk'>DISK</label>
+      <div>
+    </fieldseet>      
+    <nav id='imgNav'></nav>
     <!-- <div onClick='copy("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
     <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
+    let selectedFile
+    const syncManager = require('./syncManager')
+    const gDriveUtil = require('./gDriveSync')
     require('./navManager')
     require('./thumbnailsManager')
-    const gDriveUtil = require('./gDriveSync')
-    const copy = (sourceDirPath, fileName) => {
-      require('./localSync').copyToDesktop(sourceDirPath, fileName)
-    }
-    const syncToDrive = (sourceDirPath, fileName) => {
-      gDriveUtil.createDriveFolder(sourceDirPath, fileName)
-    }
+    // const copy = (sourceDirPath, fileName) => {
+    //   require('./localSync').copyToDesktop(sourceDirPath, fileName)
+    // }
+    // const syncToDrive = (sourceDirPath, fileName) => {
+    //   gDriveUtil.createDriveFolder(sourceDirPath, fileName)
+    // }
   </script>
 </html>
