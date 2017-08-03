@@ -12,6 +12,10 @@ const {
 const {
   THUMBS_DIR
 } = require('./constants/thumbnails')
+const {
+  handleSelection,
+  // syncFiles
+} = require('./syncManager')
 
 const jpgExtension = '.jpg'
 
@@ -24,9 +28,13 @@ const configureDirSelect = dirType => {
 configureDirSelect('source')
 configureDirSelect('target')
 
-document.getElementById('imgNav').addEventListener('click', (e) => {
+document.getElementById('imgControlItems').addEventListener('click', (e) => {
   renderMainImg(e.srcElement.dataset.fileName)
 })
+
+// document.getElementById('syncFiles').addEventListener('click', () => {
+//   syncFiles()
+// })
 
 ipcRenderer.on('source-dir-selection', (event, dirs) => {
   //clear thumbs dir
@@ -38,16 +46,41 @@ const renderMainImg = fileName => {
   document.getElementById('mainImg').src = sourceDir + '/' + fileName
 }
 
-const renderItem = (fileName) => {
-  const navItem = document.createElement('div')
+const generateImgPreview = fileName => {
+  const imgPreview = document.createElement('div')
   const textWrapper = document.createElement('span')
   const text = document.createTextNode(fileName)
-  navItem.id = fileName
-  navItem.dataset.fileName = fileName
+  imgPreview.id = fileName
+  imgPreview.dataset.fileName = fileName
   textWrapper.dataset.fileName = fileName
   textWrapper.appendChild(text)
-  navItem.appendChild(textWrapper)
-  document.getElementById('imgNav').appendChild(navItem)
+  imgPreview.appendChild(textWrapper)
+  return imgPreview
+}
+
+const generateSyncInput = (fileName, type) => {
+  const input = document.createElement('input')
+  input.type = 'checkbox'
+  input.value = type
+  input.dataset.fileName = fileName
+  input.addEventListener('click', () => handleSelection(fileName, type, input.checked))
+  return input
+}
+
+const generateSyncControl = (fileName) => {
+  const syncControl = document.createElement('fieldset')
+  const driveSyncInput = generateSyncInput(fileName, 'drive')
+  const diskSyncInput = generateSyncInput(fileName, 'disk')
+  syncControl.appendChild(driveSyncInput)
+  syncControl.appendChild(diskSyncInput)
+  syncControl.dataset.fileName = fileName
+  return syncControl
+}
+
+const renderImgControlItem = (fileName) => {
+  const imgPreview = generateImgPreview(fileName)
+  const syncControl = generateSyncControl(fileName)
+  document.getElementById('imgControlItems').appendChild(imgPreview).appendChild(syncControl)
 }
   
 const renderFolderContents = () => {
@@ -59,7 +92,7 @@ const renderFolderContents = () => {
       fileName = fileName.slice(2)
 
       if (isJPG(fileName)) {
-        renderItem(fileName)
+        renderImgControlItem(fileName)
 
         if (thumbsDirEmpty || !thumbExists(fileName)) {
           generateThumb(sourceDir, fileName)
