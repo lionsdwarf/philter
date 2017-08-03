@@ -35,25 +35,19 @@ ipcRenderer.on('source-dir-selection', (event, dirs) => {
 })
 
 const renderMainImg = fileName => {
-  selectedFile = fileName
   document.getElementById('mainImg').src = sourceDir + '/' + fileName
-  syncManager.rememberSelections('drive')
-  syncManager.rememberSelections('disk')
 }
 
 const renderItem = (fileName) => {
-  const navBar = document.getElementById('imgNav')
   const navItem = document.createElement('div')
   const textWrapper = document.createElement('span')
   const text = document.createTextNode(fileName)
-
   navItem.id = fileName
   navItem.dataset.fileName = fileName
   textWrapper.dataset.fileName = fileName
-
   textWrapper.appendChild(text)
   navItem.appendChild(textWrapper)
-  navBar.appendChild(navItem)
+  document.getElementById('imgNav').appendChild(navItem)
 }
   
 const renderFolderContents = () => {
