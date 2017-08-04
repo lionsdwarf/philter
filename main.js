@@ -4,32 +4,12 @@ const {
   dialog,
   ipcMain
 } = electron
-const fs = require('fs')
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-const {
-  THUMBS_DIR
-} = require('./constants/thumbnails')
-
 let mainWindow
 let dirs = {}
-let existingThumbs = new Set()
-
-const thumbsDirExists = () => {
-  return fs.existsSync(THUMBS_DIR)
-}
-
-const generateThumbsDir = () => {
-  fs.mkdirSync(THUMBS_DIR)
-}
-
-const indexThumbs = () => {
-  fs.readdir(THUMBS_DIR, (err, dirContents) => {
-    existingThumbs = new Set(dirContents)
-  })
-}
 
 const createWindow = () => {
   // Create the browser window.
@@ -60,11 +40,6 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  if (thumbsDirExists()) {
-    indexThumbs()
-  } else {
-    generateThumbsDir()
-  }
 })
 
 // Quit when all windows are closed.
@@ -106,7 +81,7 @@ exports.selectDir = dirType => {
   })
 }
 
-exports.existingThumbs = () => {
-  return existingThumbs
-}
+// exports.existingThumbs = () => {
+//   return existingThumbs
+// }
 

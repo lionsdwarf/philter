@@ -8,6 +8,8 @@ const {
   THUMBS_DIR
 } = require('./constants/thumbnails')
 
+let existingThumbs = new Set()
+
 const THUMB_WIDTH = 120
 const THUMB_HEIGHT = 80
 
@@ -27,11 +29,31 @@ const renderThumb = (thumbsDir, fileName) => {
 }
 
 const thumbExists = (fileName) => {
-  return main.existingThumbs().has(fileName)
+  return existingThumbs.has(fileName)
+}
+
+const thumbsDirExists = () => {
+  return fs.existsSync(THUMBS_DIR)
+}
+
+const generateThumbsDir = () => {
+  fs.mkdirSync(THUMBS_DIR)
+}
+
+const indexThumbs = () => {
+  fs.readdir(THUMBS_DIR, (err, dirContents) => {
+    existingThumbs = new Set(dirContents)
+  })
+}
+
+const initThumbs = () => {
+  thumbsDirExists() ? indexThumbs() : generateThumbsDir()
 }
 
 module.exports = {
-  generateThumb: generateThumb,
+  initThumbs: initThumbs,
   thumbExists: thumbExists,
-  renderThumb: renderThumb
+  generateThumb: generateThumb,
+  renderThumb: renderThumb,
+  existingThumbs: () => existingThumbs,
 }

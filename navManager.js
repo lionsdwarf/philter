@@ -5,6 +5,7 @@ const {
 } = require('electron')
 const main = remote.require('./main')
 const {
+  existingThumbs,
   thumbExists,
   generateThumb,
   renderThumb,
@@ -96,7 +97,7 @@ const renderSelectedDir = (dirType, dir) => {
 }
   
 const renderFolderContents = () => {
-  const thumbsDirEmpty = main.existingThumbs().size == 0
+  const thumbsDirEmpty = existingThumbs().size == 0
   fs.readdir(sourceDir, (err, dirContents) => {
 
     dirContents.forEach( fileName => {

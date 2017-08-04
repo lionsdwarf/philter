@@ -31,7 +31,6 @@ const options = {
 };
 
 ipcRenderer.on('config-path', (event, configPath) => {
-  console.log('init', configPath)
   gDriveApp = require(configPath).googleDrive
   config = {
     clientId: gDriveApp.clientId,
