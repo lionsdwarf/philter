@@ -2,9 +2,11 @@ const {
   copyToDisk
 } = require('./diskSync')
 const {
-  uploadFile
+  uploadFileToDrive
 } = require('./gDriveSync')
-// // gDriveUtil.createDriveFolder(sourceDirPath, fileName)
+const {
+  getDefaultFolderId
+} = require('./gDriveFolderManager')
 
 const filesToSync = {
   drive: new Set(),
@@ -16,17 +18,21 @@ const handleSelection = (fileName, type, isSelected) => {
 }
 
 const syncFilesToDrive = () => {
-
+  const {
+    getSourceDir,
+  } = require('./navManager')
+  for(let fileName of filesToSync.drive) {
+    uploadFileToDrive(getSourceDir(), fileName, getDefaultFolderId())
+  }
 }
 
 const syncFilesToDisk = () => {
   const {
-    sourceDir,
-    targetDir,
+    getSourceDir,
+    getTargetDir,
   } = require('./navManager')
   for(let fileName of filesToSync.disk) {
-    console.log(sourceDir(), targetDir())
-    copyToDisk(sourceDir(), targetDir(), fileName)
+    copyToDisk(getSourceDir(), getTargetDir(), fileName)
   }
 }
 

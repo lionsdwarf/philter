@@ -10,6 +10,9 @@ const {
   SCOPE,
   REDIRECT_URI
 } = require('./constants/gDrive')
+const {
+  populateDefaultFolderPicklist,
+} = require('./gDriveFolderManager')
 
 let drive
 
@@ -38,13 +41,14 @@ const establishConnection = gDrive => {
     version: 'v3',
     auth: oauth2Client
   })
+  listFolders()
 }
 
 const createFolder = () => {
 // const createFolder = (sourceDirPath, fileName) => {
   drive.files.create({
     resource: {
-      name: 'User Input',
+      name: 'Ooozer Yinput',
       mimeType: 'application/vnd.google-apps.folder'
     },
     fields: 'id'
@@ -57,7 +61,9 @@ const createFolder = () => {
 const listFolders = () => {
   drive.files.list({
     q: 'mimeType="application/vnd.google-apps.folder"'
-  }, (err, data) => console.log(data))
+  }, (err, folderData) => {
+    populateDefaultFolderPicklist(folderData.files)
+  })
 }
 
 const uploadFile = (sourceDirPath, fileName, parentFolderId) => {

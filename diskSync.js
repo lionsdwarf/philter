@@ -1,6 +1,3 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
 const {
   remote
 } = require('electron')
@@ -16,11 +13,8 @@ const parseUserDir = (path) => {
 }
 
 const copyToDisk = (sourceDir, targetDir, fileName) => {
-  // const userDir = parseUserDir(main.envPath)
-  // const targetDir = path.join(userDir, '/Desktop/testCopy')
   const sourceFile = path.join(sourceDir, fileName)
   const targetFile = path.join(targetDir, fileName)
-
   // ensure that file doesn't already exist && return list of dupe filenames
   fs.createReadStream(sourceFile).pipe(fs.createWriteStream(targetFile))
 }

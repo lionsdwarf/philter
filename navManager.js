@@ -118,6 +118,6 @@ const isJPG = fileName => {
 }
 
 module.exports = {
-  sourceDir: () => sourceDir,
-  targetDir: () => targetDir,
+  getSourceDir: () => sourceDir,
+  getTargetDir: () => targetDir,
 }
