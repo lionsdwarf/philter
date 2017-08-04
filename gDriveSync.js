@@ -3,8 +3,6 @@ const path = require('path')
 const {
   ipcRenderer
 } = require('electron')
-const google = require('googleapis')
-const OAuth2 = google.auth.OAuth2
 const {
   ACCESS_TYPE,
   SCOPE,
@@ -15,34 +13,6 @@ const {
 } = require('./gDriveFolderManager')
 
 let drive
-
-ipcRenderer.on('gDrive-Data', (event, gDrive) => {
-  establishConnection(gDrive)
-})
-
-const establishConnection = gDrive => {
-  const oauth2Client = new OAuth2(
-    gDrive.app.clientId,
-    gDrive.app.clientSecret,
-    REDIRECT_URI
-  )
-
-  oauth2Client.setCredentials({
-    access_token: gDrive.tokens.accessToken,
-    refresh_token: gDrive.tokens.refreshToken
-  })
-
-  oauth2Client.generateAuthUrl({
-    access_type: ACCESS_TYPE,
-    scope: SCOPE,
-  })
-
-  drive = google.drive({
-    version: 'v3',
-    auth: oauth2Client
-  })
-  listFolders()
-}
 
 const createFolder = () => {
 // const createFolder = (sourceDirPath, fileName) => {
@@ -58,7 +28,8 @@ const createFolder = () => {
   })
 }
 
-const listFolders = () => {
+const fetchDriveFolders = (drive) => {
+  drive = drive
   drive.files.list({
     q: 'mimeType="application/vnd.google-apps.folder"'
   }, (err, folderData) => {
@@ -86,5 +57,5 @@ const uploadFile = (sourceDirPath, fileName, parentFolderId) => {
 module.exports = {
   uploadFileToDrive: uploadFile,
   createDriveFolder: createFolder,
-  listFolders: listFolders,
+  generateDriveFolderSelect: fetchDriveFolders,
 }

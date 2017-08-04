@@ -17,7 +17,12 @@
     <img id='mainImg'/>
   </body>
   <script>
+    const gDriveAuth = require('./gDriveAuth')()
+
     require('./navManager')
     require('./thumbnailsManager')
+    // gDriveAuth(mainWindow.webContents)
+
+
   </script>
 </html>

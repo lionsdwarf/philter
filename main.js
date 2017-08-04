@@ -1,13 +1,13 @@
 const electron = require('electron')
 const {
   app,
-  dialog
+  dialog,
+  ipcMain
 } = electron
 const fs = require('fs')
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
-const gDriveAuth = require('./gDriveAuth')
 
 const {
   THUMBS_DIR
@@ -65,7 +65,6 @@ app.on('ready', () => {
   } else {
     generateThumbsDir()
   }
-  gDriveAuth(mainWindow.webContents)
 })
 
 // Quit when all windows are closed.
@@ -84,6 +83,11 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+ipcMain.on('config-path-request', (event) => {
+  event.sender.send('config-path', process.argv[2])
+})
+
 
 exports.envPath = () => {
   return process.argv[0]

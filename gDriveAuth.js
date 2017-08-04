@@ -1,6 +1,10 @@
+const {
+  ipcRenderer,
+} = require('electron')
 const electronOauth2 = require('electron-oauth2')
+const google = require('googleapis')
+const OAuth2 = google.auth.OAuth2
 const keytar = require('keytar')
-const gDriveApp = require(process.argv[2]).googleDrive
 const {
   AUTHORIZATION_URL,
   TOKEN_URL,
@@ -8,15 +12,11 @@ const {
   ACCESS_TYPE,
   SCOPE
 } = require('./constants/gDrive')
+const {
+  generateDriveFolderSelect
+} = require('./gDriveSync')
 
-const config = {
-    clientId: gDriveApp.clientId,
-    clientSecret: gDriveApp.clientSecret,
-    authorizationUrl: AUTHORIZATION_URL,
-    tokenUrl: TOKEN_URL,
-    useBasicAuthorizationHeader: false,
-    redirectUri: REDIRECT_URI
-}
+let gDriveApp, config, drive
 
 const windowParams = {
   autoHideMenuBar: true,
@@ -30,9 +30,48 @@ const options = {
   accessType: ACCESS_TYPE
 };
 
-async function getAccessToken(eventEmitter) {
+ipcRenderer.on('config-path', (event, configPath) => {
+  console.log('init', configPath)
+  gDriveApp = require(configPath).googleDrive
+  config = {
+    clientId: gDriveApp.clientId,
+    clientSecret: gDriveApp.clientSecret,
+    authorizationUrl: AUTHORIZATION_URL,
+    tokenUrl: TOKEN_URL,
+    useBasicAuthorizationHeader: false,
+    redirectUri: REDIRECT_URI
+  }
+})
+
+ipcRenderer.send('config-path-request')
+
+const establishConnection = gDrive => {
+  const oauth2Client = new OAuth2(
+    gDrive.app.clientId,
+    gDrive.app.clientSecret,
+    REDIRECT_URI
+  )
+
+  oauth2Client.setCredentials({
+    access_token: gDrive.tokens.accessToken,
+    refresh_token: gDrive.tokens.refreshToken
+  })
+
+  oauth2Client.generateAuthUrl({
+    access_type: ACCESS_TYPE,
+    scope: SCOPE,
+  })
+
+  drive = google.drive({
+    version: 'v3',
+    auth: oauth2Client
+  })
+  generateDriveFolderSelect(drive)
+}
+
+async function getAccessToken() {
   const tokens = await refreshAccessToken() || await initLogin()
-  eventEmitter.send('gDrive-Data', {
+  establishConnection({
     tokens: tokens,
     app: gDriveApp
   })
