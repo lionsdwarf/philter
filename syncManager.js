@@ -1,10 +1,9 @@
-// const {
-//   copyToDesktop
-// } = require('./localSync')
-// const {
-//   uploadFile
-// } = require('./gDriveSync')
-// // copyToDesktop(sourceDirPath, fileName)
+const {
+  copyToDisk
+} = require('./diskSync')
+const {
+  uploadFile
+} = require('./gDriveSync')
 // // gDriveUtil.createDriveFolder(sourceDirPath, fileName)
 
 const filesToSync = {
@@ -14,25 +13,29 @@ const filesToSync = {
 
 const handleSelection = (fileName, type, isSelected) => {
   isSelected ? filesToSync[type].add(fileName) : filesToSync[type].delete(fileName)
-  console.log(type, filesToSync[type])
 }
 
-// const syncFilesToDrive = () => {
+const syncFilesToDrive = () => {
 
-// }
+}
 
-// const syncFilesToDisk = () => {
-//   filesToSync.disk.values().forEach(file => {
+const syncFilesToDisk = () => {
+  const {
+    sourceDir,
+    targetDir,
+  } = require('./navManager')
+  for(let fileName of filesToSync.disk) {
+    console.log(sourceDir(), targetDir())
+    copyToDisk(sourceDir(), targetDir(), fileName)
+  }
+}
 
-//   })
-// }
-
-// const syncFiles = () => {
-//   syncFilesToDrive()
-//   syncFilesToDisk()
-// }
+const syncFiles = () => {
+  syncFilesToDrive()
+  syncFilesToDisk()
+}
 
 module.exports = {
   handleSelection: handleSelection,
-  // syncFiles: syncFiles
+  syncFiles: syncFiles
 }

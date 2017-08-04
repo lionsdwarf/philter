@@ -90,14 +90,14 @@ exports.envPath = () => {
 }
 
 exports.selectDir = dirType => {
-  //open chrome directory select dialog
+  //open chrome directory-select dialog
   dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   }, 
   selectedDir => {
     dirs[dirType] = selectedDir[0]
-    exports.dirs = dirs
-    mainWindow.webContents.send('source-dir-selection', dirs)
+    // exports.dirs = dirs
+    mainWindow.webContents.send(dirType + '-dir-selection', dirs)
   })
 }
 

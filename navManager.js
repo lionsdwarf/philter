@@ -1,23 +1,25 @@
 const fs = require('fs')
 const { 
   remote,
-  ipcRenderer
+  ipcRenderer,
 } = require('electron')
 const main = remote.require('./main')
 const {
   thumbExists,
   generateThumb,
-  renderThumb
+  renderThumb,
 } = require('./thumbnailsManager')
 const {
-  THUMBS_DIR
+  THUMBS_DIR,
 } = require('./constants/thumbnails')
 const {
   handleSelection,
-  // syncFiles
+  syncFiles
 } = require('./syncManager')
 
 const jpgExtension = '.jpg'
+let sourceDir
+let targetDir
 
 const configureDirSelect = dirType => {
   document.getElementById(dirType + 'Select').addEventListener('click', () => {
@@ -32,14 +34,18 @@ document.getElementById('imgControlItems').addEventListener('click', (e) => {
   renderMainImg(e.srcElement.dataset.fileName)
 })
 
-// document.getElementById('syncFiles').addEventListener('click', () => {
-//   syncFiles()
-// })
+document.getElementById('syncFiles').addEventListener('click', () => {
+  syncFiles()
+})
 
 ipcRenderer.on('source-dir-selection', (event, dirs) => {
   //clear thumbs dir
   sourceDir = dirs.source
   renderFolderContents()  
+})
+
+ipcRenderer.on('target-dir-selection', (event, dirs) => {
+  targetDir = dirs.target
 })
 
 const renderMainImg = fileName => {
@@ -109,4 +115,9 @@ const renderFolderContents = () => {
 
 const isJPG = fileName => {
   return fileName.substr(fileName.length - 4).toLowerCase() === jpgExtension
+}
+
+module.exports = {
+  sourceDir: () => sourceDir,
+  targetDir: () => targetDir,
 }
