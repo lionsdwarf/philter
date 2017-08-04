@@ -40,7 +40,8 @@ const establishConnection = gDrive => {
   })
 }
 
-const createFolder = (sourceDirPath, fileName) => {
+const createFolder = () => {
+// const createFolder = (sourceDirPath, fileName) => {
   drive.files.create({
     resource: {
       name: 'User Input',
@@ -48,8 +49,15 @@ const createFolder = (sourceDirPath, fileName) => {
     },
     fields: 'id'
   }, (err, folder) => {
-    !err && uploadFile(sourceDirPath, fileName, folder.id)
+    // !err && uploadFile(sourceDirPath, fileName, folder.id)
+    !err && console.log('fid', folder.id)
   })
+}
+
+const listFolders = () => {
+  drive.files.list({
+    q: 'mimeType="application/vnd.google-apps.folder"'
+  }, (err, data) => console.log(data))
 }
 
 const uploadFile = (sourceDirPath, fileName, parentFolderId) => {
@@ -71,5 +79,6 @@ const uploadFile = (sourceDirPath, fileName, parentFolderId) => {
 
 module.exports = {
   uploadFileToDrive: uploadFile,
-  createDriveFolder: createFolder
+  createDriveFolder: createFolder,
+  listFolders: listFolders,
 }
