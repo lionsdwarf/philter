@@ -21,6 +21,7 @@ const {
 const jpgExtension = '.jpg'
 let sourceDir
 let targetDir
+const IMG_CONTROL_ITEMS_ID = 'imgControlItems'
 
 const configureDirSelect = dirType => {
   document.getElementById(dirType + 'Select').addEventListener('click', () => {
@@ -31,7 +32,7 @@ const configureDirSelect = dirType => {
 configureDirSelect('source')
 configureDirSelect('target')
 
-document.getElementById('imgControlItems').addEventListener('click', (e) => {
+document.getElementById(IMG_CONTROL_ITEMS_ID).addEventListener('click', (e) => {
   renderMainImg(e.srcElement.dataset.fileName)
 })
 
@@ -43,7 +44,7 @@ ipcRenderer.on('source-dir-selection', (event, dirs) => {
   //clear thumbs dir
   sourceDir = dirs.source
   renderSelectedDir('sourceDir', dirs.source)
-  renderFolderContents() 
+  renderImgControlItems() 
 })
 
 ipcRenderer.on('target-dir-selection', (event, dirs) => {
@@ -89,15 +90,23 @@ const generateSyncControl = (fileName) => {
 const renderImgControlItem = (fileName) => {
   const imgPreview = generateImgPreview(fileName)
   const syncControl = generateSyncControl(fileName)
-  document.getElementById('imgControlItems').appendChild(imgPreview).appendChild(syncControl)
+  document.getElementById(IMG_CONTROL_ITEMS_ID).appendChild(imgPreview).appendChild(syncControl)
+}
+
+const clearImgControlItems = () => {
+  const menuNode = document.getElementById(IMG_CONTROL_ITEMS_ID)
+  while (menuNode.firstChild) {
+    menuNode.removeChild(menuNode.firstChild);
+  }
 }
 
 const renderSelectedDir = (dirType, dir) => {
   document.getElementById(dirType).innerHTML = dir
 }
   
-const renderFolderContents = () => {
+const renderImgControlItems = () => {
   const thumbsDirEmpty = existingThumbs().size == 0
+  clearImgControlItems()
   fs.readdir(sourceDir, (err, dirContents) => {
 
     dirContents.forEach( fileName => {
