@@ -41,11 +41,13 @@ document.getElementById('syncFiles').addEventListener('click', () => {
 ipcRenderer.on('source-dir-selection', (event, dirs) => {
   //clear thumbs dir
   sourceDir = dirs.source
-  renderFolderContents()  
+  renderSelectedDir('sourceDir', dirs.source)
+  renderFolderContents() 
 })
 
 ipcRenderer.on('target-dir-selection', (event, dirs) => {
   targetDir = dirs.target
+  renderSelectedDir('targetDir', dirs.target)
 })
 
 const renderMainImg = fileName => {
@@ -87,6 +89,10 @@ const renderImgControlItem = (fileName) => {
   const imgPreview = generateImgPreview(fileName)
   const syncControl = generateSyncControl(fileName)
   document.getElementById('imgControlItems').appendChild(imgPreview).appendChild(syncControl)
+}
+
+const renderSelectedDir = (dirType, dir) => {
+  document.getElementById(dirType).innerHTML = dir
 }
   
 const renderFolderContents = () => {

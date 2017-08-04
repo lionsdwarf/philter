@@ -94,10 +94,11 @@ exports.selectDir = dirType => {
   dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   }, 
-  selectedDir => {
-    dirs[dirType] = selectedDir[0]
-    // exports.dirs = dirs
-    mainWindow.webContents.send(dirType + '-dir-selection', dirs)
+  selectedDirs => {
+    if (selectedDirs) {
+      dirs[dirType] = selectedDirs[0]
+      mainWindow.webContents.send(dirType + '-dir-selection', dirs)
+    }
   })
 }
 

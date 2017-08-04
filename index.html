@@ -5,23 +5,19 @@
     <title>Philter</title>
   </head>
   <body>
-    <!-- <div onClick='syncToDrive("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
     <button id='sourceSelect'>Select Source Dir</button>
+    <div id='sourceDir'></div>
     <button id='targetSelect'>Select Target Dir</button>
-    <button id='syncFiles'>SYNC</button>
+    <div id='targetDir'></div>
     <select id='driveDefaultFolder'></select>
-    <!-- <input id='sourceDirInput' type='file' style='display: none' webkitdirectory/> -->
+
+    <button id='syncFiles'>SYNC</button>
+
     <div id='imgControlItems'></div>
     <img id='mainImg'/>
-    <!-- <div onClick='copy("/Volumes/NO\ NAME/DCIM/100OLYMP", "PB060521.JPG")'>PB060521.JPG</div> -->
-    <!-- <img src='/Volumes/NO NAME/DCIM/100OLYMP/PB060521.JPG'/> -->
   </body>
   <script>
     require('./navManager')
     require('./thumbnailsManager')
-    
-    // const copy = (sourceDirPath, fileName) => {
-    //   require('./localSync').copyToDesktop(sourceDirPath, fileName)
-    // }
   </script>
 </html>

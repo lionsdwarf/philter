@@ -17,28 +17,25 @@ const handleSelection = (fileName, type, isSelected) => {
   isSelected ? filesToSync[type].add(fileName) : filesToSync[type].delete(fileName)
 }
 
-const syncFilesToDrive = () => {
-  const {
-    getSourceDir,
-  } = require('./navManager')
+const syncFilesToDrive = getSourceDir => {
   for(let fileName of filesToSync.drive) {
     uploadFileToDrive(getSourceDir(), fileName, getDefaultFolderId())
   }
 }
 
-const syncFilesToDisk = () => {
-  const {
-    getSourceDir,
-    getTargetDir,
-  } = require('./navManager')
+const syncFilesToDisk = (getSourceDir, getTargetDir) => {
   for(let fileName of filesToSync.disk) {
     copyToDisk(getSourceDir(), getTargetDir(), fileName)
   }
 }
 
 const syncFiles = () => {
-  syncFilesToDrive()
-  syncFilesToDisk()
+  const {
+    getSourceDir,
+    getTargetDir,
+  } = require('./navManager')
+  syncFilesToDrive(getSourceDir, getTargetDir)
+  syncFilesToDisk(getSourceDir)
 }
 
 module.exports = {
