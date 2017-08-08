@@ -8,31 +8,40 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-let mainWindow
+let mainWindow, drive
 let dirs = {}
 
-const createWindow = () => {
+const authenticateDrive = require('./node/gDriveAuth')
+const {
+  initializeThumbnails ,
+  emitThumbsPath,
+} = require('./node/thumbnailsManager')
+const {
+  fetchSourceDirContents
+} = require('./node/dirManager')
+
+function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1100, height: 600})
+  mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }))
+  mainWindow.loadURL('http://localhost:3000')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', () => {
+  mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
   })
-
 }
 
 // This method will be called when Electron has finished
@@ -40,10 +49,12 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
+  authenticateDrive(process.argv[2])
+  initializeThumbnails()
 })
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -51,7 +62,7 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
+app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
@@ -59,29 +70,26 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('config-path-request', (event) => {
-  event.sender.send('config-path', process.argv[2])
-})
+exports.envPath = () => process.argv[1]
 
-
-exports.envPath = () => {
-  return process.argv[0]
-}
-
-exports.selectDir = dirType => {
+const selectDir = (event, dirType) => {
   //open chrome directory-select dialog
+  emitThumbsPath(mainWindow.webContents)
   dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   }, 
   selectedDirs => {
     if (selectedDirs) {
       dirs[dirType] = selectedDirs[0]
-      mainWindow.webContents.send(dirType + '-dir-selection', dirs)
+      mainWindow.webContents.send('dir-selection', {
+        dir: selectedDirs[0],
+        dirType: dirType
+      })
+      if (dirType === 'source') {
+        fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
+      }
     }
   })
 }
 
-// exports.existingThumbs = () => {
-//   return existingThumbs
-// }
-
+ipcMain.on('directory-selection', selectDir)

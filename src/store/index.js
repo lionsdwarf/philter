@@ -1,0 +1,59 @@
+import { combineReducers } from 'redux'
+import {
+  addFileName,
+} from './util'
+
+const dirs = (state = {
+  source: '',
+  target: ''
+}, action) => {
+  switch(action.type) {
+    case 'SET_SOURCE_DIR':
+      return {...state, source: action.payload}
+      break
+    case 'SET_TARGET_DIR':
+      return {...state, target: action.payload}
+      break
+    default:
+      return state
+  }
+}
+
+const thumbs = (state = {
+  fileNames: new Set(),
+  dir: ''
+}, action) => {
+  switch(action.type) {
+    case 'SET_THUMBS_DIR':
+      return {...state, dir: action.payload}
+      break
+    case 'SET_THUMB_FILENAME':
+      return {...state, fileNames: addFileName(state.fileNames, action.payload)}
+      break
+    // case 'CLEAR_THUMB_FILENAMES':
+    //   return {...state, fileNames: new Set()}
+    //   break
+    default:
+      return state
+  }
+}
+
+const sourceContents = (state = {
+  jpgs: []
+}, action) => {
+  switch(action.type) {
+    case 'SET_SOURCE_JPGS':
+    return {...state, jpgs: action.payload}
+    break
+  default:
+    return state
+  }
+}
+
+const philter = combineReducers({
+  dirs,
+  thumbs,
+  sourceContents,
+})
+
+export default philter

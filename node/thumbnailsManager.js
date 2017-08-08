@@ -1,7 +1,6 @@
 const {
-  remote
+  ipcRenderer,
 } = require('electron')
-const main = remote.require('./main')
 const fs = require('fs')
 const sharp = require('sharp')
 const {
@@ -13,19 +12,21 @@ let existingThumbs = new Set()
 const THUMB_WIDTH = 120
 const THUMB_HEIGHT = 80
 
-const generateThumb = (sourceDir, fileName) => {
+async function generateThumb (sourceDir, fileName, eventEmitter) {
   sharp(sourceDir + '/' + fileName)
     .resize(THUMB_WIDTH, THUMB_HEIGHT)
     .toFile(THUMBS_DIR + fileName)
-    .then( thumb => renderThumb(THUMBS_DIR, fileName))
+    .then( thumb => {
+      emitThumbName(fileName, eventEmitter)
+    })
 }
 
-const renderThumb = (thumbsDir, fileName) => {
-  const parentDiv = document.getElementById(fileName)
-  const thumb = document.createElement('img')
-  thumb.src = thumbsDir + fileName
-  thumb.dataset.fileName = fileName
-  parentDiv.appendChild(thumb)
+const emitThumbName = (fileName, eventEmitter) => {
+  eventEmitter.send('thumb-fileName', fileName)
+}
+
+const emitThumbsPath = (eventEmitter) => {
+  eventEmitter.send('thumbs-dir', THUMBS_DIR)
 }
 
 const thumbExists = (fileName) => {
@@ -46,14 +47,15 @@ const indexThumbs = () => {
   })
 }
 
-const initThumbs = () => {
+const initThumbs = (eventEmitter) => {
   thumbsDirExists() ? indexThumbs() : generateThumbsDir()
 }
 
 module.exports = {
-  initThumbs: initThumbs,
+  initializeThumbnails: initThumbs,
   thumbExists: thumbExists,
   generateThumb: generateThumb,
-  renderThumb: renderThumb,
+  emitThumbsPath: emitThumbsPath,
+  emitThumbName: emitThumbName,
   existingThumbs: () => existingThumbs,
 }

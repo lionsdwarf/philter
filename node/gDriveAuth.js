@@ -1,6 +1,6 @@
-const {
-  ipcRenderer,
-} = require('electron')
+// const {
+//   ipcRenderer,
+// } = require('electron')
 const electronOauth2 = require('electron-oauth2')
 const google = require('googleapis')
 const OAuth2 = google.auth.OAuth2
@@ -12,11 +12,11 @@ const {
   ACCESS_TYPE,
   SCOPE
 } = require('./constants/gDrive')
-const {
-  generateDriveFolderSelect
-} = require('./gDriveSync')
+  // const {
+  //   generateDriveFolderSelect
+  // } = require('./gDriveSync')
 
-let gDriveApp, config, drive
+let driveApp, config, drive
 
 const windowParams = {
   autoHideMenuBar: true,
@@ -30,19 +30,17 @@ const options = {
   accessType: ACCESS_TYPE
 };
 
-ipcRenderer.on('config-path', (event, configPath) => {
-  gDriveApp = require(configPath).googleDrive
+const configureDriveApp = (configPath) => {
+  driveApp = require(configPath).googleDrive
   config = {
-    clientId: gDriveApp.clientId,
-    clientSecret: gDriveApp.clientSecret,
+    clientId: driveApp.clientId,
+    clientSecret: driveApp.clientSecret,
     authorizationUrl: AUTHORIZATION_URL,
     tokenUrl: TOKEN_URL,
     useBasicAuthorizationHeader: false,
     redirectUri: REDIRECT_URI
   }
-})
-
-ipcRenderer.send('config-path-request')
+}
 
 const establishConnection = gDrive => {
   const oauth2Client = new OAuth2(
@@ -65,14 +63,18 @@ const establishConnection = gDrive => {
     version: 'v3',
     auth: oauth2Client
   })
-  generateDriveFolderSelect(drive)
+
+  return drive
+  // generateDriveFolderSelect(drive)
 }
 
-async function getAccessToken() {
+async function getAccessToken(configPath) {
+  configureDriveApp(configPath)
   const tokens = await refreshAccessToken() || await initLogin()
+  console.log('tok', tokens)
   establishConnection({
     tokens: tokens,
-    app: gDriveApp
+    app: driveApp
   })
 }
 
