@@ -1,7 +1,8 @@
 import React from 'react'
 
-const ImgControlItem = ({fileName, thumbExists, thumbsDir}) => {
-  let thumbSrc = require('/Users/sparklemotion/Development/philter-reactified/.thumbnails/' + fileName)
+const ImgControlItem = ({fileName, thumbExists}) => {
+  console.log('../../.thumbnails/' + fileName)
+  let thumbSrc = require('../../.thumbnails/' + fileName)
   return (
     <div>
       {

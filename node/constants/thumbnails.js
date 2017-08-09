@@ -1,3 +1,3 @@
 module.exports = {
-  THUMBS_DIR: '../.thumbnails/'
+  THUMBS_DIR: './.thumbnails/'
 }

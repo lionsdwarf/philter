@@ -2,21 +2,15 @@ import React from 'react'
 import ImgControlItem from '../components/ImgControlItem'
 
 
-const ImgControlList = ({sourceJpgs, thumbFileNames, thumbsDir}) => {
-  // console.log('thumbsDir + fileName', thumbFileNames)
-  
+const ImgControlList = ({sourceJpgs, thumbFileNames}) => {
   return (
     <div>
       {
         sourceJpgs.map(
-          fileName => {
-            // console.log('thumbsDir + fileName', thumbFileNames.has(fileName) && thumbsDir + fileName)
-            return (<ImgControlItem 
-                          fileName={fileName}
-                          thumbExists={thumbFileNames.has(fileName)}
-                          thumbsDir={thumbsDir}
-                        />)
-          }
+          fileName => <ImgControlItem 
+            fileName={fileName}
+            thumbExists={thumbFileNames.has(fileName)}
+          />
         )
       }
     </div>

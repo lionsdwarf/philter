@@ -25,20 +25,8 @@ const emitThumbName = (fileName, eventEmitter) => {
   eventEmitter.send('thumb-fileName', fileName)
 }
 
-const emitThumbsPath = (eventEmitter) => {
-  eventEmitter.send('thumbs-dir', THUMBS_DIR)
-}
-
 const thumbExists = (fileName) => {
   return existingThumbs.has(fileName)
-}
-
-const thumbsDirExists = () => {
-  return fs.existsSync(THUMBS_DIR)
-}
-
-const generateThumbsDir = () => {
-  fs.mkdirSync(THUMBS_DIR)
 }
 
 const indexThumbs = () => {
@@ -47,15 +35,10 @@ const indexThumbs = () => {
   })
 }
 
-const initThumbs = (eventEmitter) => {
-  thumbsDirExists() ? indexThumbs() : generateThumbsDir()
-}
-
 module.exports = {
-  initializeThumbnails: initThumbs,
+  indexThumbs: indexThumbs,
   thumbExists: thumbExists,
   generateThumb: generateThumb,
-  emitThumbsPath: emitThumbsPath,
   emitThumbName: emitThumbName,
   existingThumbs: () => existingThumbs,
 }

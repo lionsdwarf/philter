@@ -17,18 +17,18 @@ export const configureListeners = dispatch => {
     })
   })
 
-  ipcRenderer.on('thumbs-dir', (event, payload) => {
-    dispatch({
-      type: 'SET_THUMBS_DIR',
-      payload: payload
-    })
-  })
-
   ipcRenderer.on('thumb-fileName', (event, payload) => {
     dispatch({
       type: 'SET_THUMB_FILENAME',
       payload: payload
     })
   })
+
+  // ipcRenderer.on('app-dir', (event, payload) => {
+  //   dispatch({
+  //     type: 'SET_APP_DIR',
+  //     payload: payload
+  //   })
+  // })
 
 }

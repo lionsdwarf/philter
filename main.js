@@ -13,8 +13,7 @@ let dirs = {}
 
 const authenticateDrive = require('./node/gDriveAuth')
 const {
-  initializeThumbnails ,
-  emitThumbsPath,
+  indexThumbs ,
 } = require('./node/thumbnailsManager')
 const {
   fetchSourceDirContents
@@ -50,7 +49,7 @@ function createWindow () {
 app.on('ready', () => {
   createWindow()
   authenticateDrive(process.argv[2])
-  initializeThumbnails()
+  indexThumbs()
 })
 
 // Quit when all windows are closed.
@@ -73,8 +72,8 @@ app.on('activate', function () {
 exports.envPath = () => process.argv[1]
 
 const selectDir = (event, dirType) => {
+  // mainWindow.webContents.send('app-dir', __dirname)
   //open chrome directory-select dialog
-  emitThumbsPath(mainWindow.webContents)
   dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   }, 
