@@ -1,6 +1,3 @@
-// const {
-//   ipcRenderer,
-// } = require('electron')
 const electronOauth2 = require('electron-oauth2')
 const google = require('googleapis')
 const OAuth2 = google.auth.OAuth2
@@ -12,9 +9,7 @@ const {
   ACCESS_TYPE,
   SCOPE
 } = require('./constants/gDrive')
-  // const {
-  //   generateDriveFolderSelect
-  // } = require('./gDriveSync')
+const driveSync = require('./driveSync')
 
 let driveApp, config, drive
 
@@ -63,9 +58,7 @@ const establishConnection = gDrive => {
     version: 'v3',
     auth: oauth2Client
   })
-
-  return drive
-  // generateDriveFolderSelect(drive)
+  driveSync.initDriveSync(drive)
 }
 
 async function getAccessToken(configPath) {

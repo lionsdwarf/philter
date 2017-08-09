@@ -11,13 +11,16 @@ const url = require('url')
 let mainWindow, drive
 let dirs = {}
 
-const authenticateDrive = require('./node/gDriveAuth')
+const authenticateDrive = require('./node/driveAuth')
 const {
   indexThumbs ,
 } = require('./node/thumbnailsManager')
 const {
   fetchSourceDirContents
 } = require('./node/dirManager')
+const {
+  sync
+} = require('./node/syncManager')
 
 function createWindow () {
   // Create the browser window.
@@ -69,8 +72,6 @@ app.on('activate', function () {
   }
 })
 
-exports.envPath = () => process.argv[1]
-
 const selectDir = (event, dirType) => {
   // mainWindow.webContents.send('app-dir', __dirname)
   //open chrome directory-select dialog
@@ -90,5 +91,11 @@ const selectDir = (event, dirType) => {
     }
   })
 }
+
+const syncFiles = (event, filesToSync) => {
+  sync(filesToSync, dirs)
+}
+
+ipcMain.on('sync', syncFiles)
 
 ipcMain.on('directory-selection', selectDir)

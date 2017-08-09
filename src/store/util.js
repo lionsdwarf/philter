@@ -7,7 +7,5 @@ export const addFileName = (fileNames, newFile) => {
 export const toggleStaged = (stagedFiles, fileName, toStage) => {
   let updatedStage = new Set(stagedFiles)
   toStage ? updatedStage.add(fileName) : updatedStage.delete(fileName)
-      console.log('td2', updatedStage)
-
   return updatedStage
 }
