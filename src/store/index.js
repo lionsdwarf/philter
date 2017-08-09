@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
   addFileName,
+  toggleStaged,
 } from './util'
 
 const dirs = (state = {
@@ -43,10 +44,26 @@ const sourceContents = (state = {
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_JPGS':
-    return {...state, jpgs: action.payload}
-    break
-  default:
-    return state
+      return {...state, jpgs: action.payload}
+      break
+    default:
+      return state
+  }
+}
+
+const syncStage = (state = {
+  drive: new Set(),
+  disk: new Set(),
+}, action) => {
+  switch(action.type) {
+    case 'TOGGLE_DRIVE_SYNC':
+      return {...state, drive: toggleStaged(state.drive, action.payload, action.toStage)}
+      break
+    case 'TOGGLE_DISK_SYNC':
+      return {...state, disk: toggleStaged(state.disk, action.payload, action.toStage)}
+      break
+    default:
+      return state  
   }
 }
 
@@ -54,6 +71,7 @@ const philter = combineReducers({
   dirs,
   thumbs,
   sourceContents,
+  syncStage,
 })
 
 export default philter

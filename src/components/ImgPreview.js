@@ -1,7 +1,6 @@
 import React from 'react'
 
-const ImgControlItem = ({fileName, thumbExists}) => {
-  console.log('../../.thumbnails/' + fileName)
+const ImgPreview = ({fileName, thumbExists}) => {
   let thumbSrc = require('../../.thumbnails/' + fileName)
   return (
     <div>
@@ -13,4 +12,4 @@ const ImgControlItem = ({fileName, thumbExists}) => {
   )
 }
 
-export default ImgControlItem
+export default ImgPreview

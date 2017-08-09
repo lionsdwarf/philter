@@ -1,5 +1,5 @@
 import React from 'react'
-import ImgControlList from '../components/ImgControlList'
+import ImgNavItems from '../components/ImgNavItems'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
@@ -9,6 +9,16 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const ImgNav = connect(mapStateToProps)(ImgControlList)
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleSync: (fileName, bool, syncType) => dispatch({
+      type: 'TOGGLE_' + syncType.toUpperCase() + '_SYNC',
+      toStage: bool,
+      payload: fileName
+    })
+  }
+}
+
+const ImgNav = connect(mapStateToProps, mapDispatchToProps)(ImgNavItems)
 
 export default ImgNav
