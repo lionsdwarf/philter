@@ -1,14 +1,22 @@
 import React from 'react';
 
 const DriveDirSelect = ({dirs}) => {
+  console.log('p', dirs)
+
   return (
-    <select onChange={ (event) => {console.log('e',event)} }>
+    <div>
       {
-        dirs && dirs.map( (dir, i) => {
-          <option value={dir.id}>{dir.name}</option>
-        })
+        dirs.length > 0 &&
+        <select onChange={ (event) => {console.log('e',event)} }>
+          {
+            dirs.map( (dir, i) => {
+              return <option key={i} value={dir.id}>{dir.name}</option>
+            })
+          }
+        </select>
+        
       }
-    </select>
+    </div>
   )
 }
 

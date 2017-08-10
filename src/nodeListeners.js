@@ -25,7 +25,6 @@ export const configureListeners = dispatch => {
   })
 
   ipcRenderer.on('drive-dirs', (event, payload) => {
-    console.log('drive-dirs', payload)
     dispatch({
       type: 'SET_DRIVE_DIRS',
       payload: payload
