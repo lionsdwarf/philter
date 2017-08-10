@@ -8,10 +8,10 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-let mainWindow, drive
+let mainWindow
 let dirs = {}
 
-const authenticateDrive = require('./node/driveAuth')
+const driveAuth = require('./node/driveAuth')
 const {
   indexThumbs ,
 } = require('./node/thumbnailsManager')
@@ -51,7 +51,6 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  authenticateDrive(process.argv[2])
   indexThumbs()
 })
 
@@ -96,6 +95,12 @@ const syncFiles = (event, filesToSync) => {
   sync(filesToSync, dirs)
 }
 
+const authDrive = () => {
+  driveAuth.init(process.argv[2], mainWindow.webContents)
+}
+
 ipcMain.on('sync', syncFiles)
 
 ipcMain.on('directory-selection', selectDir)
+
+ipcMain.on('auth-drive', authDrive)

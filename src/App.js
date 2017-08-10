@@ -1,25 +1,32 @@
 import React, { Component } from 'react'
 import ImgNav from './containers/ImgNav'
-import DirDisplay from './containers/DirDisplay'
+import DiskDirDisplay from './containers/DiskDirDisplay'
 import SyncControl from './containers/SyncControl'
-import DirSelect from './components/dirSelect'
+import DriveDirManager from './containers/DriveDirManager'
+import DiskDirSelect from './components/DiskDirSelect'
 import {
   configureListeners
 } from './nodeListeners'
-
+import {
+  authDrive
+} from './nodeActions'
 class Philter extends Component {
 
   componentWillMount() {
     configureListeners(this.props.dispatch)
+    authDrive()
   }
 
   render() {
     return (
       <div>
         <SyncControl/>
-        <DirDisplay/>
-        <DirSelect type='source'/>
-        <DirSelect type='target'/>
+
+        <DiskDirDisplay/>
+        <DiskDirSelect type='source'/>
+        <DiskDirSelect type='target'/>
+        <DriveDirManager/>
+
         <ImgNav/>
 
       </div>

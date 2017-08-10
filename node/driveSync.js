@@ -1,20 +1,15 @@
 const fs = require('fs')
 const path = require('path')
-// const {
-//   ipcRenderer
-// } = require('electron')
 const {
   ACCESS_TYPE,
   SCOPE,
   REDIRECT_URI
 } = require('./constants/gDrive')
-// const {
-//   populateDefaultFolderPicklist,
-// } = require('./gDriveFolderManager')
 
 let drive
+let eventEmitter
 
-const createFolder = () => {
+const createDir = () => {
   drive.files.create({
     resource: {
       name: 'Ooozer Yinput',
@@ -26,11 +21,12 @@ const createFolder = () => {
   })
 }
 
-const fetchDriveFolders = () => {
+const fetchDriveDirs = () => {
+  console.log('df', drive)
   drive.files.list({
     q: 'mimeType="application/vnd.google-apps.folder"'
   }, (err, folderData) => {
-    // populateDefaultFolderPicklist(folderData.files)
+    eventEmitter.send('drive-dirs', folderData.files)
   })
 }
 
@@ -51,13 +47,13 @@ const uploadFileToDrive = (sourceDirPath, fileName, parentFolderId) => {
   })
 }
 
-const initDriveSync = driveConn => {
+const init = (driveConn, ee) => {
   drive = driveConn
-  fetchDriveFolders()
+  eventEmitter = ee
+  fetchDriveDirs()
 }
 
 module.exports = {
   uploadFileToDrive: uploadFileToDrive,
-  createDriveFolder: createFolder,
-  initDriveSync: initDriveSync,
+  init: init,
 }

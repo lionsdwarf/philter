@@ -3,7 +3,7 @@ import {
   selectDir
 } from '../nodeActions'
 
-const DirSelect = props => {
+const DiskDirSelect = props => {
   return (
     <div>
       <button onClick={ () => selectDir(props.type) }>{props.type + ' select'}</button>
@@ -11,4 +11,4 @@ const DirSelect = props => {
   )
 }
 
-export default DirSelect
+export default DiskDirSelect

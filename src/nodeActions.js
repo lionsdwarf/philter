@@ -8,3 +8,7 @@ export const selectDir = type => {
 export const sync = filesToSync => {
   ipcRenderer.send('sync', filesToSync)
 }
+
+export const authDrive = () => {
+  ipcRenderer.send('auth-drive')
+}

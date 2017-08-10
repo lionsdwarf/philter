@@ -25,7 +25,7 @@ const options = {
   accessType: ACCESS_TYPE
 };
 
-const configureDriveApp = (configPath) => {
+const configureDriveApp = (configPath, eventEmitter) => {
   driveApp = require(configPath).googleDrive
   config = {
     clientId: driveApp.clientId,
@@ -37,7 +37,7 @@ const configureDriveApp = (configPath) => {
   }
 }
 
-const establishConnection = gDrive => {
+const establishConnection = (gDrive, eventEmitter) => {
   const oauth2Client = new OAuth2(
     gDrive.app.clientId,
     gDrive.app.clientSecret,
@@ -58,17 +58,16 @@ const establishConnection = gDrive => {
     version: 'v3',
     auth: oauth2Client
   })
-  driveSync.initDriveSync(drive)
+  driveSync.init(drive, eventEmitter)
 }
 
-async function getAccessToken(configPath) {
+async function getAccessToken(configPath, eventEmitter) {
   configureDriveApp(configPath)
   const tokens = await refreshAccessToken() || await initLogin()
-  console.log('tok', tokens)
-  establishConnection({
+  const drive = establishConnection({
     tokens: tokens,
     app: driveApp
-  })
+  }, eventEmitter)
 }
 
 //use refresh token to obtain access token
@@ -98,6 +97,8 @@ async function initLogin() {
 
 const persistRefreshToken = (refreshToken) => {
   keytar.setPassword('Philter', 'GoogleDriveRefreshToken', refreshToken)
-}
+} 
 
-module.exports = getAccessToken
+module.exports = {
+  init: getAccessToken,
+}

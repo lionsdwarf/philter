@@ -1,5 +1,5 @@
 import React from 'react'
-import DirDisplay from '../components/dirDisplay'
+import DiskDirDisplay from '../components/DiskDirDisplay'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
@@ -9,6 +9,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const DirNavDisplay = connect(mapStateToProps)(DirDisplay)
+const DirNavDisplay = connect(mapStateToProps)(DiskDirDisplay)
 
 export default DirNavDisplay

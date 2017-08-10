@@ -7,6 +7,7 @@ import {
 const dirs = (state = {
   source: '',
   target: '',
+  drive: [],
   // app: '',
 }, action) => {
   switch(action.type) {
@@ -15,6 +16,9 @@ const dirs = (state = {
       break
     case 'SET_TARGET_DIR':
       return {...state, target: action.payload}
+      break
+    case 'SET_DRIVE_DIRS': 
+      return {...state, drive: action.payload}
       break
     // case 'SET_APP_DIR':
     //   return {...state, app: action.payload + '/.thumbnails/'}

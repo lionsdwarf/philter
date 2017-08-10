@@ -3,7 +3,6 @@ import Sync from '../components/Sync'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('s',state)
   return {
     filesToSync: state.syncStage
   }

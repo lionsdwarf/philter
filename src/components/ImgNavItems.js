@@ -7,7 +7,7 @@ const ImgNavItems = ({sourceJpgs, thumbFileNames, toggleSync}) => {
     <div>
       {
         sourceJpgs.map(
-          fileName => <div>
+          (fileName, i) => <div key={i}>
             <ImgPreview 
               fileName={fileName}
               thumbExists={thumbFileNames.has(fileName)}
