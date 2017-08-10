@@ -22,7 +22,6 @@ const createDir = () => {
 }
 
 const fetchDriveDirs = () => {
-  console.log('df', drive)
   drive.files.list({
     q: 'mimeType="application/vnd.google-apps.folder"'
   }, (err, folderData) => {

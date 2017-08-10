@@ -19,7 +19,7 @@ const {
   fetchSourceDirContents
 } = require('./node/dirManager')
 const {
-  sync
+  syncFiles
 } = require('./node/syncManager')
 
 function createWindow () {
@@ -91,15 +91,15 @@ const selectDir = (event, dirType) => {
   })
 }
 
-const syncFiles = (event, filesToSync) => {
-  sync(filesToSync, dirs)
+const sync = (event, syncData) => {
+  syncFiles(syncData, dirs)
 }
 
 const authDrive = () => {
   driveAuth.init(process.argv[2], mainWindow.webContents)
 }
 
-ipcMain.on('sync', syncFiles)
+ipcMain.on('sync', sync)
 
 ipcMain.on('directory-selection', selectDir)
 

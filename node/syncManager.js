@@ -8,10 +8,9 @@ const {
 //   getDefaultFolderId
 // } = require('./driveFolderManager')
 
-const syncFilesToDrive = (driveFiles, sourceDir) => {
+const syncFilesToDrive = (driveFiles, sourceDir, driveDefaultDirId) => {
   for(let fileName of driveFiles) {
-    uploadFileToDrive(sourceDir, fileName)
-    // uploadFileToDrive(sourceDir, fileName, getDefaultFolderId())
+    uploadFileToDrive(sourceDir, fileName, driveDefaultDirId)
   }
 }
 
@@ -21,11 +20,11 @@ const syncFilesToDisk = (diskFiles, sourceDir, targetDir) => {
   }
 }
 
-const syncFiles = (filesToSync, dirs) => {
-  dirs.source && syncFilesToDrive(filesToSync.drive, dirs.source)
-  dirs.source && dirs.target && syncFilesToDisk(filesToSync.disk, dirs.source, dirs.target)
+const syncFiles = (syncData, dirs) => {
+  dirs.source && syncFilesToDrive(syncData.filesToSync.drive, dirs.source, syncData.driveDefaultDirId)
+  dirs.source && dirs.target && syncFilesToDisk(syncData.filesToSync.disk, dirs.source, dirs.target)
 }
 
 module.exports = {
-  sync: syncFiles
+  syncFiles: syncFiles
 }

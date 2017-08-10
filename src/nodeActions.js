@@ -5,8 +5,11 @@ export const selectDir = type => {
   ipcRenderer.send('directory-selection', type)
 }
 
-export const sync = filesToSync => {
-  ipcRenderer.send('sync', filesToSync)
+export const sync = (filesToSync, driveDefaultDirId) => {
+  ipcRenderer.send('sync', {
+    filesToSync: filesToSync,
+    driveDefaultDirId: driveDefaultDirId,
+  })
 }
 
 export const authDrive = () => {

@@ -3,12 +3,20 @@ import { connect } from 'react-redux'
 import DriveDirSelect from '../components/DriveDirSelect'
 
 const mapStateToProps = (state, ownProps) => {
-
   return {
     dirs: state.dirs.drive,
   }
 }
 
-const DriveDirManager = connect(mapStateToProps)(DriveDirSelect)
+const mapDispatchToProps = dispatch => {
+  return {
+    driveDefaultDirSelect: dirId => dispatch({
+      type: 'SET_DRIVE_DEFAULT_DIR',
+      payload: dirId
+    })
+  }
+}
+
+const DriveDirManager = connect(mapStateToProps, mapDispatchToProps)(DriveDirSelect)
 
 export default DriveDirManager

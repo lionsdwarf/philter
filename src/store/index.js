@@ -8,6 +8,7 @@ const dirs = (state = {
   source: '',
   target: '',
   drive: [],
+  driveDefaultDirId: '',
   // app: '',
 }, action) => {
   switch(action.type) {
@@ -19,6 +20,9 @@ const dirs = (state = {
       break
     case 'SET_DRIVE_DIRS': 
       return {...state, drive: action.payload}
+      break
+    case 'SET_DRIVE_DEFAULT_DIR':
+      return {...state, driveDefaultDirId: action.payload}
       break
     // case 'SET_APP_DIR':
     //   return {...state, app: action.payload + '/.thumbnails/'}
@@ -55,7 +59,7 @@ const sourceContents = (state = {
   }
 }
 
-const syncStage = (state = {
+const filesToSync = (state = {
   drive: new Set(),
   disk: new Set(),
 }, action) => {
@@ -75,7 +79,7 @@ const philter = combineReducers({
   dirs,
   thumbs,
   sourceContents,
-  syncStage,
+  filesToSync,
 })
 
 export default philter
