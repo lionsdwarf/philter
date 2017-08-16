@@ -8,18 +8,21 @@ class CreateDriveDir extends Component {
 
   setDirName = e => {
     this.setState({
-      newDirName: e.target.value
+      driveDirName: e.target.value
     }) 
   }
 
   createDriveDir = () => {
-    createDriveDir(this.state.newDirName)
+    createDriveDir(this.state.driveDirName)
+    this.setState({
+      driveDirName: ''
+    }) 
   }
 
   render() {
     return  (
       <div>
-        <input type='text' onChange={ this.setDirName }/>
+        <input type='text' value={ this.state && this.state.driveDirName } onChange={ this.setDirName }/>
         <button onClick={ this.createDriveDir }>Create Dir</button>
       </div>
     )

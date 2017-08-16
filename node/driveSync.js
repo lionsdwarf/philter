@@ -9,15 +9,15 @@ const {
 let drive
 let eventEmitter
 
-const createDir = () => {
+const createDir = (event, dirName) => {
   drive.files.create({
     resource: {
-      name: 'Ooozer Yinput',
+      name: dirName,
       mimeType: 'application/vnd.google-apps.folder'
     },
     fields: 'id'
   }, (err, folder) => {
-    !err && console.log('fid', folder.id)
+    !err && fetchDriveDirs()
   })
 }
 
@@ -54,5 +54,6 @@ const init = (driveConn, ee) => {
 
 module.exports = {
   uploadFileToDrive: uploadFileToDrive,
+  createDriveDir: createDir,
   init: init,
 }

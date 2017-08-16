@@ -19,8 +19,10 @@ const {
   fetchSourceDirContents
 } = require('./node/dirManager')
 const {
-  syncFiles
+  syncFiles,
+  createDriveDir,
 } = require('./node/syncManager')
+
 
 function createWindow () {
   // Create the browser window.
@@ -104,3 +106,6 @@ ipcMain.on('sync', sync)
 ipcMain.on('directory-selection', selectDir)
 
 ipcMain.on('auth-drive', authDrive)
+
+ipcMain.on('create-drive-dir', createDriveDir)
+

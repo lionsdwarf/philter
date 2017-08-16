@@ -2,7 +2,8 @@ const {
   copyFileToDisk
 } = require('./diskSync')
 const {
-  uploadFileToDrive
+  uploadFileToDrive,
+  createDriveDir,
 } = require('./driveSync')
 // const {
 //   getDefaultFolderId
@@ -26,5 +27,6 @@ const syncFiles = (syncData, dirs) => {
 }
 
 module.exports = {
-  syncFiles: syncFiles
+  syncFiles: syncFiles,
+  createDriveDir: createDriveDir
 }
