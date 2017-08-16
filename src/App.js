@@ -4,6 +4,7 @@ import DiskDirDisplay from './containers/DiskDirDisplay'
 import SyncControl from './containers/SyncControl'
 import DriveDirManager from './containers/DriveDirManager'
 import DiskDirSelect from './components/DiskDirSelect'
+import CreateDriveDir from './components/CreateDriveDir'
 import {
   configureListeners
 } from './nodeListeners'
@@ -26,6 +27,7 @@ class Philter extends Component {
         <DiskDirSelect type='source'/>
         <DiskDirSelect type='target'/>
         <DriveDirManager/>
+        <CreateDriveDir/>
 
         <ImgNav/>
 

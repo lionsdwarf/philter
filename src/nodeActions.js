@@ -15,3 +15,7 @@ export const sync = (filesToSync, driveDefaultDirId) => {
 export const authDrive = () => {
   ipcRenderer.send('auth-drive')
 }
+
+export const createDriveDir = (dirName) => {
+  ipcRenderer.send('create-drive-dir', dirName)
+}
