@@ -9,11 +9,15 @@ const {
 let drive
 let eventEmitter
 
+const FOLDER_TYPE = 'application/vnd.google-apps.folder'
+const TRASHED_FOLDER_EXCLUSION = 'trashed=false'
+const FOLDER_QUERY = 'mimeType="' + FOLDER_TYPE +  '"' + ' and ' + TRASHED_FOLDER_EXCLUSION
+
 const createDir = (event, dirName) => {
   drive.files.create({
     resource: {
       name: dirName,
-      mimeType: 'application/vnd.google-apps.folder'
+      mimeType: FOLDER_TYPE
     },
     fields: 'id'
   }, (err, folder) => {
@@ -23,9 +27,9 @@ const createDir = (event, dirName) => {
 
 const fetchDriveDirs = () => {
   drive.files.list({
-    q: 'mimeType="application/vnd.google-apps.folder"'
+    q: FOLDER_QUERY
   }, (err, folderData) => {
-    eventEmitter.send('drive-dirs', folderData.files)
+    folderData.files && eventEmitter.send('drive-dirs', folderData.files)
   })
 }
 
