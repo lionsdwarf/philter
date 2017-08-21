@@ -8,12 +8,12 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-let mainWindow
+let mainWindow, devEnv
 let dirs = {}
 
 const driveAuth = require('./node/driveAuth')
 const {
-  indexThumbs ,
+  indexThumbs,
 } = require('./node/thumbnailsManager')
 const {
   fetchSourceDirContents
@@ -22,19 +22,24 @@ const {
   syncFiles,
   createDriveDir,
 } = require('./node/syncManager')
-
+const {
+  THUMBS,
+} = require('./node/constants/thumbnails')
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 1200, height: 900})
 
   // and load the index.html of the app.
-  // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, 'index.html'),
-  //   protocol: 'file:',
-  //   slashes: true
-  // }))
-  mainWindow.loadURL('http://localhost:3000')
+  devEnv = process.argv[3] === 'dev'  
+  devEnv ?
+    mainWindow.loadURL('http://localhost:3000')
+    :
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'build','index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -84,7 +89,7 @@ const selectDir = (event, dirType) => {
       dirs[dirType] = selectedDirs[0]
       mainWindow.webContents.send('dir-selection', {
         dir: selectedDirs[0],
-        dirType: dirType
+        dirType: dirType,
       })
       if (dirType === 'source') {
         fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
@@ -101,6 +106,13 @@ const authDrive = () => {
   driveAuth.init(process.argv[2], mainWindow.webContents)
 }
 
+const fetchThumbsSourceDir = () => {
+  mainWindow.webContents.send('thumbs-source-dir', {
+    dir: THUMBS, 
+    devEnv: devEnv
+  })
+}
+
 ipcMain.on('sync', sync)
 
 ipcMain.on('directory-selection', selectDir)
@@ -109,3 +121,4 @@ ipcMain.on('auth-drive', authDrive)
 
 ipcMain.on('create-drive-dir', createDriveDir)
 
+ipcMain.on('fetch-thumbs-source-dir', fetchThumbsSourceDir)

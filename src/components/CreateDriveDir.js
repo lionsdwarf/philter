@@ -22,8 +22,8 @@ class CreateDriveDir extends Component {
   render() {
     return  (
       <div>
-        <input type='text' value={ this.state && this.state.driveDirName } onChange={ this.setDirName }/>
-        <button onClick={ this.createDriveDir }>Create Dir</button>
+        <input type='text' value={ this.state && this.state.driveDirName || '' } onChange={ this.setDirName }/>
+        <button disabled={!this.state || !this.state.driveDirName} onClick={ this.createDriveDir }>Create Dir</button>
       </div>
     )
   }

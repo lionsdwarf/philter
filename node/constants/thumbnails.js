@@ -1,3 +1,6 @@
+const thumbs = '.thumbnails/'
+
 module.exports = {
-  THUMBS_DIR: './.thumbnails/'
+  THUMBS: thumbs,
+  THUMBS_DIR: './' + thumbs
 }

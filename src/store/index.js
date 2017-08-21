@@ -2,14 +2,13 @@ import { combineReducers } from 'redux'
 import {
   addFileName,
   toggleStaged,
+  resolveThumbsSourceDir,
 } from './util'
 
-const dirs = (state = {
+const diskDirs = (state = {
   source: '',
   target: '',
-  drive: [],
-  driveDefaultDirId: '',
-  // app: '',
+  targetContents: new Set(),
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_DIR':
@@ -18,24 +17,44 @@ const dirs = (state = {
     case 'SET_TARGET_DIR':
       return {...state, target: action.payload}
       break
-    case 'SET_DRIVE_DIRS': 
-      return {...state, drive: action.payload}
+    case 'SET_DISK_TARGET_DIR_CONTENTS':
+      return {...state, targetContents: new Set(action.payload)}
       break
-    case 'SET_DRIVE_DEFAULT_DIR':
-      return {...state, driveDefaultDirId: action.payload}
-      break
-    // case 'SET_APP_DIR':
-    //   return {...state, app: action.payload + '/.thumbnails/'}
-    //   break
     default:
       return state
   }
 }
 
-const thumbs = (state = {
-  fileNames: new Set(),
+const driveDirs = (state = {
+  targets: [],
+  driveDefaultDirId: '',
+  targetContents: new Set(),
 }, action) => {
   switch(action.type) {
+    case 'SET_DRIVE_DIRS': 
+      return {...state, targets: action.payload, driveDefaultDirId: action.payload[0].id}
+      break
+    case 'SET_DRIVE_DEFAULT_DIR':
+      return {...state, defaultDirId: action.payload}
+      break
+    case 'SET_DRIVE_TARGET_DIR_CONTENTS':
+      return {...state, targetContents: new Set(action.payload)}
+      break
+    default:
+      return state
+  }
+}
+
+
+const thumbs = (state = {
+  fileNames: new Set(),
+  dir: '',
+  devEnv: false
+}, action) => {
+  switch(action.type) {
+    case 'SET_THUMBS_SOURCE_DIR':
+      return {...state, dir: action.payload.dir, devEnv: action.payload.devEnv}
+      break
     case 'SET_THUMB_FILENAME':
       return {...state, fileNames: addFileName(state.fileNames, action.payload)}
       break
@@ -48,11 +67,16 @@ const thumbs = (state = {
 }
 
 const sourceContents = (state = {
-  jpgs: []
+  jpgs: [],
+  mainImgPath: '',
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_JPGS':
       return {...state, jpgs: action.payload}
+      break
+    case 'SET_MAIN_IMG':
+    console.log('mip', action.payload)
+      return {...state, mainImgPath: action.payload}
       break
     default:
       return state
@@ -76,9 +100,10 @@ const filesToSync = (state = {
 }
 
 const philter = combineReducers({
-  dirs,
-  thumbs,
+  diskDirs,
+  driveDirs,
   sourceContents,
+  thumbs,
   filesToSync,
 })
 

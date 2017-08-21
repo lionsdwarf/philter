@@ -24,18 +24,11 @@ export const configureListeners = dispatch => {
     })
   })
 
-  ipcRenderer.on('drive-dirs', (event, payload) => {
+  ipcRenderer.on('thumbs-source-dir', (event, payload) => {
     dispatch({
-      type: 'SET_DRIVE_DIRS',
+      type: 'SET_THUMBS_SOURCE_DIR',
       payload: payload
     })
   })
-
-  // ipcRenderer.on('app-dir', (event, payload) => {
-  //   dispatch({
-  //     type: 'SET_APP_DIR',
-  //     payload: payload
-  //   })
-  // })
 
 }

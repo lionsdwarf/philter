@@ -4,7 +4,7 @@ import DriveDirSelect from '../components/DriveDirSelect'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    dirs: state.dirs.drive,
+    dirs: state.driveDirs.targets,
   }
 }
 

@@ -1,3 +1,7 @@
+// export const  resolveThumbsSourceDir = payload => {
+//   return (payload.devEnv ? '../../' : '../') + payload.dir
+// }
+
 export const addFileName = (fileNames, newFile) => {
   let updatedFileNames = new Set(fileNames)
   updatedFileNames.add(newFile)

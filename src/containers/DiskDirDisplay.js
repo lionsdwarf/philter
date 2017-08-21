@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    source: state.dirs.source,
-    target: state.dirs.target
+    source: state.diskDirs.source,
+    target: state.diskDirs.target
   }
 }
 

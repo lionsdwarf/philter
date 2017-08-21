@@ -1,3 +1,5 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 const electron = window.require('electron')
 const ipcRenderer = electron.ipcRenderer
 
@@ -12,10 +14,19 @@ export const sync = (filesToSync, driveDefaultDirId) => {
   })
 }
 
-export const authDrive = () => {
+export const createDriveDir = (dirName) => {
+  ipcRenderer.send('create-drive-dir', dirName)
+}
+
+const authDrive = () => {
   ipcRenderer.send('auth-drive')
 }
 
-export const createDriveDir = (dirName) => {
-  ipcRenderer.send('create-drive-dir', dirName)
+const fetchThumbsSourceDir = () => {
+  ipcRenderer.send('fetch-thumbs-source-dir')
+}
+
+export const init = () => {
+  fetchThumbsSourceDir()
+  authDrive()
 }
