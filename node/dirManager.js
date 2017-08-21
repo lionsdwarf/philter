@@ -16,13 +16,13 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   fs.readdir(sourceDir, (err, dirContents) => {
 
     const jpgs = []
-    dirContents.forEach( fileName => {
+    dirContents.forEach( (fileName, i) => {
       // fileName = fileName.slice(2)
 
       if (isJPG(fileName)) {
         jpgs.push(fileName)
         if (thumbsDirEmpty || !thumbExists(fileName)) {
-          generateThumb(sourceDir, fileName, eventEmitter)
+          generateThumb(sourceDir, i, fileName, eventEmitter)
         } else {
           emitThumbName(fileName, eventEmitter)
         }

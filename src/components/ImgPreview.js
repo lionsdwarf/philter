@@ -1,15 +1,23 @@
 import React from 'react'
 
-const ImgPreview = ({fileName, thumbExists}) => {
-  let thumbSrc = require('../../.thumbnails/' + fileName)
+const ImgPreview = ({fileName, thumbName}) => {
+    console.log('e', fileName)
+    console.log('e', thumbName)
+  let req = require.context('../../.thumbnails/', false, /\.(jpg)$/)
+  let thumbSrc
+  if (thumbName) {
+    console.log(req.keys())
+    thumbSrc = req('./' + thumbName)
+  }
   return (
     <div>
       {
-        thumbExists && <img src={thumbSrc}/>
+        thumbName && <img src={thumbSrc}/>
       }
       <span>{fileName}</span>
     </div>
   )
+
 }
 
 export default ImgPreview

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state, ownProps) => {
   return {
     sourceJpgs: state.sourceContents.jpgs,
-    thumbFileNames: state.thumbs.fileNames,
+    thumbMappings: state.thumbs.mappings,
   }
 }
 

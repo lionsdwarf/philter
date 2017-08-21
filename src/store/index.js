@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import {
-  addFileName,
+  addThumbMapping,
   toggleStaged,
 } from './util'
 
@@ -33,11 +33,11 @@ const dirs = (state = {
 }
 
 const thumbs = (state = {
-  fileNames: new Set(),
+  mappings: {},
 }, action) => {
   switch(action.type) {
     case 'SET_THUMB_FILENAME':
-      return {...state, fileNames: addFileName(state.fileNames, action.payload)}
+      return {...state, mappings: addThumbMapping(state.mappings, action.payload)}
       break
     // case 'CLEAR_THUMB_FILENAMES':
     //   return {...state, fileNames: new Set()}

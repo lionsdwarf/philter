@@ -12,17 +12,18 @@ let existingThumbs = new Set()
 const THUMB_WIDTH = 120
 const THUMB_HEIGHT = 80
 
-async function generateThumb (sourceDir, fileName, eventEmitter) {
+async function generateThumb (sourceDir, index, fileName, eventEmitter) {
+  const thumbName = 'thumb_' + index + '.jpg'
   sharp(sourceDir + '/' + fileName)
     .resize(THUMB_WIDTH, THUMB_HEIGHT)
-    .toFile(THUMBS_DIR + fileName)
+    .toFile(THUMBS_DIR + thumbName)
     .then( thumb => {
-      emitThumbName(fileName, eventEmitter)
+      emitThumbName([fileName, thumbName], eventEmitter)
     })
 }
 
-const emitThumbName = (fileName, eventEmitter) => {
-  eventEmitter.send('thumb-fileName', fileName)
+const emitThumbName = (payload, eventEmitter) => {
+  eventEmitter.send('thumb-fileName', payload)
 }
 
 const thumbExists = (fileName) => {

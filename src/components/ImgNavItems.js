@@ -2,7 +2,7 @@ import React from 'react'
 import ImgPreview from './ImgPreview'
 import ImgSyncControl from './ImgSyncControl'
 
-const ImgNavItems = ({sourceJpgs, thumbFileNames, toggleSync}) => {
+const ImgNavItems = ({sourceJpgs, thumbMappings, toggleSync}) => {
   return (
     <div>
       {
@@ -10,7 +10,7 @@ const ImgNavItems = ({sourceJpgs, thumbFileNames, toggleSync}) => {
           (fileName, i) => <div key={i}>
             <ImgPreview 
               fileName={fileName}
-              thumbExists={thumbFileNames.has(fileName)}
+              thumbName={thumbMappings[fileName]}
             />
             <ImgSyncControl 
               toggleSync={toggleSync}
