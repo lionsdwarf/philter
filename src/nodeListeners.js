@@ -1,7 +1,7 @@
 const electron = window.require('electron')
 const ipcRenderer = electron.ipcRenderer
 
-export const configureListeners = dispatch => {
+export const initListeners = dispatch => {
   
   ipcRenderer.on('dir-selection', (event, payload) => {
     dispatch({
@@ -13,6 +13,13 @@ export const configureListeners = dispatch => {
   ipcRenderer.on('source-dir-contents', (event, payload) => {
     dispatch({
       type: 'SET_SOURCE_JPGS',
+      payload: payload
+    })
+  })
+
+  ipcRenderer.on('drive-dirs', (event, payload) => {
+    dispatch({
+      type: 'SET_DRIVE_DIRS',
       payload: payload
     })
   })

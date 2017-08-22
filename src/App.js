@@ -7,7 +7,7 @@ import DriveDirManager from './containers/DriveDirManager'
 import DiskDirSelect from './components/DiskDirSelect'
 import CreateDriveDir from './components/CreateDriveDir'
 import {
-  configureListeners
+  initListeners,
 } from './nodeListeners'
 import {
   init
@@ -16,13 +16,14 @@ import {
 class Philter extends Component {
 
   componentWillMount() {
-    configureListeners(this.props.dispatch)
+    initListeners(this.props.dispatch)
     init()
   }
 
   render() {
     return (
       <div>
+
         <SyncControl/>
 
         <DiskDirDisplay/>
