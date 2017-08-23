@@ -20,10 +20,9 @@ class Philter extends Component {
 
   render() {
     return (
-      <div>
+      <div style={_s}>
 
         <MainImgDisplay/>
-
 
         <DiskDirManager/>
         
@@ -39,3 +38,9 @@ class Philter extends Component {
 }
 
 export default Philter
+
+const _s = {
+  'font-family': 'arial',
+  'font-weight': 100,
+  color: 'grey'
+}

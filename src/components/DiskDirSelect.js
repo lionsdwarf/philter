@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DiskDirSelect = ({dirType, src, dir, onClick}) => {
+export default ({dirType, src, dir, onClick}) => {
   return (
     <div onClick={ onClick } style={_s.DiskDirSelect}>
       <img src={src} style={_s.img}/>
@@ -8,17 +8,18 @@ const DiskDirSelect = ({dirType, src, dir, onClick}) => {
         dir ?
           <div>{dir}</div>
           :
-          <div>{`Select ${dirType} folder`}</div>
+          <div>{`${dirType} folder`}</div>
       }
     </div>
   )
 }
 
-export default DiskDirSelect
-
 const _s = {
   DiskDirSelect: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    display: 'inline-block',
+    'text-align': 'center',
+    margin: '40px 80px',
   },
   img: {
     width: 80

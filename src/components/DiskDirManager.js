@@ -4,9 +4,9 @@ import {
   selectDir
 } from '../nodeActions'
 
-const DiskDirManager = ({sourceDir, targetDir}) => {
+export default ({sourceDir, targetDir}) => {
   return (
-    <div>
+    <div style={_s}>
       
       <DiskDirSelect 
         dirType='source'
@@ -26,5 +26,7 @@ const DiskDirManager = ({sourceDir, targetDir}) => {
   )
 }
 
-export default DiskDirManager
+const _s = {
+  'text-align': 'center'
+}
 

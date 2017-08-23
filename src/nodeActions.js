@@ -27,5 +27,5 @@ const fetchThumbsSourceDir = () => {
 
 export const init = () => {
   fetchThumbsSourceDir()
-  authDrive()
+  // authDrive()
 }
