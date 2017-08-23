@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DriveDirSelect from '../components/DriveDirSelect'
+import DriveDirManager from '../components/DriveDirManager'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    dirs: state.driveDirs.targets,
+    targetDirs: state.driveDirs.targets,
   }
 }
 
@@ -17,6 +17,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const DriveDirManager = connect(mapStateToProps, mapDispatchToProps)(DriveDirSelect)
+export default connect(mapStateToProps, mapDispatchToProps)(DriveDirManager)
 
-export default DriveDirManager
