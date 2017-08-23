@@ -26,7 +26,6 @@ class Philter extends Component {
 
         <MainImgDisplay/>
 
-        <SyncControl/>
 
         <DiskDirDisplay/>
 
@@ -40,6 +39,8 @@ class Philter extends Component {
         <DriveDirManager/>
         
         <CreateDriveDir/>
+        
+        <SyncControl/>
 
         <ImgNav/>
 

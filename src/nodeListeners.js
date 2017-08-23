@@ -4,7 +4,6 @@ const ipcRenderer = electron.ipcRenderer
 export const initListeners = dispatch => {
   
   ipcRenderer.on('source-dir-selection', (event, payload) => {
-    console.log('1',payload)
     dispatch({
       type: 'SET_SOURCE_DIR',
       payload: payload
@@ -12,7 +11,6 @@ export const initListeners = dispatch => {
   })
 
   ipcRenderer.on('target-dir-selection', (event, payload) => {
-    console.log('2',payload)
     dispatch({
       type: 'SET_TARGET_DIR',
       payload: payload
