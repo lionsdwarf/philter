@@ -1,13 +1,15 @@
 import React from 'react';
-import {
-  selectDir
-} from '../nodeActions'
 
-const DiskDirSelect = ({dirType, src}) => {
+const DiskDirSelect = ({dirType, src, dir, onClick}) => {
   return (
-    <div>
+    <div onClick={ onClick } style={_s.DiskDirSelect}>
       <img src={src} style={_s.img}/>
-      <button onClick={ () => selectDir(dirType) }>{dirType + ' select'}</button>
+      {
+        dir ?
+          <div>{dir}</div>
+          :
+          <div>{`Select ${dirType} folder`}</div>
+      }
     </div>
   )
 }
@@ -15,6 +17,9 @@ const DiskDirSelect = ({dirType, src}) => {
 export default DiskDirSelect
 
 const _s = {
+  DiskDirSelect: {
+    cursor: 'pointer'
+  },
   img: {
     width: 80
   }
