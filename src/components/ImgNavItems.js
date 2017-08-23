@@ -21,6 +21,7 @@ const ImgNavItems = ({
             <ImgPreview 
               fileName={fileName}
               thumbExists={thumbFileNames.has(fileName)}
+              sourceDir={sourceDir}
               setMainImg={setMainImg}
               thumbsSourceDir={thumbsSourceDir}
               devEnv={devEnv}

@@ -3,12 +3,19 @@ import {
   selectDir
 } from '../nodeActions'
 
-const DiskDirSelect = props => {
+const DiskDirSelect = ({dirType, src}) => {
   return (
     <div>
-      <button onClick={ () => selectDir(props.type) }>{props.type + ' select'}</button>
+      <img src={src} style={_s.img}/>
+      <button onClick={ () => selectDir(dirType) }>{dirType + ' select'}</button>
     </div>
   )
 }
 
 export default DiskDirSelect
+
+const _s = {
+  img: {
+    width: 80
+  }
+}

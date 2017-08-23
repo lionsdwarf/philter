@@ -28,7 +28,7 @@ const {
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1200, height: 900})
+  mainWindow = new BrowserWindow({width: 1400, height: 850})
 
   // and load the index.html of the app.
   devEnv = process.argv[3] === 'dev'  
@@ -87,10 +87,7 @@ const selectDir = (event, dirType) => {
   selectedDirs => {
     if (selectedDirs) {
       dirs[dirType] = selectedDirs[0]
-      mainWindow.webContents.send('dir-selection', {
-        dir: selectedDirs[0],
-        dirType: dirType,
-      })
+      mainWindow.webContents.send(dirType + '-dir-selection', selectedDirs[0])
       if (dirType === 'source') {
         fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
       }
@@ -115,7 +112,7 @@ const fetchThumbsSourceDir = () => {
 
 ipcMain.on('sync', sync)
 
-ipcMain.on('directory-selection', selectDir)
+ipcMain.on('disk-dir-selection', selectDir)
 
 ipcMain.on('auth-drive', authDrive)
 

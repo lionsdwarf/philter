@@ -3,7 +3,7 @@ import ImgNav from './containers/ImgNav'
 import DiskDirDisplay from './containers/DiskDirDisplay'
 import SyncControl from './containers/SyncControl'
 import DriveDirManager from './containers/DriveDirManager'
-// import MainImgDisplay from './containers/MainImgDisplay'
+import MainImgDisplay from './containers/MainImgDisplay'
 import DiskDirSelect from './components/DiskDirSelect'
 import CreateDriveDir from './components/CreateDriveDir'
 import {
@@ -24,11 +24,18 @@ class Philter extends Component {
     return (
       <div>
 
+        <MainImgDisplay/>
+
         <SyncControl/>
 
         <DiskDirDisplay/>
-        <DiskDirSelect type='source'/>
-        <DiskDirSelect type='target'/>
+
+        <DiskDirSelect 
+          src={require('./styles/icons/images.png')}
+          dirType='source'/>
+        <DiskDirSelect 
+          src={require('./styles/icons/disk.png')}
+          dirType='target'/>
         
         <DriveDirManager/>
         

@@ -1,6 +1,14 @@
 import React from 'react'
 
-const ImgPreview = ({fileName, thumbExists, thumbsSourceDir, devEnv, setMainImg}) => {
+const ImgPreview = ({
+  fileName, 
+  thumbExists, 
+  thumbsSourceDir, 
+  devEnv, 
+  setMainImg, 
+  sourceDir
+}) => {
+  
   let src
   if (devEnv && thumbExists) {
     src = require('../../.thumbnails/' + fileName)
@@ -9,7 +17,7 @@ const ImgPreview = ({fileName, thumbExists, thumbsSourceDir, devEnv, setMainImg}
   }
 
   return (
-    <div>
+    <div onClick={ () => setMainImg(sourceDir, fileName) }>
       {
         thumbExists && <img src={src}/>
       }
