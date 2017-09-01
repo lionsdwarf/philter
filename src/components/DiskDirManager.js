@@ -3,20 +3,24 @@ import DiskDirSelect from './DiskDirSelect'
 import {
   selectDir
 } from '../nodeActions'
+import {
+  imgFile,
+  downloadFolder,
+} from '../styles/svgPaths'
 
 export default ({sourceDir, targetDir}) => {
   return (
-    <div style={_s}>
+    <div style={_s.DiskDirManager}>
       
       <DiskDirSelect 
         dirType='source'
-        src={require('../styles/icons/images.png')}
+        svgPaths={imgFile}
         dir={sourceDir}
         onClick={ () => selectDir('source') }
       />
 
       <DiskDirSelect 
-        src={require('../styles/icons/disk.png')}
+        svgPaths={downloadFolder}
         dirType='target'
         dir={targetDir}
         onClick={ () => selectDir('target') }
@@ -27,6 +31,11 @@ export default ({sourceDir, targetDir}) => {
 }
 
 const _s = {
-  'text-align': 'center'
+  DiskDirManager: {
+  'text-align': 'center',
+  },
+  targetImgStyle: {
+    transform: 'rotate(90deg)'
+  }
 }
 

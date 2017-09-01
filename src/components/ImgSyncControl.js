@@ -1,16 +1,17 @@
 import React from 'react'
 
-const ImgSyncControl = ({toggleSync, fileName, syncType, existsInTarget}) => {
+export default ({toggleSync, fileName, syncType, existsInTarget}) => {
   return (
-    <div>
+    <span>
       {
         existsInTarget ?
           <span>X</span>
           :
-          <input type='checkbox' onChange={ e => toggleSync(fileName, e.target.checked, syncType) }/>
+          <span>
+            <input type='checkbox' onChange={ e => toggleSync(fileName, e.target.checked, syncType) }/>
+            <span>{syncType}</span>
+          </span>          
       }
-    </div>
+    </span>
   )
 }
-
-export default ImgSyncControl

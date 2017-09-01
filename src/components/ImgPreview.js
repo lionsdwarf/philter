@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ImgPreview = ({
+export default ({
   fileName, 
   thumbExists, 
   thumbsSourceDir, 
@@ -17,13 +17,21 @@ const ImgPreview = ({
   }
 
   return (
-    <div onClick={ () => setMainImg(sourceDir, fileName) }>
+    <div onClick={ () => setMainImg(sourceDir, fileName) } style={_s.ImgPreview}>
       {
         thumbExists && <img src={src}/>
       }
-      <span>{fileName}</span>
+      <div style={_s.fileName}>{fileName}</div>
     </div>
   )
 }
 
-export default ImgPreview
+const _s = {
+  ImgPreview: {
+    padding: '20px',
+    display: 'inline-block',
+  },
+  fileName: {
+    'padding-top': '10px',
+  }
+}

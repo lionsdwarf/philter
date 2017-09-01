@@ -22,8 +22,6 @@ class Philter extends Component {
     return (
       <div style={_s}>
 
-        <MainImgDisplay/>
-
         <DiskDirManager/>
         
         <DriveDirManager/>        
@@ -32,6 +30,8 @@ class Philter extends Component {
 
         <ImgNav/>
 
+        <MainImgDisplay/>
+        
       </div>
     );
   }

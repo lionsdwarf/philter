@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
 import DriveDirSelect from '../components/DriveDirSelect'
-import {
-  createDriveDir
-} from '../nodeActions'
 
 export default class DriveDirManager extends Component {
 
@@ -38,7 +35,7 @@ export default class DriveDirManager extends Component {
   }
 
   _createDriveDir = () => {
-    createDriveDir(this.state.driveDirName)
+    this.props.createDriveDir(this.state.driveDirName)
     this.setState( prevState => {
       return {
         driveDirName: '',

@@ -6,6 +6,7 @@ import { setMainImg } from '../nodeActions'
 const mapStateToProps = (state, ownProps) => {
   return {
     mainImgPath: state.sourceContents.mainImgPath,
+    devEnv: state.thumbs.devEnv,
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import ImgPreview from './ImgPreview'
 import ImgSyncControl from './ImgSyncControl'
 
-const ImgNavItems = ({
+export default ({
   sourceJpgs, 
   thumbFileNames, 
   diskTargetContents, 
@@ -14,10 +14,12 @@ const ImgNavItems = ({
   devEnv,
 }) => {
   return (
-    <div>
+    <span>
       {
-        sourceJpgs.map(
-          (fileName, i) => <div key={i}>
+        sourceJpgs.map( (fileName, i) => 
+
+          <div key={i} style={_s}>
+
             <ImgPreview 
               fileName={fileName}
               thumbExists={thumbFileNames.has(fileName)}
@@ -26,24 +28,32 @@ const ImgNavItems = ({
               thumbsSourceDir={thumbsSourceDir}
               devEnv={devEnv}
             />
-            <ImgSyncControl 
-              toggleSync={toggleSync}
-              syncType='drive'
-              fileName={fileName}
-              existsInTarget={ driveTargetContents.has(fileName) }
 
-            />
             <ImgSyncControl 
               toggleSync={toggleSync}
               syncType='disk'
               fileName={fileName}
               existsInTarget={ diskTargetContents.has(fileName) }
             />
+
+            <ImgSyncControl 
+              toggleSync={toggleSync}
+              syncType='drive'
+              fileName={fileName}
+              existsInTarget={ driveTargetContents.has(fileName) }
+            />
+
           </div>
         )
       }
-    </div>
+    </span>
   )
 }
 
-export default ImgNavItems
+const _s = {
+  border: '1px solid',
+  'border-bottom': '0px',
+  'border-color': 'lightgrey',
+  'border-radius': '5px',
+  width: '290px',
+}

@@ -31,6 +31,5 @@ const mapDispatchToProps = (dispatch, state) => {
   }
 }
 
-const ImgNav = connect(mapStateToProps, mapDispatchToProps)(ImgNavItems)
+export default connect(mapStateToProps, mapDispatchToProps)(ImgNavItems)
 
-export default ImgNav

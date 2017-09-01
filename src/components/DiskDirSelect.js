@@ -1,9 +1,16 @@
 import React from 'react';
+import '../styles/components/DiskDirSelect.css'
 
-export default ({dirType, src, dir, onClick}) => {
+const iconSize = 80
+
+export default ({dirType, svgPaths, dir, onClick, imgStyle}) => {
   return (
-    <div onClick={ onClick } style={_s.DiskDirSelect}>
-      <img src={src} style={_s.img}/>
+    <div onClick={onClick} className='DiskDirSelect'>
+      <svg width={iconSize} height={iconSize} viewBox='0 0 20 20'>
+        {
+          svgPaths.map( (path, i) => <path fill='lightgreen' key={i} d={path}></path> )
+        }
+      </svg>
       {
         dir ?
           <div>{dir}</div>
@@ -12,16 +19,4 @@ export default ({dirType, src, dir, onClick}) => {
       }
     </div>
   )
-}
-
-const _s = {
-  DiskDirSelect: {
-    cursor: 'pointer',
-    display: 'inline-block',
-    'text-align': 'center',
-    margin: '40px 80px',
-  },
-  img: {
-    width: 80
-  }
 }

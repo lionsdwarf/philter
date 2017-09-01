@@ -1,7 +1,20 @@
 import React from 'react'
 
-const MainImgDisplay = ({mainImgPath}) => {
-  return <img src={mainImgPath}/>
+export default ({mainImgPath, devEnv}) => {
+
+  let src
+  if (mainImgPath) {
+    if (devEnv) {
+      src = require('../devPublic/PB060521.JPG')
+    } else {
+      src = mainImgPath
+    }
+  }
+
+  return (
+    <span> 
+      <img src={src}/>
+    </span>
+  )
 }
 
-export default MainImgDisplay
