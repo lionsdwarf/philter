@@ -1,5 +1,6 @@
 import React from 'react'
 import SVGIcon from './SVGIcon'
+import DirLabel from './DirLabel'
 import '../styles/components/DiskDirSelect.css'
 
 export default ({
@@ -12,18 +13,20 @@ export default ({
   buttonLabel,
 }) => {
   return (
-    <div onClick={onClick} className='DiskDirSelect'>
+    <div className='DiskDirSelect'>
       
-      <SVGIcon 
-        paths={svgPaths}
-        fill={svgFill}
-      />
+      <div onClick={onClick} className='iconWrapper'>
+        <SVGIcon 
+          paths={svgPaths}
+          fill={svgFill}
+        />
+      </div>
 
       {
         dir ?
-          <div>{dir}</div>
+          <DirLabel dir={dir}/>
           :
-          <div>{buttonLabel}</div>
+          <div className='buttonLabel'>{buttonLabel}</div>
       }
 
     </div>

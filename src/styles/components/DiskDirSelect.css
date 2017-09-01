@@ -1,14 +1,12 @@
 .DiskDirSelect {
-  cursor: pointer;
   display: inline-block;
-  text-align: center;
   margin: 40px 80px;
 }
 
-.corn {
-  color: green;
+.iconWrapper {
+  cursor: pointer;
 }
 
-.corn:hover {
-  color: red;
+.buttonLabel {
+  cursor: pointer;
 }
