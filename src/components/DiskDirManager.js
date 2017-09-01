@@ -11,20 +11,14 @@ import {
 export default ({sourceDir, targetDir}) => {
   return (
     <div style={_s.DiskDirManager}>
-      
-      <DiskDirSelect 
-        dirType='source'
-        svgPaths={imgFile}
-        svgFill={'black'}
-        dir={sourceDir}
-        onClick={ () => selectDir('source') }
-      />
+
 
       <DiskDirSelect 
         svgPaths={downloadFolder}
         dirType='target'
         dir={targetDir}
         svgFill={'hotpink'}
+        buttonLabel={'DESTINATION'}
         onClick={ () => selectDir('target') }
       />
 

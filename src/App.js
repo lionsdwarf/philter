@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ImgNav from './containers/ImgNav'
-import DiskDirManager from './containers/DiskDirManager'
+import DiskSource from './containers/DiskSource'
+import Targets from './components/Targets'
 import SyncControl from './containers/SyncControl'
 import MainImgDisplay from './containers/MainImgDisplay'
-import DriveDirManager from './containers/DriveDirManager'
 import {
   initListeners,
 } from './nodeListeners'
@@ -22,10 +22,10 @@ class Philter extends Component {
     return (
       <div style={_s}>
 
-        <DiskDirManager/>
-        
-        <DriveDirManager/>        
-        
+        <DiskSource/>
+
+        <Targets/>
+
         <SyncControl/>
 
         <ImgNav/>

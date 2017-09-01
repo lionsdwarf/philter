@@ -2,7 +2,15 @@ import React from 'react'
 import SVGIcon from './SVGIcon'
 import '../styles/components/DiskDirSelect.css'
 
-export default ({dirType, svgPaths, dir, onClick, imgStyle, svgFill}) => {
+export default ({
+  dirType, 
+  svgPaths, 
+  dir, 
+  onClick, 
+  imgStyle, 
+  svgFill,
+  buttonLabel,
+}) => {
   return (
     <div onClick={onClick} className='DiskDirSelect'>
       
@@ -15,7 +23,7 @@ export default ({dirType, svgPaths, dir, onClick, imgStyle, svgFill}) => {
         dir ?
           <div>{dir}</div>
           :
-          <div>{`${dirType} folder`}</div>
+          <div>{buttonLabel}</div>
       }
 
     </div>
