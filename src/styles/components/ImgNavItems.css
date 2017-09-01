@@ -1,0 +1,13 @@
+.ImgNavItems {
+  display: inline-block;
+  height: 500px;
+  overflow: scroll;
+}
+
+.imgNavItem {
+  border: 1px solid;
+  border-bottom: 0px;
+  border-color: lightgrey;
+  border-radius: 5px;
+  width: 290px;
+}

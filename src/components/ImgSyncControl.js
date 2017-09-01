@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({toggleSync, fileName, syncType, existsInTarget}) => {
+export default ({toggleSync, fileName, syncType, existsInTarget, target}) => {
   return (
     <span>
       {
@@ -9,7 +9,7 @@ export default ({toggleSync, fileName, syncType, existsInTarget}) => {
           :
           <span>
             <input type='checkbox' onChange={ e => toggleSync(fileName, e.target.checked, syncType) }/>
-            <span>{syncType}</span>
+            <span>{target}</span>
           </span>          
       }
     </span>
