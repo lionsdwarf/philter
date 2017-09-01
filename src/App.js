@@ -3,7 +3,7 @@ import ImgNav from './containers/ImgNav'
 import DiskSource from './containers/DiskSource'
 import Targets from './components/Targets'
 import SyncControl from './containers/SyncControl'
-import MainImgDisplay from './containers/MainImgDisplay'
+import MainImg from './containers/MainImg'
 import {
   initListeners,
 } from './nodeListeners'
@@ -30,7 +30,7 @@ class Philter extends Component {
 
         <ImgNav/>
 
-        <MainImgDisplay/>
+        <MainImg/>
         
       </div>
     );

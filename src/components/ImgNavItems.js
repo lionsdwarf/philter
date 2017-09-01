@@ -11,10 +11,10 @@ export default ({
   toggleSync, 
   setMainImg, 
   sourceDir, 
-  diskTargetDir,
+  diskTargetDirName,
   thumbsSourceDir,
   devEnv,
-  driveTargetDir,
+  driveTargetDirName,
 }) => <span className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
@@ -31,18 +31,18 @@ export default ({
         />
 
         {
-          diskTargetDir && <ImgSyncControl 
+          diskTargetDirName && <ImgSyncControl 
             toggleSync={toggleSync}
-            target={diskTargetDir}
+            target={diskTargetDirName}
             fileName={fileName}
             existsInTarget={ diskTargetContents.has(fileName) }
           />
         }
 
         {
-          driveTargetDir && <ImgSyncControl 
+          driveTargetDirName && <ImgSyncControl 
             toggleSync={toggleSync}
-            target={driveTargetDir}
+            target={driveTargetDirName}
             fileName={fileName}
             existsInTarget={ driveTargetContents.has(fileName) }
           />

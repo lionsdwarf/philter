@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state, ownProps) => {
   return {
     filesToSync: state.filesToSync,
-    driveDefaultDirId: state.driveDirs.defaultDirId
+    defaultDirId: state.driveDirs.defaultDirId
   }
 }
 

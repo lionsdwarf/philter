@@ -7,8 +7,8 @@ import '../styles/components/DirLabel.css'
 
 const parseDir = fullDirPath => {
   return {
-    path: fullDirPath.slice(0, fullDirPath.lastIndexOf('/')),
-    dir: fullDirPath.slice(fullDirPath.lastIndexOf('/'), fullDirPath.length),
+    path: fullDirPath.slice(0, fullDirPath.lastIndexOf('/') + 1),
+    dir: fullDirPath.slice(fullDirPath.lastIndexOf('/') + 1, fullDirPath.length),
   }
 }
 

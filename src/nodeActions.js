@@ -6,10 +6,10 @@ export const selectDir = type => {
   ipcRenderer.send('disk-dir-selection', type)
 }
 
-export const sync = (filesToSync, driveDefaultDirId) => {
+export const sync = (filesToSync, defaultDirId) => {
   ipcRenderer.send('sync', {
     filesToSync: filesToSync,
-    driveDefaultDirId: driveDefaultDirId,
+    defaultDirId: defaultDirId,
   })
 }
 
@@ -27,5 +27,5 @@ const fetchThumbsSourceDir = () => {
 
 export const init = () => {
   fetchThumbsSourceDir()
-  // authDrive()
+  authDrive()
 }
