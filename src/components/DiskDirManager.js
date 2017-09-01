@@ -15,6 +15,7 @@ export default ({sourceDir, targetDir}) => {
       <DiskDirSelect 
         dirType='source'
         svgPaths={imgFile}
+        svgFill={'black'}
         dir={sourceDir}
         onClick={ () => selectDir('source') }
       />
@@ -23,6 +24,7 @@ export default ({sourceDir, targetDir}) => {
         svgPaths={downloadFolder}
         dirType='target'
         dir={targetDir}
+        svgFill={'hotpink'}
         onClick={ () => selectDir('target') }
       />
 
