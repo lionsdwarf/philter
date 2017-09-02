@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
+import { caratIcon } from '../styles/svgPaths'
+import SVGIcon from './SVGIcon'
 
-const CreateDriveDir = ({driveDirName, createDriveDir, setDirName}) => {
+export default ({
+  driveDirName, 
+  createDriveDir, 
+  setDirName, 
+  toggleIsCreate
+}) => <div>
 
-  return  (
-    <div>
+  <input 
+    type='text' 
+    value={driveDirName} 
+    onChange={setDirName}
+  />
 
-      <input 
-        type='text' 
-        value={driveDirName} 
-        onChange={setDirName}
-      />
+  <button 
+    disabled={!driveDirName} 
+    onClick={createDriveDir}
+  >Create Dir</button>
 
-      <button 
-        disabled={!driveDirName} 
-        onClick={createDriveDir}
-      >Create Dir</button>
+  <div onClick={toggleIsCreate}>
+    <SVGIcon
+      paths={caratIcon}
+      fill='black'
+    />
+  </div>
 
-    </div>
-  )
+</div>
 
-}
-
-export default CreateDriveDir

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
 import DriveDirSelect from '../components/DriveDirSelect'
+import SVGIcon from './SVGIcon'
+import { googleDriveIcon } from '../styles/svgPaths'
+import '../styles/components/DirSelect.css'
 
 export default class DriveDirManager extends Component {
 
   state = {
     isCreate: false,
-    createReqInTransit: false,
+    postInTransit: false,
     driveDirName: '',
   }
 
@@ -15,9 +18,9 @@ export default class DriveDirManager extends Component {
   }
 
   _updateReqInTransit = nextProps => {
-    if(this.state.createReqInTransit && nextProps.targetDirs.length > this.props.targetDirs.length) {
+    if(this.state.postInTransit && nextProps.targetDirs.length > this.props.targetDirs.length) {
       this.setState( prevState => {
-        createReqInTransit: false
+        postInTransit: false
       })
     }
   }
@@ -40,14 +43,21 @@ export default class DriveDirManager extends Component {
       return {
         driveDirName: '',
         isCreate: false,
-        createReqInTransit: true,
+        postInTransit: true,
       }
     })
   }
 
   render() {
     return (
-      <div>
+      <div className='dirSelect'>
+
+        <div>
+          <SVGIcon 
+            paths={googleDriveIcon}
+            fill='hotpink'
+          />
+        </div>
 
         {
           this.state.isCreate ?
@@ -55,13 +65,14 @@ export default class DriveDirManager extends Component {
               driveDirName={this.state.driveDirName}
               setDirName={this._setDirName}
               createDriveDir={this._createDriveDir}
+              toggleIsCreate={this._toggleIsCreate}
             />
             :
-            <div onClick={ this._toggleIsCreate }>+ Add new</div>
+            <div onClick={this._toggleIsCreate}>+ Create directory</div>
         }
 
         {
-          this.state.createReqInTransit ?
+          this.state.postInTransit ?
             <div>Spinner</div>
             :
             <DriveDirSelect

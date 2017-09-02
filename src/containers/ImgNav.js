@@ -6,7 +6,6 @@ import {
 } from '../nodeActions'
 
 const getDriveDirName = (targetDirs, dirId) => {
-  console.log(targetDirs, dirId)
   for (let dir of targetDirs) {
     if (dir.id === dirId) {
       return dir.name
