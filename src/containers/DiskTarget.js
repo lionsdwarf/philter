@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
   return {
-    targetDir: state.diskDirs.target,
+    targets: state.diskDirs.targets,
   }
 }
 

@@ -1,34 +1,30 @@
 import React from 'react'
 import SVGIcon from './SVGIcon'
-import DirLabel from './DirLabel'
+import DiskTargetsList from './DiskTargetsList'
 import '../styles/components/DirSelect.css'
 
 export default ({
   dirType, 
   svgPaths, 
-  dir, 
+  targets, 
   onClick, 
   imgStyle, 
   svgFill,
   buttonLabel,
-}) => {
-  return (
-    <div className='dirSelect'>
-      
-      <div onClick={onClick} className='iconWrapper'>
-        <SVGIcon 
-          paths={svgPaths}
-          fill={svgFill}
-        />
-      </div>
+}) => <div className='dirSelect'>
+  
+  <div onClick={onClick} className='iconWrapper'>
+    <SVGIcon 
+      paths={svgPaths}
+      fill={svgFill}
+    />
+  </div>
 
-      {
-        dir ?
-          <DirLabel dir={dir}/>
-          :
-          <div className='buttonLabel'>{buttonLabel}</div>
-      }
+  {
+    targets && targets.length > 0 ?
+      <DiskTargetsList targets={targets}/>
+      :
+      <div className='buttonLabel'>{buttonLabel}</div>
+  }
 
-    </div>
-  )
-}
+</div>

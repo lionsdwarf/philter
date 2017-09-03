@@ -3,19 +3,20 @@ import {
   addFileName,
   toggleStaged,
   resolveThumbsSourceDir,
+  addTargetDir,
 } from './util'
 
 const diskDirs = (state = {
   source: '',
-  target: '',
+  targets: [],
   targetContents: new Set(),
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_DIR':
       return {...state, source: action.payload}
       break
-    case 'SET_TARGET_DIR':
-      return {...state, target: action.payload}
+    case 'ADD_TARGET_DIR':
+      return {...state, targets: addTargetDir(state.targets, action.payload)}
       break
     case 'SET_DISK_TARGET_DIR_CONTENTS':
       return {...state, targetContents: new Set(action.payload)}

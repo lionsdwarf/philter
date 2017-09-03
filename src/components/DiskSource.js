@@ -7,15 +7,11 @@ import {
   imgFile,
 } from '../styles/svgPaths'
 
-export default ({sourceDir}) => {
-
-  return <DiskDirSelect 
-    dirType='source'
-    svgPaths={imgFile}
-    svgFill={'black'}
-    dir={sourceDir}
-    buttonLabel={'Storage Source'}
-    onClick={ () => selectDir('source') }
-  />
-
-}
+export default ({sourceDir}) => <DiskDirSelect 
+  dirType='source'
+  svgPaths={imgFile}
+  svgFill={'black'}
+  dir={sourceDir}
+  buttonLabel={'Storage Source'}
+  onClick={ () => selectDir('source') }
+/>

@@ -13,3 +13,9 @@ export const toggleStaged = (stagedFiles, fileName, toStage) => {
   toStage ? updatedStage.add(fileName) : updatedStage.delete(fileName)
   return updatedStage
 }
+
+export const addTargetDir = (targets, newTarget) => {
+  const newTargets = targets.slice()
+  newTargets.push(newTarget)
+  return newTargets
+}

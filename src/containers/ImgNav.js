@@ -13,7 +13,7 @@ const getDriveDirName = (targetDirs, dirId) => {
   }
 }
 
-const parseDiskTargetDir = dir => dir.slice(dir.lastIndexOf('/') + 1, dir.length)
+// const parseDiskTargetDir = dir => dir.slice(dir.lastIndexOf('/') + 1, dir.length)
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
     diskTargetContents: state.diskDirs.targetContents,
     driveTargetContents: state.driveDirs.targetContents,
     sourceDir: state.diskDirs.source,
-    diskTargetDirName: parseDiskTargetDir(state.diskDirs.target),
+    // diskTargetDirName: parseDiskTargetDir(state.diskDirs.target),
     thumbsSourceDir: state.thumbs.dir,
     devEnv: state.thumbs.devEnv,
     driveTargetDirName: getDriveDirName(state.driveDirs.targets, state.driveDirs.defaultDirId),

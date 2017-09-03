@@ -7,15 +7,11 @@ import {
   downloadFolder,
 } from '../styles/svgPaths'
 
-export default ({targetDir}) => {
-
-  return <DiskDirSelect 
-    svgPaths={downloadFolder}
-    dirType='target'
-    dir={targetDir}
-    svgFill={'hotpink'}
-    buttonLabel={'Local Destination'}
-    onClick={ () => selectDir('target') }
-  />
-
-}
+export default ({targets}) => <DiskDirSelect 
+  svgPaths={downloadFolder}
+  dirType='target'
+  targets={targets}
+  svgFill={'hotpink'}
+  buttonLabel={'Local Destination'}
+  onClick={ () => selectDir('target') }
+/>
