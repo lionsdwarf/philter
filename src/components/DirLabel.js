@@ -37,11 +37,8 @@ export default class DirLabel extends Component {
       <div className='DirLabel'>
 
         <div 
-          style={{
-            transform: 'rotate(' + (this.state.pathDisplay ? '270' : '90') + 'deg)',
-          }}
           onClick={ this._togglePathDisplay }
-          className='iconWrapper'
+          className={`iconWrapper ${this.state.pathDisplay ? 'rotate270' : 'rotate90'}`}
         >
           <SVGIcon
             paths={arrow}

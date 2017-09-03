@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
 import DriveDirSelect from '../components/DriveDirSelect'
 import SVGIcon from './SVGIcon'
-import { googleDriveIcon } from '../styles/svgPaths'
+import { googleDriveIcon, caratIcon } from '../styles/svgPaths'
 import '../styles/components/DirSelect.css'
+import '../styles/components/DirLabel.css'
 
 export default class DriveDirManager extends Component {
 
   state = {
-    isCreate: false,
+    createDir: false,
     postInTransit: false,
     driveDirName: '',
   }
@@ -27,7 +28,7 @@ export default class DriveDirManager extends Component {
 
   _toggleIsCreate = () => {
     this.setState( prevState  => {
-      return { isCreate: !prevState.isCreate }
+      return { createDir: !prevState.createDir }
     })
   }
 
@@ -42,7 +43,7 @@ export default class DriveDirManager extends Component {
     this.setState( prevState => {
       return {
         driveDirName: '',
-        isCreate: false,
+        createDir: false,
         postInTransit: true,
       }
     })
@@ -59,16 +60,26 @@ export default class DriveDirManager extends Component {
           />
         </div>
 
+        <div 
+          onClick={this._toggleIsCreate}
+          className={`iconWrapper ${this.state.createDir ? 'rotate180' : ''}`}
+        >
+          <SVGIcon
+            paths={caratIcon}
+            fill='black'
+            width='20'
+            height='20'
+          />
+        </div>
+        <span onClick={this._toggleIsCreate}>+ Create directory</span>
+        
         {
-          this.state.isCreate ?
-            <CreateDriveDir
-              driveDirName={this.state.driveDirName}
-              setDirName={this._setDirName}
-              createDriveDir={this._createDriveDir}
-              toggleIsCreate={this._toggleIsCreate}
-            />
-            :
-            <div onClick={this._toggleIsCreate}>+ Create directory</div>
+          this.state.createDir && <CreateDriveDir
+            driveDirName={this.state.driveDirName}
+            setDirName={this._setDirName}
+            createDriveDir={this._createDriveDir}
+            toggleIsCreate={this._toggleIsCreate}
+          />
         }
 
         {

@@ -7,3 +7,11 @@
   margin-right: 10px;
   cursor: pointer;
 }
+
+.rotate90 {
+  transform: rotate(90deg);
+}
+
+.rotate270 {
+  transform: rotate(270deg);
+}
