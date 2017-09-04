@@ -2,8 +2,12 @@ import React from 'react'
 const electron = window.require('electron')
 const ipcRenderer = electron.ipcRenderer
 
-export const selectDir = type => {
-  ipcRenderer.send('disk-dir-selection', type)
+export const selectSourceDir = () => {
+  ipcRenderer.send('source-dir-selection')
+}
+
+export const selectTargetDir = () => {
+  ipcRenderer.send('target-dir-selection')
 }
 
 export const sync = (filesToSync, defaultDirId) => {

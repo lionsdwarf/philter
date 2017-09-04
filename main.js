@@ -9,7 +9,10 @@ const path = require('path')
 const url = require('url')
 
 let mainWindow, devEnv
-let dirs = {}
+let dirs = {
+  source: '',
+  targets: [],
+}
 
 const driveAuth = require('./node/driveAuth')
 const {
@@ -78,23 +81,32 @@ app.on('activate', function () {
   }
 })
 
-const selectDir = (event, dirType) => {
-  // mainWindow.webContents.send('app-dir', __dirname)
+const selectSourceDir = event => {
   //open chrome directory-select dialog
   dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   }, 
   selectedDirs => {
     if (selectedDirs) {
-      dirs[dirType] = selectedDirs[0]
-      mainWindow.webContents.send(dirType + '-dir-selection', selectedDirs[0])
-      if (dirType === 'source') {
-        fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
-      }
+      dirs['source'] = selectedDirs[0]
+      mainWindow.webContents.send('source-dir-selection', selectedDirs[0])
+      fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
     }
   })
 }
 
+const selectTargetDir = event => {
+  //open chrome directory-select dialog
+  dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory']
+  }, 
+  selectedDirs => {
+    if (selectedDirs) {
+      dirs.targets = dirs.targets.concat(selectedDirs)
+      mainWindow.webContents.send('target-dir-selection', dirs.targets)
+    }
+  })
+}
 const sync = (event, syncData) => {
   syncFiles(syncData, dirs)
 }
@@ -112,10 +124,12 @@ const fetchThumbsSourceDir = () => {
 
 ipcMain.on('sync', sync)
 
-ipcMain.on('disk-dir-selection', selectDir)
-
 ipcMain.on('auth-drive', authDrive)
 
 ipcMain.on('create-drive-dir', createDriveDir)
+
+ipcMain.on('source-dir-selection', selectSourceDir)
+
+ipcMain.on('target-dir-selection', selectTargetDir)
 
 ipcMain.on('fetch-thumbs-source-dir', fetchThumbsSourceDir)

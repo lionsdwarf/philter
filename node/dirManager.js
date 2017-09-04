@@ -5,9 +5,6 @@ const {
   generateThumb,
   emitThumbName,
 } = require('./thumbnailsManager')
-// const {
-//   THUMBS_DIR,
-// } = require('./constants/thumbnails')
 
 const JPG_EXTENSION = '.jpg'
 

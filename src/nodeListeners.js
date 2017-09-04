@@ -12,7 +12,7 @@ export const initListeners = dispatch => {
 
   ipcRenderer.on('target-dir-selection', (event, payload) => {
     dispatch({
-      type: 'ADD_TARGET_DIR',
+      type: 'ADD_TARGET_DIRS',
       payload: payload
     })
   })

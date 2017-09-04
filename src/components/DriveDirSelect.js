@@ -5,14 +5,9 @@ const DriveDirSelect = ({targetDirs, onChange}) => {
     <div>
       {
         targetDirs.length > 0 &&
-        <select onChange={onChange}>
-          {
-            targetDirs.map( (dir, i) => {
-              return <option key={i} value={dir.id}>{dir.name}</option>
-            })
-          }
-        </select>
-        
+        targetDirs.map( (dir, i) => {
+          return <div key={i}>{dir.name}</div>
+        })
       }
     </div>
   )

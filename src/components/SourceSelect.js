@@ -3,11 +3,11 @@ import DirLabel from './DirLabel'
 import SVGIcon from './SVGIcon'
 import '../styles/components/DirSelect.css'
 import { imgFileIcon } from '../styles/svgPaths'
-import { selectDir } from '../nodeActions'
+import { selectSourceDir } from '../nodeActions'
 
 export default () => <div className='dirSelect'>
   
-  <div onClick={ () => selectDir('source') } className='iconWrapper'>
+  <div onClick={selectSourceDir} className='iconWrapper'>
     <SVGIcon 
       paths={imgFileIcon}
       fill='black'
