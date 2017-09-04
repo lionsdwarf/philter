@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ImgNav from './containers/ImgNav'
-import DiskSource from './containers/DiskSource'
+import Source from './containers/Source'
 import Targets from './components/Targets'
 import SyncControl from './containers/SyncControl'
 import MainImg from './containers/MainImg'
@@ -11,7 +11,7 @@ import {
   init
 } from './nodeActions'
 
-class Philter extends Component {
+export default class Philter extends Component {
 
   componentWillMount() {
     initListeners(this.props.dispatch)
@@ -22,7 +22,7 @@ class Philter extends Component {
     return (
       <div style={_s}>
 
-        <DiskSource/>
+        <Source/>
 
         <Targets/>
 
@@ -36,8 +36,6 @@ class Philter extends Component {
     );
   }
 }
-
-export default Philter
 
 const _s = {
   'font-family': 'arial',

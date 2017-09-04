@@ -1,17 +1,12 @@
 import React from 'react'
-import DiskDirSelect from './DiskDirSelect'
-import {
-  selectDir
-} from '../nodeActions'
-import {
-  downloadFolder,
-} from '../styles/svgPaths'
+import DiskTargetsSelect from './DiskTargetsSelect'
+import DiskTargetsList from './DiskTargetsList'
 
-export default ({targets}) => <DiskDirSelect 
-  svgPaths={downloadFolder}
-  dirType='target'
-  targets={targets}
-  svgFill={'hotpink'}
-  buttonLabel={'Local Destination'}
-  onClick={ () => selectDir('target') }
-/>
+export default ({targets}) => <div>
+
+  <DiskTargetsSelect/>
+
+  <DiskTargetsList targets={targets}/>
+
+</div>
+

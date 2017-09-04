@@ -7,10 +7,6 @@
   cursor: pointer;
 }
 
-.buttonLabel {
-  cursor: pointer;
-}
-
 .rotate180 {
   transform: rotate(180deg);
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import DiskSource from '../components/DiskSource'
+import Source from '../components/Source'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
@@ -8,5 +8,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(DiskSource)
+export default connect(mapStateToProps)(Source)
 
