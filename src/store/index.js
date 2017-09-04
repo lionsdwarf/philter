@@ -35,9 +35,6 @@ const driveDirs = (state = {
     case 'SET_DRIVE_DIRS': 
       return {...state, targets: action.payload, defaultDirId: action.payload[0].id}
       break
-    case 'SET_DRIVE_DEFAULT_DIR':
-      return {...state, defaultDirId: action.payload}
-      break
     case 'SET_DRIVE_TARGET_DIR_CONTENTS':
       return {...state, targetContents: new Set(action.payload)}
       break
@@ -76,7 +73,6 @@ const sourceContents = (state = {
       return {...state, jpgs: action.payload}
       break
     case 'SET_MAIN_IMG':
-    console.log('mip', action.payload)
       return {...state, mainImgPath: action.payload}
       break
     default:

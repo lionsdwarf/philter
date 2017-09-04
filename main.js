@@ -107,6 +107,7 @@ const selectTargetDir = event => {
     }
   })
 }
+
 const sync = (event, syncData) => {
   syncFiles(syncData, dirs)
 }

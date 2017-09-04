@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
-import DriveDirSelect from '../components/DriveDirSelect'
+import DriveDirsList from '../components/DriveDirsList'
 import SVGIcon from './SVGIcon'
 import { googleDriveIcon, caratIcon } from '../styles/svgPaths'
 import '../styles/components/DirSelect.css'
@@ -21,7 +21,7 @@ export default class DriveDirManager extends Component {
   _updateReqInTransit = nextProps => {
     if(this.state.postInTransit && nextProps.targetDirs.length > this.props.targetDirs.length) {
       this.setState( prevState => {
-        postInTransit: false
+        return { postInTransit: false }
       })
     }
   }
@@ -60,18 +60,25 @@ export default class DriveDirManager extends Component {
           />
         </div>
 
-        <div 
-          onClick={this._toggleIsCreate}
-          className={`iconWrapper ${this.state.createDir ? 'rotate180' : ''}`}
-        >
-          <SVGIcon
-            paths={caratIcon}
-            fill='black'
-            width='20'
-            height='20'
-          />
-        </div>
-        <span onClick={this._toggleIsCreate}>+ Create directory</span>
+        {
+          this.state.postInTransit ?
+            <div>Spinner</div>
+            :
+            <div>
+              <div 
+                onClick={this._toggleIsCreate}
+                className={`iconWrapper ${this.state.createDir ? 'rotate180' : ''}`}
+              >
+                <SVGIcon
+                  paths={caratIcon}
+                  fill='black'
+                  width='20'
+                  height='20'
+                />
+              </div>
+              <span onClick={this._toggleIsCreate}>+ Create directory</span>
+            </div>
+        }
         
         {
           this.state.createDir && <CreateDriveDir
@@ -82,15 +89,9 @@ export default class DriveDirManager extends Component {
           />
         }
 
-        {
-          this.state.postInTransit ?
-            <div>Spinner</div>
-            :
-            <DriveDirSelect
-              onChange={this.props.driveDefaultDirSelect}
-              targetDirs={this.props.targetDirs}
-            />
-        }
+        <DriveDirsList
+          targetDirs={this.props.targetDirs}
+        />
 
       </div>
     )

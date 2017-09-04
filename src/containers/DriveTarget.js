@@ -12,14 +12,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    driveDefaultDirSelect: dirId => dispatch({
-      type: 'SET_DRIVE_DEFAULT_DIR',
-      payload: dirId
-    })
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DriveDirManager)
+export default connect(mapStateToProps)(DriveDirManager)
 
