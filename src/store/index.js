@@ -87,17 +87,17 @@ const filesToSync = (state = {
 }, action) => {
   switch(action.type) {
     case 'STAGE_DRIVE_DIR_TO_SYNC':
-      // return {...state, drive: toggleStaged(state.drive, action.payload, action.toStage)}
+      return {...state, drive: stageDirToSync(state.drive, action.payload)}
       break
     case 'STAGE_DISK_DIR_TO_SYNC':
-      return {...state, disk: stageDirToSync(state.disk, action.payload, 'disk')}
+      return {...state, disk: stageDirToSync(state.disk, action.payload)}
       break
     default:
       return state  
   }
 }
 
-const philter = combineReducers({
+export default combineReducers({
   diskDirs,
   driveDirs,
   sourceContents,
@@ -105,4 +105,3 @@ const philter = combineReducers({
   filesToSync,
 })
 
-export default philter

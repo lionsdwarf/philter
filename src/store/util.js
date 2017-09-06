@@ -6,22 +6,14 @@ export const addFileName = (fileNames, newFile) => {
   return updatedFileNames
 }
 
-export const stageDirToSync = (prevStagedFiles, toStage, dirType) => {
+export const stageDirToSync = (prevStagedFiles, toStage) => {
   const stagedFiles = objectAssign(prevStagedFiles, {})
-  stagedFiles[toStage.img] ? 
-    stagedFiles[toStage.img][dirType].push(toStage.dir)
-    :
-    stagedFiles[toStage.img] = {
-      disk: [],
-      drive: []
-    }
-  stagedFiles[toStage.img][dirType].push(toStage.dir)
-  console.log(prevStagedFiles)
-  console.log(stagedFiles)
+  if (!stagedFiles[toStage.img]) {
+    stagedFiles[toStage.img] = []
+  }
+  stagedFiles[toStage.img].push(toStage.dir)
   return stagedFiles
 }
-
-
 
 // export const  resolveThumbsSourceDir = payload => {
 //   return (payload.devEnv ? '../../' : '../') + payload.dir
