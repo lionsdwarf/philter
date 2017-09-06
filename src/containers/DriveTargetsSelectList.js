@@ -3,7 +3,7 @@ import DriveTargetsSelectList from '../components/DriveTargetsSelectList'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('s', state.filesToSync)
+  console.log('s', state)
   return {
     targets: state.driveDirs.targets,
     filesToSync: state.filesToSync.drive,

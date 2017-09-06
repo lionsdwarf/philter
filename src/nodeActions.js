@@ -29,7 +29,13 @@ const fetchThumbsSourceDir = () => {
   ipcRenderer.send('fetch-thumbs-source-dir')
 }
 
+const clearDiskDirs = () => {
+  console.log('1')
+  ipcRenderer.send('clear-disk-dirs')
+}
+
 export const init = () => {
+  clearDiskDirs()
   fetchThumbsSourceDir()
   authDrive()
 }

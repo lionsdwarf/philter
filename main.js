@@ -88,7 +88,7 @@ const selectSourceDir = event => {
   }, 
   selectedDirs => {
     if (selectedDirs) {
-      dirs['source'] = selectedDirs[0]
+      dirs.source = selectedDirs[0]
       mainWindow.webContents.send('source-dir-selection', selectedDirs[0])
       fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
     }
@@ -102,7 +102,10 @@ const selectTargetDir = event => {
   }, 
   selectedDirs => {
     if (selectedDirs) {
-      dirs.targets = dirs.targets.concat(selectedDirs)
+      console.log('d.t',dirs.targets)
+      dirs.targets.push(selectedDirs[0])
+      console.log('d.t2',dirs.targets)
+
       mainWindow.webContents.send('target-dir-selection', dirs.targets)
     }
   })
@@ -123,6 +126,11 @@ const fetchThumbsSourceDir = () => {
   })
 }
 
+const clearDiskDirs = () => {
+  dirs.targets = []
+  dirs.source = ''
+}
+
 ipcMain.on('sync', sync)
 
 ipcMain.on('auth-drive', authDrive)
@@ -134,3 +142,5 @@ ipcMain.on('source-dir-selection', selectSourceDir)
 ipcMain.on('target-dir-selection', selectTargetDir)
 
 ipcMain.on('fetch-thumbs-source-dir', fetchThumbsSourceDir)
+
+ipcMain.on('clear-disk-dirs', clearDiskDirs)
