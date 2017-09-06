@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
 import {
   addFileName,
-  toggleStaged,
   resolveThumbsSourceDir,
+  stageDirToSync,
+  // toggleStaged,
   // addTargetDir,
 } from './util'
 
@@ -66,14 +67,14 @@ const thumbs = (state = {
 
 const sourceContents = (state = {
   jpgs: [],
-  mainImgPath: '',
+  mainImg: '',
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_JPGS':
       return {...state, jpgs: action.payload}
       break
     case 'SET_MAIN_IMG':
-      return {...state, mainImgPath: action.payload}
+      return {...state, mainImg: action.payload}
       break
     default:
       return state
@@ -81,15 +82,15 @@ const sourceContents = (state = {
 }
 
 const filesToSync = (state = {
-  drive: new Set(),
-  disk: new Set(),
+  drive: {},
+  disk: {},
 }, action) => {
   switch(action.type) {
-    case 'TOGGLE_DRIVE_SYNC':
-      return {...state, drive: toggleStaged(state.drive, action.payload, action.toStage)}
+    case 'STAGE_DRIVE_DIR_TO_SYNC':
+      // return {...state, drive: toggleStaged(state.drive, action.payload, action.toStage)}
       break
-    case 'TOGGLE_DISK_SYNC':
-      return {...state, disk: toggleStaged(state.disk, action.payload, action.toStage)}
+    case 'STAGE_DISK_DIR_TO_SYNC':
+      return {...state, disk: stageDirToSync(state.disk, action.payload, 'disk')}
       break
     default:
       return state  

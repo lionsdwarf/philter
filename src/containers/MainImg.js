@@ -5,11 +5,11 @@ import { setMainImg } from '../nodeActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    mainImgPath: state.sourceContents.mainImgPath,
+    mainImg: state.sourceContents.mainImg,
+    sourceDir: state.diskDirs.source,
     devEnv: state.thumbs.devEnv,
   }
 }
 
-const MainImg = connect(mapStateToProps)(MainImgDisplay)
+export default connect(mapStateToProps)(MainImgDisplay)
 
-export default MainImg

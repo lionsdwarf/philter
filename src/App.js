@@ -4,12 +4,9 @@ import Source from './containers/Source'
 import Targets from './components/Targets'
 import SyncControl from './containers/SyncControl'
 import MainImg from './containers/MainImg'
-import {
-  initListeners,
-} from './nodeListeners'
-import {
-  init
-} from './nodeActions'
+import DiskTargetsSelectList from './containers/DiskTargetsSelectList'
+import { initListeners } from './nodeListeners'
+import { init } from './nodeActions'
 
 export default class Philter extends Component {
 
@@ -29,6 +26,8 @@ export default class Philter extends Component {
         <SyncControl/>
 
         <ImgNav/>
+
+        <DiskTargetsSelectList/>
 
         <MainImg/>
         

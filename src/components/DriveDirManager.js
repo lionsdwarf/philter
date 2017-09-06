@@ -19,7 +19,7 @@ export default class DriveDirManager extends Component {
   }
 
   _updateReqInTransit = nextProps => {
-    if(this.state.postInTransit && nextProps.targetDirs.length > this.props.targetDirs.length) {
+    if (this.state.postInTransit && nextProps.targetDirs.length > this.props.targetDirs.length) {
       this.setState( prevState => {
         return { postInTransit: false }
       })
@@ -33,8 +33,8 @@ export default class DriveDirManager extends Component {
   }
 
   _setDirName = e => {
-    this.setState({
-      driveDirName: e.target.value
+    this.setState( prevState => {
+      return { driveDirName: e.target.value }
     }) 
   }
 

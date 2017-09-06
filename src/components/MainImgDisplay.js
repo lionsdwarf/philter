@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default ({mainImgPath, devEnv}) => {
+export default ({sourceDir, mainImg, devEnv}) => {
 
   let src
-  if (mainImgPath) {
+  if (mainImg) {
     if (devEnv) {
       src = require('../devPublic/PB060521.JPG')
     } else {
-      src = mainImgPath
+      src = `${sourceDir}/${mainImg}`
     }
   }
 

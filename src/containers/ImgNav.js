@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch, state) => {
     }),
     setMainImg: (sourceDir, fileName) => dispatch({
       type: 'SET_MAIN_IMG',
-      payload: `${sourceDir}/${fileName}`
+      payload: fileName
     })
   }
 }
