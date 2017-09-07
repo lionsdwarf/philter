@@ -9,9 +9,9 @@ export const addFileName = (fileNames, newFile) => {
 export const stageDirToSync = (prevStagedFiles, toStage) => {
   const stagedFiles = objectAssign(prevStagedFiles, {})
   if (!stagedFiles[toStage.img]) {
-    stagedFiles[toStage.img] = []
+    stagedFiles[toStage.img] = new Set()
   }
-  stagedFiles[toStage.img].push(toStage.dir)
+  stagedFiles[toStage.img].add(toStage.dir)
   return stagedFiles
 }
 

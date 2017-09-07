@@ -102,10 +102,7 @@ const selectTargetDir = event => {
   }, 
   selectedDirs => {
     if (selectedDirs) {
-      console.log('d.t',dirs.targets)
       dirs.targets.push(selectedDirs[0])
-      console.log('d.t2',dirs.targets)
-
       mainWindow.webContents.send('target-dir-selection', dirs.targets)
     }
   })

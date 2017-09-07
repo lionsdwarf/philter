@@ -30,7 +30,6 @@ const fetchThumbsSourceDir = () => {
 }
 
 const clearDiskDirs = () => {
-  console.log('1')
   ipcRenderer.send('clear-disk-dirs')
 }
 
