@@ -1,17 +1,11 @@
 import React, {Component} from 'react'
 
-const filterStagedTargets = (mainImg, targets, filesToSync) => {
-  return targets
-}
-
 export default ({
   filesToSync, 
-  targets, 
+  unstagedTargets, 
   mainImg, 
   stageDirToSync,
 }) => {
-  
-  const unstagedTargets = filterStagedTargets(mainImg, targets, filesToSync)
 
   return (
     <div>

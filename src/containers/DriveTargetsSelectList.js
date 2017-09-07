@@ -2,9 +2,19 @@ import React from 'react'
 import DriveTargetsSelectList from '../components/DriveTargetsSelectList'
 import { connect } from 'react-redux'
 
+const getUnstagedTargets = (targets, stagedFiles, mainImg) => {
+  const stagedTargets = stagedFiles[mainImg]
+  return stagedTargets ?
+    targets.filter(
+      target => !stagedTargets.has(target.id)
+    )
+    :
+    targets
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    targets: state.driveDirs.targets,
+    unstagedTargets: getUnstagedTargets(state.driveDirs.targets, state.filesToSync.drive, state.sourceContents.mainImg),
     filesToSync: state.filesToSync.drive,
     mainImg: state.sourceContents.mainImg,
   }
