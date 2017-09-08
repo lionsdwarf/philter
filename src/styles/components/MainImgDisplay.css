@@ -1,0 +1,16 @@
+.mainImg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: transform .5s ease-out;
+  transform: scale(1);
+  background-image: url("/static/media/PB060521.1b207ce2.JPG")
+}
+
+.mainImg:hover {
+  transform: scale(4);
+}
