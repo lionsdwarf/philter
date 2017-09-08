@@ -1,20 +1,20 @@
 import React from 'react'
 import ImgPreview from './ImgPreview'
-import ImgSyncControl from './ImgSyncControl'
+import StagedDiskTargets from './StagedDiskTargets'
+import StagedDriveTargets from './StagedDriveTargets'
 import '../styles/components/ImgNavItems.css'
 
 export default ({
   sourceJpgs, 
   thumbFileNames, 
-  diskTargetContents, 
-  driveTargetContents, 
-  toggleSync, 
+  // diskTargetContents, 
+  // driveTargetContents, 
+  filesToSync, 
   setMainImg, 
   sourceDir, 
-  diskTargetDirName,
   thumbsSourceDir,
   devEnv,
-  driveTargetDirName,
+  // driveTargetDirName,
 }) => <span className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
@@ -31,20 +31,16 @@ export default ({
         />
 
         {
-          diskTargetDirName && <ImgSyncControl 
-            toggleSync={toggleSync}
-            target={diskTargetDirName}
-            fileName={fileName}
-            existsInTarget={ diskTargetContents.has(fileName) }
+          filesToSync.disk[fileName] && <StagedDiskTargets 
+            stagedTargets={filesToSync.disk[fileName]}
+            // existsInTarget={ diskTargetContents.has(fileName) }
           />
         }
 
         {
-          driveTargetDirName && <ImgSyncControl 
-            toggleSync={toggleSync}
-            target={driveTargetDirName}
-            fileName={fileName}
-            existsInTarget={ driveTargetContents.has(fileName) }
+          filesToSync.drive[fileName] && <StagedDriveTargets 
+            stagedTargets={filesToSync.drive}
+            // existsInTarget={ driveTargetContents.has(fileName) }
           />
         }
 
