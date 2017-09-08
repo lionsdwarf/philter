@@ -15,18 +15,12 @@ export const stageDirToSync = (prevStagedFiles, toStage) => {
   return stagedFiles
 }
 
-// export const  resolveThumbsSourceDir = payload => {
-//   return (payload.devEnv ? '../../' : '../') + payload.dir
-// }
-
-// export const toggleStaged = (stagedFiles, fileName, toStage) => {
-//   let updatedStage = new Set(stagedFiles)
-//   toStage ? updatedStage.add(fileName) : updatedStage.delete(fileName)
-//   return updatedStage
-// }
-
-// export const addTargetDir = (targets, newTarget) => {
-//   const newTargets = targets.slice()
-//   newTargets.push(newTarget)
-//   return newTargets
-// }
+export const unstageDir = (prevStagedFiles, toUnstage) => {
+  const stagedFiles = objectAssign(prevStagedFiles, {})
+  stagedFiles[toUnstage.fileName].delete(toUnstage.dir)
+  //rm file from staging if it has no targets
+  if (stagedFiles[toUnstage.fileName].size === 0) {
+    delete stagedFiles[toUnstage.fileName]
+  }
+  return stagedFiles
+}

@@ -1,16 +1,7 @@
 import React from 'react'
 import DriveTargetsSelectList from '../components/DriveTargetsSelectList'
 import { connect } from 'react-redux'
-
-const getUnstagedTargets = (targets, stagedFiles, mainImg) => {
-  const stagedTargets = stagedFiles[mainImg]
-  return stagedTargets ?
-    targets.filter(
-      target => !stagedTargets.has(target.id)
-    )
-    :
-    targets
-}
+import { getUnstagedTargets } from './util'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -23,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, state) => {
   return {
     stageDirToSync: (img, dir) => dispatch({
-      type: 'STAGE_DRIVE_DIR_TO_SYNC',
+      type: 'STAGE_DRIVE_DIR_FOR_SYNC',
       payload: {
         dir: dir,
         img: img,

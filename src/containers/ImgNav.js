@@ -5,14 +5,6 @@ import {
   setMainImg
 } from '../nodeActions'
 
-// const getDriveDirName = (targetDirs, dirId) => {
-//   for (let dir of targetDirs) {
-//     if (dir.id === dirId) {
-//       return dir.name
-//     }
-//   }
-// }
-
 const mapStateToProps = (state, ownProps) => {
   return {
     sourceJpgs: state.sourceContents.jpgs,
@@ -23,16 +15,18 @@ const mapStateToProps = (state, ownProps) => {
     sourceDir: state.diskDirs.source,
     thumbsSourceDir: state.thumbs.dir,
     devEnv: state.thumbs.devEnv,
-    // driveTargetDirName: getDriveDirName(state.driveDirs.targets, state.driveDirs.defaultDirId),
   }
 }
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    // unstageDir: () => dispatch({
-    //   type: '',
-    //   payload: fileName
-    // }),
+    unstageDir: (dirType, dir, fileName) => dispatch({
+      type: `UNSTAGE_${dirType.toUpperCase()}_DIR`,
+      payload: {
+        fileName: fileName,
+        dir: dir,
+      }
+    }),
     setMainImg: (sourceDir, fileName) => dispatch({
       type: 'SET_MAIN_IMG',
       payload: fileName

@@ -1,16 +1,7 @@
 import React from 'react'
 import DiskTargetsSelectList from '../components/DiskTargetsSelectList'
 import { connect } from 'react-redux'
-
-const getUnstagedTargets = (targets, stagedFiles, mainImg) => {
-  const stagedTargets = stagedFiles[mainImg]
-  return stagedTargets ?
-    targets.filter(
-      target => !stagedTargets.has(target)
-    )
-    :
-    targets
-}
+import { getUnstagedTargets } from './util'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -24,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, state) => {
   return {
     stageDirToSync: (img, dir) => dispatch({
-      type: 'STAGE_DISK_DIR_TO_SYNC',
+      type: 'STAGE_DISK_DIR_FOR_SYNC',
       payload: {
         dir: dir,
         img: img,

@@ -3,8 +3,7 @@ import {
   addFileName,
   resolveThumbsSourceDir,
   stageDirToSync,
-  // toggleStaged,
-  // addTargetDir,
+  unstageDir,
 } from './util'
 
 const diskDirs = (state = {
@@ -86,11 +85,17 @@ const filesToSync = (state = {
   disk: {},
 }, action) => {
   switch(action.type) {
-    case 'STAGE_DRIVE_DIR_TO_SYNC':
-      return {...state, disk: stageDirToSync(state.drive, action.payload, 'drive')}
-      break
-    case 'STAGE_DISK_DIR_TO_SYNC':
+    case 'STAGE_DISK_DIR_FOR_SYNC':
       return {...state, disk: stageDirToSync(state.disk, action.payload, 'disk')}
+      break
+    case 'STAGE_DRIVE_DIR_FOR_SYNC':
+      return {...state, drive: stageDirToSync(state.drive, action.payload, 'drive')}
+      break
+    case 'UNSTAGE_DISK_DIR':
+      return {...state, disk: unstageDir(state.disk, action.payload)}
+      break
+    case 'UNSTAGE_DRIVE_DIR':
+      return {...state, drive: unstageDir(state.drive, action.payload)}
       break
     default:
       return state  
