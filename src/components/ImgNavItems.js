@@ -39,7 +39,7 @@ export default ({
 
         {
           filesToSync.drive[fileName] && <StagedDriveTargets 
-            stagedTargets={filesToSync.drive}
+            stagedTargets={filesToSync.drive[fileName]}
             // existsInTarget={ driveTargetContents.has(fileName) }
           />
         }
