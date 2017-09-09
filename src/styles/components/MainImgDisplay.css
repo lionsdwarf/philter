@@ -8,7 +8,6 @@
   background-size: cover;
   transition: transform .5s ease-out;
   transform: scale(1);
-  background-image: url("/static/media/PB060521.1b207ce2.JPG")
 }
 
 .mainImg:hover {

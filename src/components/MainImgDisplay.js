@@ -59,7 +59,17 @@ export default class MainImgDisplay extends Component {
   // }
 
   _setHoverImgStyle = e => {
-    const originTransformation = (e.pageX - this.rect.left / this.rect.width) * 100 + '% ' + ((e.pageY - this.rect.top) / this.rect.height) * 100 +'%'
+    console.log(e.pageX)
+    console.log(this.rect.left)
+    console.log(this.rect.width)
+    console.log((e.pageX - this.rect.left / this.rect.width) * 100 + '% ')
+
+    console.log(e.pageY)
+    console.log(this.rect.top)
+    console.log(this.rect.height)
+    console.log(((e.pageY - this.rect.top) / this.rect.height) * 100 +'%')
+
+    const originTransformation = (e.pageX - this.rect.left) / this.rect.width * 100 + '% ' + ((e.pageY - this.rect.top) / this.rect.height) * 100 +'%'
                                   // (e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
     const style = {
       'background-image': `url('${this.src}')`,
