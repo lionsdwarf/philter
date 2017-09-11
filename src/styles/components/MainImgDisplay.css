@@ -1,3 +1,11 @@
+.MainImgDisplay {
+  height: 700px;
+  width: 700px;
+  position: relative;
+  float: left;
+  overflow: hidden;
+}
+
 .mainImg {
   top: 0;
   left: 0;

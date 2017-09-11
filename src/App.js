@@ -24,8 +24,6 @@ export default class Philter extends Component {
 
         <Targets/>
 
-        <SyncControl/>
-
         <ImgNav/>
 
         <DiskTargetsSelectList/>
@@ -33,6 +31,8 @@ export default class Philter extends Component {
         <DriveTargetsSelectList/>
 
         <MainImg/>
+
+        <SyncControl/>
         
       </div>
     );

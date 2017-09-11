@@ -3,30 +3,14 @@ import ReactDOM from 'react-dom'
 import '../styles/components/MainImgDisplay.css'
 import objectAssign from 'object-assign'
 
-// const standardStyle = {
-//   top: 0,
-//   left: 0,
-//   width: '100%',
-//   height: '100%',
-//   'background-repeat': 'no-repeat',
-//   'background-position': 'center',
-//   'background-size': 'cover',
-//   transition: 'transform .5s ease-out',
-// }
-// export default ({sourceDir, mainImg, devEnv}) => {
+const DIFF = 80
+
 export default class MainImgDisplay extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
-  state = {
-    // style: standardStyle
-  }
+  state = {}
 
   componentDidMount() {
     this.rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
-    console.log('r',this.rect)
   }
 
   componentWillReceiveProps(props) {
@@ -42,6 +26,13 @@ export default class MainImgDisplay extends Component {
     this._setImg()
   }
 
+  _setImg = () => {
+    const style = {
+      'background-image': `url('${this.src}')`,
+    }
+    this._setImgStyle(style)
+  }
+
   _setImgStyle = style => {
     this.setState(
       () => {
@@ -50,73 +41,27 @@ export default class MainImgDisplay extends Component {
     )
   }
 
-  // _onMouseEnter = () => {
-  //   const style = {
-  //     ...newStyle,
-  //     transform: 'scale(4)',
-  //   }
-  //   this._setImgStyle(style)
-  // }
-
-  _setHoverImgStyle = e => {
-    console.log(e.pageX)
-    console.log(this.rect.left)
-    console.log(this.rect.width)
-    console.log((e.pageX - this.rect.left / this.rect.width) * 100 + '% ')
-
-    console.log(e.pageY)
-    console.log(this.rect.top)
-    console.log(this.rect.height)
-    console.log(((e.pageY - this.rect.top) / this.rect.height) * 100 +'%')
-
-    const originTransformation = (e.pageX - this.rect.left) / this.rect.width * 100 + '% ' + ((e.pageY - this.rect.top) / this.rect.height) * 100 +'%'
-                                  // (e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
-    const style = {
-      'background-image': `url('${this.src}')`,
-      'transform-origin': originTransformation,
-    }
-  
-    this._setImgStyle(style)
+  _calcOriginTransformation = e => {
+    return ((e.pageX - this.rect.left) / this.rect.width) * 100 + '% ' + ((e.pageY - this.rect.top - DIFF) / this.rect.height) * 100 +'%'
   }
 
-  _setImg = () => {
+  _zoomPan = e => {
     const style = {
       'background-image': `url('${this.src}')`,
+      'transform-origin': this._calcOriginTransformation(e),
     }
     this._setImgStyle(style)
-
   }
-
-  // _resetImgStyle = () => {
-  //   console.log('_resetImgStyle')
-  //   const style = {
-  //     ...standardStyle,
-  //     transform: 'scale(1)',
-  //     'background-image': `url('${this.src}')`,
-  //   }
-  //   this._setImgStyle(style)
-    
-  // }
 
   render() {
-    console.log(this.state)
     return (
-      <div style={{
-        height: '700px',
-        width: '700px',
-        position: 'relative',
-        float: 'left',
-        overflow: 'hidden',
-      }}>
-
-      <div 
-        // onMouseEnter={ () => this.setState({hovering: true}) }
-        // onMouseOut={ () => this.setState({hovering: false}) }
-        onMouseMove={ this._setHoverImgStyle }
-        className={'mainImg'}
-        style={this.state.style}>
-      </div>
-        
+      <div className='MainImgDisplay'>
+        <div 
+          onMouseMove={ this._zoomPan }
+          className={'mainImg'}
+          style={this.state.style}>
+        </div>
+          
       </div>
     )
   }
