@@ -28,12 +28,11 @@ const diskDirs = (state = {
 
 const driveDirs = (state = {
   targets: [],
-  defaultDirId: '',
   targetContents: new Set(),
 }, action) => {
   switch(action.type) {
     case 'SET_DRIVE_DIRS': 
-      return {...state, targets: action.payload, defaultDirId: action.payload[0].id}
+      return {...state, targets: action.payload}
       break
     case 'SET_DRIVE_TARGET_DIR_CONTENTS':
       return {...state, targetContents: new Set(action.payload)}

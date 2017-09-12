@@ -1,4 +1,6 @@
 import React from 'react'
+import { formatSyncData } from './util'
+
 const electron = window.require('electron')
 const ipcRenderer = electron.ipcRenderer
 
@@ -12,7 +14,7 @@ export const selectTargetDir = () => {
 
 export const sync = (filesToSync, defaultDirId) => {
   ipcRenderer.send('sync', {
-    filesToSync: filesToSync,
+    filesToSync: formatSyncData(filesToSync),
     defaultDirId: defaultDirId,
   })
 }
