@@ -33,12 +33,12 @@ const fetchDriveDirs = () => {
   })
 }
 
-const uploadFileToDrive = (sourceDirPath, fileName, parentFolderId) => {
-  const sourceFile = path.join(sourceDirPath, fileName)
+const uploadFileToDrive = (sourceDir, targetDir, fileName) => {
+  const sourceFile = path.join(sourceDir, fileName)
   drive.files.create({
     resource: {
       name: fileName,
-      parents: parentFolderId ? [ parentFolderId ] : []
+      parents: [ targetDir.id ]
     },
     media: {
       mimeType: 'image/jpeg',

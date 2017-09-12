@@ -1,20 +1,28 @@
 const {
-  syncFilesToDisk
+  copyFileToDisk
 } = require('./diskSync')
 const {
-  uploadFileToDrive,
   createDriveDir,
+  uploadFileToDrive,
 } = require('./driveSync')
 
-const syncFilesToDrive = (driveFiles, sourceDir, defaultDirId) => {
-  for(let fileName of driveFiles) {
-    uploadFileToDrive(sourceDir, fileName, defaultDirId)
+const syncUtil = {
+  disk: copyFileToDisk,
+  drive: uploadFileToDrive,
+}
+
+const syncByTargetType = (filesObj, sourceDir, targetType) => {
+  for(let fileName in filesObj) {
+    for (let targetDir of filesObj[fileName]) {
+      syncUtil[targetType](sourceDir, targetDir, fileName)
+    }
   }
 }
 
 const syncFiles = (syncData, dirs) => {
-  dirs.source && dirs.targets.length > 0 && syncFilesToDisk(syncData.filesToSync.disk, dirs.source)
-  // dirs.source && syncFilesToDrive(syncData.filesToSync.drive, dirs.source, syncData.defaultDirId)
+  for (let targetType in syncData.filesToSync) {
+    syncByTargetType(syncData.filesToSync[targetType], dirs.source, targetType)
+  }
 }
 
 module.exports = {
