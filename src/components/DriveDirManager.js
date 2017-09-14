@@ -34,7 +34,7 @@ export default class DriveDirManager extends Component {
 
   _setDirName = e => {
     e.persist()
-    e.target.value && this.setState( prevState => {
+    this.setState( prevState => {
       return { driveDirName: e.target.value }
     }) 
   }
