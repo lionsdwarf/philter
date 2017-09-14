@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import '../styles/components/MainImgDisplay.css'
-import objectAssign from 'object-assign'
 
 const DIFF = 80
 
@@ -14,7 +13,7 @@ export default class MainImgDisplay extends Component {
   }
 
   componentWillReceiveProps(props) {
-    !this.props.mainImg && props.mainImg && this._setMainImg(props.mainImg)
+    this.props.mainImg !== props.mainImg && this._setMainImg(props.mainImg)
   }
 
   _setMainImg = mainImg => {
@@ -28,7 +27,7 @@ export default class MainImgDisplay extends Component {
 
   _setImg = () => {
     const style = {
-      'background-image': `url('${this.src}')`,
+      'backgroundImage': `url('${this.src}')`,
     }
     this._setImgStyle(style)
   }
@@ -47,8 +46,8 @@ export default class MainImgDisplay extends Component {
 
   _zoomPan = e => {
     const style = {
-      'background-image': `url('${this.src}')`,
-      'transform-origin': this._calcOriginTransformation(e),
+      'backgroundImage': `url('${this.src}')`,
+      'transformOrigin': this._calcOriginTransformation(e),
     }
     this._setImgStyle(style)
   }
@@ -61,7 +60,6 @@ export default class MainImgDisplay extends Component {
           className={'mainImg'}
           style={this.state.style}>
         </div>
-          
       </div>
     )
   }
