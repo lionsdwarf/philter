@@ -15,7 +15,7 @@ export default ({
   sourceDir, 
   thumbsSourceDir,
   devEnv,
-}) => <span className='ImgNavItems'>
+}) => <div className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
 
@@ -51,5 +51,5 @@ export default ({
       </div>
     )
   }
-</span>
+</div>
 

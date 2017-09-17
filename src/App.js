@@ -19,15 +19,24 @@ export default class Philter extends Component {
     return (
       <div className='Philter'>
 
-        <Source/>
+        <span>
 
-        <Targets/>
+          <Source/>
 
-        <ImgNav/>
+          <ImgNav/>
+          
+          <Targets/>
 
-        <MainImg/>
+        </span>
 
-        <SyncControl/>
+        <span>
+
+          <MainImg/>
+
+          <SyncControl/>
+
+        </span>
+
         
       </div>
     );

@@ -1,6 +1,6 @@
 .ImgNavItems {
   display: inline-block;
-  height: 500px;
+  max-height: 500px;
   overflow: scroll;
 }
 
