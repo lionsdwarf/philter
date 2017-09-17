@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = state => {
   return {
     targets: state.diskDirs.targets,
+    mainImg: state.sourceContents.mainImg,
   }
 }
 

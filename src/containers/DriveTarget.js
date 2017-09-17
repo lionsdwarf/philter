@@ -8,6 +8,7 @@ import {
 const mapStateToProps = (state, ownProps) => {
   return {
     targetDirs: state.driveDirs.targets,
+    mainImg: state.sourceContents.mainImg,
     createDriveDir: createDriveDir,
   }
 }

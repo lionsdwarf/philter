@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
 import DriveDirsList from '../components/DriveDirsList'
+import DriveTargetsSelectList from './DriveTargetsSelectList'
 import SVGIcon from './SVGIcon'
 import { googleDriveIcon, caratIcon } from '../styles/svgPaths'
 import '../styles/components/DirSelect.css'
@@ -90,9 +91,14 @@ export default class DriveDirManager extends Component {
           />
         }
 
-        <DriveDirsList
-          targetDirs={this.props.targetDirs}
-        />
+        {
+          this.props.mainImg ?
+            <DriveTargetsSelectList/>
+            :
+            <DriveDirsList
+              targetDirs={this.props.targetDirs}
+            />
+        }
 
       </div>
     )

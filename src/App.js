@@ -4,10 +4,9 @@ import Source from './containers/Source'
 import Targets from './components/Targets'
 import SyncControl from './containers/SyncControl'
 import MainImg from './containers/MainImg'
-import DiskTargetsSelectList from './containers/DiskTargetsSelectList'
-import DriveTargetsSelectList from './containers/DriveTargetsSelectList'
 import { initListeners } from './nodeListeners'
 import { init } from './nodeActions'
+import './styles/App.css'
 
 export default class Philter extends Component {
 
@@ -18,17 +17,13 @@ export default class Philter extends Component {
 
   render() {
     return (
-      <div style={_s}>
+      <div className='Philter'>
 
         <Source/>
 
         <Targets/>
 
         <ImgNav/>
-
-        <DiskTargetsSelectList/>
-        
-        <DriveTargetsSelectList/>
 
         <MainImg/>
 
@@ -37,10 +32,4 @@ export default class Philter extends Component {
       </div>
     );
   }
-}
-
-const _s = {
-  'font-family': 'arial',
-  'font-weight': 100,
-  color: 'grey'
 }

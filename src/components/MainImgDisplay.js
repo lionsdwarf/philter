@@ -41,7 +41,7 @@ export default class MainImgDisplay extends Component {
   }
 
   _calcOriginTransformation = e => {
-    return ((e.pageX - this.rect.left) / this.rect.width) * 100 + '% ' + ((e.pageY - this.rect.top - DIFF) / this.rect.height) * 100 +'%'
+    return ((e.pageX - this.rect.left) / this.rect.width) * 100 + '% ' + ((e.pageY - this.rect.top) / this.rect.height) * 100 +'%'
   }
 
   _zoomPan = e => {

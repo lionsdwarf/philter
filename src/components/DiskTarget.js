@@ -1,12 +1,21 @@
 import React from 'react'
+import DiskTargetsSelectList from './DiskTargetsSelectList'
 import DiskTargetsSelect from './DiskTargetsSelect'
 import DiskTargetsList from './DiskTargetsList'
 
-export default ({targets}) => <div>
+export default ({
+  targets,
+  mainImg,
+}) => <span>
 
   <DiskTargetsSelect/>
 
-  <DiskTargetsList targets={targets}/>
+  {
+    mainImg ?
+      <DiskTargetsSelectList/>
+      :
+      <DiskTargetsList targets={targets}/>
+  }
 
-</div>
+</span>
 
