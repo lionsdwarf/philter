@@ -1,9 +1,5 @@
-import React from 'react'
 import ImgNavItems from '../components/ImgNavItems'
 import { connect } from 'react-redux'
-import {
-  setMainImg
-} from '../nodeActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

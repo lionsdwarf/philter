@@ -15,7 +15,7 @@ export default ({
   sourceDir, 
   thumbsSourceDir,
   devEnv,
-}) => <div className='ImgNavItems'>
+}) => <div style={{ 'display': sourceJpgs.length > 0 ? 'block' : 'none' }} className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
 

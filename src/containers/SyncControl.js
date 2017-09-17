@@ -1,4 +1,3 @@
-import React from 'react'
 import Sync from '../components/Sync'
 import { connect } from 'react-redux'
 

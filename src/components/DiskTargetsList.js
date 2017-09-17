@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import DirLabel from './DirLabel'
 
 export default ({targets}) => <div>

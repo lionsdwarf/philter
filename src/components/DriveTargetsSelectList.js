@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 export default ({
   unstagedTargets, 
   mainImg, 
   stageDirToSync,
 }) => {
+  console.log(unstagedTargets)
   return (
     <div>
     

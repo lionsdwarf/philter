@@ -1,4 +1,3 @@
-import React from 'react'
 import Source from '../components/Source'
 import { connect } from 'react-redux'
 

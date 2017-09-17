@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import SVGIcon from './SVGIcon'
-import {
-  arrow,
-} from '../styles/svgPaths'
 import '../styles/components/DirLabel.css'
+import carat from '../static/svg/carat.svg'
 
 const parseDir = fullDirPath => {
   return {
@@ -40,11 +37,7 @@ export default class DirLabel extends Component {
           onClick={ this._togglePathDisplay }
           className={`iconWrapper ${this.state.pathDisplay ? 'rotate270' : 'rotate90'}`}
         >
-          <SVGIcon
-            paths={arrow}
-            width={20}
-            height={20}
-          />
+          <img src={carat} alt='carat'/>
         </div>
         
         <span>{ this.state.pathDisplay ? this.dirPath : '' }</span>

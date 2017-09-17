@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import CreateDriveDir from '../components/CreateDriveDir'
 import DriveDirsList from '../components/DriveDirsList'
-import DriveTargetsSelectList from './DriveTargetsSelectList'
-import SVGIcon from './SVGIcon'
-import { googleDriveIcon, caratIcon } from '../styles/svgPaths'
+import DriveTargetsSelectList from '../containers/DriveTargetsSelectList'
+import googleDrive from '../static/svg/googleDrive.svg'
+import carat from '../static/svg/carat.svg'
 import '../styles/components/DirSelect.css'
 import '../styles/components/DirLabel.css'
 
@@ -55,12 +55,7 @@ export default class DriveDirManager extends Component {
     return (
       <div className='dirSelect'>
 
-        <div>
-          <SVGIcon 
-            paths={googleDriveIcon}
-            fill='hotpink'
-          />
-        </div>
+        <img src={googleDrive} alt='google drive'/>
 
         {
           this.state.postInTransit ?
@@ -71,14 +66,9 @@ export default class DriveDirManager extends Component {
                 onClick={this._toggleIsCreate}
                 className={`iconWrapper ${this.state.createDir ? 'rotate180' : ''}`}
               >
-                <SVGIcon
-                  paths={caratIcon}
-                  fill='black'
-                  width='20'
-                  height='20'
-                />
+                <img src={carat} alt='carat'/>
               </div>
-              <span onClick={this._toggleIsCreate}>+ Create directory</span>
+              <span onClick={this._toggleIsCreate}>Add directory</span>
             </div>
         }
         

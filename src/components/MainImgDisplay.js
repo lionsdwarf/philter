@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import '../styles/components/MainImgDisplay.css'
 
-const DIFF = 80
+// const DIFF = 80
 
 export default class MainImgDisplay extends Component {
 

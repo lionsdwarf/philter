@@ -1,4 +1,3 @@
-import React from 'react'
 import { formatSyncData } from './util'
 
 const electron = window.require('electron')

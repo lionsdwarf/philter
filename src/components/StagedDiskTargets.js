@@ -6,12 +6,10 @@ export default ({
   fileName,
 }) => {
   let targets = []
-    {
-      stagedTargets.forEach(
-        (target, i) => {
-          targets.push(<div key={i} onClick={ () => unstageDir('disk', target, fileName) } >{target}</div>)
-        }
-      )
+  stagedTargets.forEach(
+    (target, i) => {
+      targets.push(<div key={i} onClick={ () => unstageDir('disk', target, fileName) } >{target}</div>)
     }
+  )
   return <div>{targets}</div>
 }

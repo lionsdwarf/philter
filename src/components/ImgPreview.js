@@ -19,7 +19,7 @@ export default ({
   return (
     <div onClick={ () => setMainImg(sourceDir, fileName) } style={_s.ImgPreview}>
       {
-        thumbExists && <img src={src}/>
+        thumbExists && <img src={src} alt='main'/>
       }
       <div style={_s.fileName}>{fileName}</div>
     </div>

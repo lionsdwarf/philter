@@ -1,4 +1,3 @@
-import React from 'react'
 import DiskTarget from '../components/DiskTarget'
 import { connect } from 'react-redux'
 

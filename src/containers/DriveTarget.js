@@ -1,6 +1,5 @@
-import React from 'react'
 import { connect } from 'react-redux'
-import DriveDirManager from '../components/DriveDirManager'
+import DriveTarget from '../components/DriveTarget'
 import {
   createDriveDir
 } from '../nodeActions'
@@ -13,5 +12,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(DriveDirManager)
+export default connect(mapStateToProps)(DriveTarget)
 

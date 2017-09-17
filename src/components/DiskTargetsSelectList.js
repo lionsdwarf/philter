@@ -1,5 +1,4 @@
-import React, {Component} from 'react'
-import DirLabel from './DirLabel'
+import React from 'react'
 
 export default ({
   filesToSync, 

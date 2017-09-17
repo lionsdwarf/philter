@@ -1,18 +1,14 @@
 import React from 'react'
-import SVGIcon from './SVGIcon'
 import '../styles/components/DirSelect.css'
+import folderDownload from '../static/svg/folderDownload.svg'
 import { selectTargetDir } from '../nodeActions'
-import { downloadFolderIcon } from '../styles/svgPaths'
 
 export default ({
   targets, 
 }) => <div className='dirSelect'>
   
   <div onClick={selectTargetDir} className='iconWrapper'>
-    <SVGIcon 
-      paths={downloadFolderIcon}
-      fill='hotpink'
-    />
+    <img src={folderDownload} alt='disk target'/>
   </div>
 
 </div>

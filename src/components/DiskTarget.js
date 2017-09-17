@@ -1,12 +1,12 @@
 import React from 'react'
-import DiskTargetsSelectList from './DiskTargetsSelectList'
+import DiskTargetsSelectList from '../containers/DiskTargetsSelectList'
 import DiskTargetsSelect from './DiskTargetsSelect'
 import DiskTargetsList from './DiskTargetsList'
 
 export default ({
   targets,
   mainImg,
-}) => <span>
+}) => <div>
 
   <DiskTargetsSelect/>
 
@@ -17,5 +17,5 @@ export default ({
       <DiskTargetsList targets={targets}/>
   }
 
-</span>
+</div>
 

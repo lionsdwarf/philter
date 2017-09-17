@@ -1,4 +1,3 @@
-import objectAssign from 'object-assign'
 
 //ipcMain node process does not accept js Set - must convert to Array
 const convertSetsToArrs = filesData => {
