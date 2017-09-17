@@ -5,7 +5,6 @@ export default ({
   mainImg, 
   stageDirToSync,
 }) => {
-  console.log(unstagedTargets)
   return (
     <div>
     

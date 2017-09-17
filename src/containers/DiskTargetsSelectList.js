@@ -1,4 +1,3 @@
-import React from 'react'
 import DiskTargetsSelectList from '../components/DiskTargetsSelectList'
 import { connect } from 'react-redux'
 import { getUnstagedTargets } from './util'

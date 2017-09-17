@@ -1,4 +1,3 @@
-import React from 'react'
 import DriveTargetsSelectList from '../components/DriveTargetsSelectList'
 import { connect } from 'react-redux'
 import { getUnstagedTargets } from './util'
