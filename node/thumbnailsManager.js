@@ -2,6 +2,7 @@ const {
   ipcRenderer,
 } = require('electron')
 const fs = require('fs')
+const path = require('path')
 const sharp = require('sharp')
 const {
   THUMBS_DIR
@@ -13,10 +14,9 @@ let existingThumbs = new Set()
 const WIDTH = null
 const LENGTH = 120
 
-async function generateThumb (sourceDir, fileName, eventEmitter) {
-  const thumb = sharp(sourceDir + '/' + fileName)
-  const metadata = await thumb.metadata()
-  const orientation = metadata.orientation
+async function generateThumb(sourceDir, fileName, eventEmitter) {
+  const thumb = sharp(path.join(sourceDir, fileName))
+  const orientation = await getOrientation(thumb)
   orientation === 1 || orientation === 3 ?
     thumb.resize(LENGTH, WIDTH)
     :
@@ -26,6 +26,11 @@ async function generateThumb (sourceDir, fileName, eventEmitter) {
     .then( (thumb, two) => {
       emitThumbName(fileName, eventEmitter)
     })
+}
+
+async function getOrientation(img) {
+  const metadata = await img.metadata()
+  return metadata.orientation
 }
 
 const emitThumbName = (fileName, eventEmitter) => {
@@ -47,5 +52,6 @@ module.exports = {
   thumbExists: thumbExists,
   generateThumb: generateThumb,
   emitThumbName: emitThumbName,
+  getOrientation: getOrientation,
   existingThumbs: () => existingThumbs,
 }
