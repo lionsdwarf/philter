@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import '../styles/components/MainImgDisplay.css'
-
-// const DIFF = 80
+import { MAIN_IMG_CONTAINER_HEIGHT } from '../App'
 
 const rotateByOrientation = orientation => {
   switch (orientation) {
@@ -14,6 +13,16 @@ const rotateByOrientation = orientation => {
       return '270'
     default:
       return '0'
+  }
+}
+
+const getLayoutDimensions = metadata => {
+  const aspectRatio = metadata.width / metadata.height
+  const height = MAIN_IMG_CONTAINER_HEIGHT 
+  const width = height * aspectRatio
+  return {
+    height: `${parseInt(height)}px`,
+    width: `${parseInt(width)}px`,
   }
 }
 
@@ -31,7 +40,10 @@ export default class MainImgDisplay extends Component {
 
   _setMainImg = mainImg => {
     if (this.props.devEnv) {
-      this.src = require('../devPublic/PB060521.JPG')
+      rotateByOrientation(this.props.jpgsMetadata[mainImg].orientation) === '0' ?
+        this.src = require('../devPublic/P6102532.JPG')
+        :
+        this.src = require('../devPublic/P7100344.JPG')
     } else {
       this.src = `${this.props.sourceDir}/${mainImg}`
     }
@@ -39,12 +51,15 @@ export default class MainImgDisplay extends Component {
   }
 
   _setImg = mainImg => {
-    console.log(this.props.jpgsMetadata[mainImg])
+    const jpgMetadata = this.props.jpgsMetadata[mainImg]
+    const layoutDimensions = getLayoutDimensions(jpgMetadata)
     const style = {
-      'backgroundImage': `url('${this.src}')`,
+      backgroundImage: `url('${this.src}')`,
     }
     const containerStyle = {
-      'transform': `rotate(${ rotateByOrientation(this.props.jpgsMetadata[mainImg].orientation) }deg)`,
+      transform: `rotate(${ rotateByOrientation(jpgMetadata.orientation) }deg)`,
+      height: layoutDimensions.height,
+      width: layoutDimensions.width,
     }
     this._setContainerStyle(containerStyle)
     this._setImgStyle(style)
@@ -72,8 +87,8 @@ export default class MainImgDisplay extends Component {
 
   _zoomPan = e => {
     const style = {
-      'backgroundImage': `url('${this.src}')`,
-      'transformOrigin': this._calcOriginTransformation(e),
+      backgroundImage: `url('${this.src}')`,
+      transformOrigin: this._calcOriginTransformation(e),
     }
     this._setImgStyle(style)
   }

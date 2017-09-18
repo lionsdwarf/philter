@@ -2,42 +2,18 @@
   font-family: helvetica;
   font-weight: 100;
   color: grey;
-  /*height: 100%;*/
 }
 
 .nav {
   display: inline;
-  /*width: 250px;*/
 }
 
 .imgDisplay {
   display: inline-block;
-  height: 93%;
+  /*height: 93%;*/
+  /*height: 575px;*/
   width: 75%;
   top: 0;
   left: 25%;
   position: absolute;
 }
-
-/*
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-*/

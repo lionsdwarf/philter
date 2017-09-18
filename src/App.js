@@ -8,6 +8,8 @@ import { initListeners } from './nodeListeners'
 import { init } from './nodeActions'
 import './styles/App.css'
 
+export const MAIN_IMG_CONTAINER_HEIGHT = 575
+
 export default class Philter extends Component {
 
   componentWillMount() {
@@ -29,7 +31,7 @@ export default class Philter extends Component {
 
         </nav>
 
-        <div className='imgDisplay'>
+        <div className='imgDisplay' style={{height: `${MAIN_IMG_CONTAINER_HEIGHT}px`}}>
 
           <MainImg/>
 
