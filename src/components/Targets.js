@@ -1,15 +1,12 @@
 import React from 'react'
 import DiskTarget from '../containers/DiskTarget'
 import DriveTarget from '../containers/DriveTarget'
+import '../styles/components/Targets.css'
 
-export default () => {
-  return (
-    <div>
-      
-      <DiskTarget/>
+export default () => <div className='Targets'>
+    
+  <DiskTarget/>
 
-      <DriveTarget/>
+  <DriveTarget/>
 
-    </div>
-  )
-}
+</div>

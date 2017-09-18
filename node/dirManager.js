@@ -25,30 +25,20 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
 
         if (thumbsDirEmpty || !thumbExists(fileName)) {
           generateThumb(sourceDir, fileName, eventEmitter)
+
         } else {
-          //if thumb exists, fetch orientation from source img
+          //if thumb exists, fetch img orientation from source img metadata
           const img = sharp(path.join(sourceDir, fileName))
           jpgOrientation = await getOrientation(img)
           emitImgMetadata(fileName, jpgOrientation, eventEmitter)
         }
 
-        // emitJpgOrientation(jpgOrientation, fileName, eventEmitter)
-    
       }
 
     })
     eventEmitter.send('source-dir-contents', jpgs)
   })
 }
-
-// const emitJpgOrientation = (jpgOrientation, fileName, eventEmitter) => {
-//   const orientation = {
-//     fileName: fileName,
-//     orientation: jpgOrientation
-//   }
-//   console.log('ejo: ', orientation)
-//   eventEmitter.send('jpg-orientation', orientation)
-// }
 
 const isJPG = fileName => {
   return fileName.substr(fileName.length - 4).toLowerCase() === JPG_EXTENSION

@@ -25,8 +25,8 @@ export const unstageDir = (prevStagedFiles, toUnstage) => {
   return stagedFiles
 }
 
-export const addJpgOrientation = (existingOrientations, orientationData) => {
+export const addJpgOrientation = (existingOrientations, jpgMetadata) => {
   const jpgOrientations = objectAssign(existingOrientations, {})
-  jpgOrientations[orientationData.fileName] = orientationData.orientation
+  jpgOrientations[jpgMetadata.fileName] = jpgMetadata.orientation
   return jpgOrientations
 }

@@ -4,6 +4,19 @@ import '../styles/components/MainImgDisplay.css'
 
 // const DIFF = 80
 
+const rotateByOrientation = orientation => {
+  switch (orientation) {
+    case 3:
+      return '180'
+    case 6:
+      return '90'
+    case 8:
+      return '270'
+    default:
+      return '0'
+  }
+}
+
 export default class MainImgDisplay extends Component {
 
   state = {}
@@ -13,6 +26,7 @@ export default class MainImgDisplay extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log(this.rect)
     this.props.mainImg !== props.mainImg && this._setMainImg(props.mainImg)
   }
 
@@ -22,13 +36,17 @@ export default class MainImgDisplay extends Component {
     } else {
       this.src = `${this.props.sourceDir}/${mainImg}`
     }
-    this._setImg()
+    this._setImg(mainImg)
   }
 
-  _setImg = () => {
+  _setImg = mainImg => {
     const style = {
       'backgroundImage': `url('${this.src}')`,
     }
+    const containerStyle = {
+      'transform': `rotate(${ rotateByOrientation(this.props.jpgOrientations[mainImg]) }deg)`,
+    }
+    this._setContainerStyle(containerStyle)
     this._setImgStyle(style)
   }
 
@@ -36,6 +54,14 @@ export default class MainImgDisplay extends Component {
     this.setState(
       () => {
         return {style: style}
+      }
+    )
+  }
+
+  _setContainerStyle = style => {
+    this.setState(
+      () => {
+        return {containerStyle: style}
       }
     )
   }
@@ -54,7 +80,7 @@ export default class MainImgDisplay extends Component {
 
   render() {
     return (
-      <div className='MainImgDisplay'>
+      <div className='MainImgDisplay' style={this.state.containerStyle}>
         <div 
           onMouseMove={ this._zoomPan }
           className={'mainImg'}

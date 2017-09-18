@@ -8,10 +8,10 @@ export default ({
   setMainImg, 
   sourceDir
 }) => {
-  
+
   let src
   if (devEnv && thumbExists) {
-    // src = require('../../.thumbnails/' + fileName)
+    src = require('../../.thumbnails/' + fileName)
   } else {
     src = `../${thumbsSourceDir}${fileName}`
   }

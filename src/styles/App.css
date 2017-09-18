@@ -2,7 +2,23 @@
   font-family: helvetica;
   font-weight: 100;
   color: grey;
+  height: 100%;
 }
+
+.nav {
+  display: inline;
+  /*width: 250px;*/
+}
+
+.imgDisplay {
+  display: inline-block;
+  height: 100%;
+  width: 75%;
+  top: 0;
+  left: 25%;
+  position: absolute;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
