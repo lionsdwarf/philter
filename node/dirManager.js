@@ -15,50 +15,39 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   const thumbsDirEmpty = existingThumbs().size == 0
   fs.readdir(sourceDir, (err, dirContents) => {
 
-    const jpgs = []
+    let jpgs = []
+    let jpgOrientation
 
     dirContents.forEach( async fileName => {
+
       if (isJPG(fileName)) {
         jpgs.push(fileName)
-    
-        if (thumbsDirEmpty || !thumbExists(fileName)) {
-          const jpgOrientation = await generateThumb(sourceDir, fileName, eventEmitter)
-          const orientationData = {
-            fileName: fileName,
-            orientation: jpgOrientation
-          }
-          eventEmitter.send('jpg-orientation', orientationData)
-        } else {
-          const img = sharp(path.join(sourceDir, fileName))
-          const orientation = await getOrientation(img)
-          const orientationData = {
-            fileName: fileName,
-            orientation: orientation
-          }
-          eventEmitter.send('jpg-orientation', orientationData)
-          emitThumbName(fileName, eventEmitter)
 
+        if (thumbsDirEmpty || !thumbExists(fileName)) {
+          jpgOrientation = await generateThumb(sourceDir, fileName, eventEmitter)
+        } else {
+          //if thumb exists, fetch orientation from source img
+          const img = sharp(path.join(sourceDir, fileName))
+          jpgOrientation = await getOrientation(img)
+          emitThumbName(fileName, eventEmitter)
         }
 
+        emitJpgOrientation(jpgOrientation, fileName, eventEmitter)
+    
       }
+
     })
     eventEmitter.send('source-dir-contents', jpgs)
-    // emitImgOrientations(sourceDir, jpgs, eventEmitter)
   })
 }
 
-// async function emitImgOrientations(sourceDir, jpgs, eventEmitter) {
-//   const orientations = await jpgs.map(async jpg => {
-//     const img = sharp(path.join(sourceDir, jpg))
-//     const orientation = await getOrientation(img)
-//     console.log('o', orientation)
-//     const orientationData = {}
-//     orientationData[jpg] = orientation
-//     return orientationData
-//   })
-//   console.log('od', orientations)
-//   eventEmitter.send('img-orientations', orientations)
-// }
+const emitJpgOrientation = (jpgOrientation, fileName, eventEmitter) => {
+  const orientation = {
+    fileName: fileName,
+    orientation: jpgOrientation
+  }
+  eventEmitter.send('jpg-orientation', orientation)
+}
 
 const isJPG = fileName => {
   return fileName.substr(fileName.length - 4).toLowerCase() === JPG_EXTENSION
