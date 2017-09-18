@@ -22,14 +22,22 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
         jpgs.push(fileName)
     
         if (thumbsDirEmpty || !thumbExists(fileName)) {
-          const thumbOrientation = await generateThumb(sourceDir, fileName, eventEmitter)
+          const jpgOrientation = await generateThumb(sourceDir, fileName, eventEmitter)
           const orientationData = {
             fileName: fileName,
-            orientation: thumbOrientation
+            orientation: jpgOrientation
           }
           eventEmitter.send('jpg-orientation', orientationData)
         } else {
+          const img = sharp(path.join(sourceDir, fileName))
+          const orientation = await getOrientation(img)
+          const orientationData = {
+            fileName: fileName,
+            orientation: orientation
+          }
+          eventEmitter.send('jpg-orientation', orientationData)
           emitThumbName(fileName, eventEmitter)
+
         }
 
       }
