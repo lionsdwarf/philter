@@ -7,7 +7,8 @@ const actionMappings = {
   'source-dir-contents': 'SET_SOURCE_JPGS',
   'drive-dirs': 'SET_DRIVE_DIRS',
   'thumb-fileName': 'SET_THUMB_FILENAME',
-  'thumbs-source-dir': 'SET_THUMBS_SOURCE_DIR'
+  'thumbs-source-dir': 'SET_THUMBS_SOURCE_DIR',
+  'jpg-orientation': 'SET_JPG_ORIENTATION'
 }
 
 export const initListeners = dispatch => {

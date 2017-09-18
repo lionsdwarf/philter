@@ -11,7 +11,7 @@ export default ({
   
   let src
   if (devEnv && thumbExists) {
-    src = require('../../.thumbnails/' + fileName)
+    // src = require('../../.thumbnails/' + fileName)
   } else {
     src = `../${thumbsSourceDir}${fileName}`
   }
@@ -19,7 +19,7 @@ export default ({
   return (
     <div onClick={ () => setMainImg(sourceDir, fileName) } style={_s.ImgPreview}>
       {
-        thumbExists && <img src={src} alt='main'/>
+        thumbExists && <img src={src} alt='thumb'/>
       }
       <div style={_s.fileName}>{fileName}</div>
     </div>

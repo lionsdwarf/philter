@@ -26,6 +26,7 @@ async function generateThumb(sourceDir, fileName, eventEmitter) {
     .then( (thumb, two) => {
       emitThumbName(fileName, eventEmitter)
     })
+  return orientation
 }
 
 async function getOrientation(img) {
