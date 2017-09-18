@@ -67,7 +67,6 @@ const sourceContents = (state = {
     case 'SET_MAIN_IMG':
       return {...state, mainImg: action.payload}
     case 'SET_JPG_ORIENTATION':
-    console.log(addJpgOrientation(state.jpgOrientations, action.payload))
       return {...state, jpgOrientations: addJpgOrientation(state.jpgOrientations, action.payload)}
     default:
       return state

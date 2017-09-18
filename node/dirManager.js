@@ -5,7 +5,7 @@ const {
   existingThumbs,
   thumbExists,
   generateThumb,
-  emitThumbName,
+  emitImgMetadata,
   getOrientation,
 } = require('./thumbnailsManager')
 
@@ -24,15 +24,15 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
         jpgs.push(fileName)
 
         if (thumbsDirEmpty || !thumbExists(fileName)) {
-          jpgOrientation = await generateThumb(sourceDir, fileName, eventEmitter)
+          generateThumb(sourceDir, fileName, eventEmitter)
         } else {
           //if thumb exists, fetch orientation from source img
           const img = sharp(path.join(sourceDir, fileName))
           jpgOrientation = await getOrientation(img)
-          emitThumbName(fileName, eventEmitter)
+          emitImgMetadata(fileName, jpgOrientation, eventEmitter)
         }
 
-        emitJpgOrientation(jpgOrientation, fileName, eventEmitter)
+        // emitJpgOrientation(jpgOrientation, fileName, eventEmitter)
     
       }
 
@@ -41,13 +41,14 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   })
 }
 
-const emitJpgOrientation = (jpgOrientation, fileName, eventEmitter) => {
-  const orientation = {
-    fileName: fileName,
-    orientation: jpgOrientation
-  }
-  eventEmitter.send('jpg-orientation', orientation)
-}
+// const emitJpgOrientation = (jpgOrientation, fileName, eventEmitter) => {
+//   const orientation = {
+//     fileName: fileName,
+//     orientation: jpgOrientation
+//   }
+//   console.log('ejo: ', orientation)
+//   eventEmitter.send('jpg-orientation', orientation)
+// }
 
 const isJPG = fileName => {
   return fileName.substr(fileName.length - 4).toLowerCase() === JPG_EXTENSION

@@ -24,7 +24,7 @@ async function generateThumb(sourceDir, fileName, eventEmitter) {
   thumb.rotate()
     .toFile(THUMBS_DIR + fileName)
     .then( (thumb, two) => {
-      emitThumbName(fileName, eventEmitter)
+      emitImgMetadata(fileName, orientation, eventEmitter)
     })
   return orientation
 }
@@ -34,8 +34,12 @@ async function getOrientation(img) {
   return metadata.orientation
 }
 
-const emitThumbName = (fileName, eventEmitter) => {
-  eventEmitter.send('thumb-fileName', fileName)
+const emitImgMetadata = (fileName, orientation, eventEmitter) => {
+  const imgMetadata = {
+    fileName: fileName,
+    orientation: orientation,
+  }
+  eventEmitter.send('img-metadata', imgMetadata)
 }
 
 const thumbExists = (fileName) => {
@@ -52,7 +56,7 @@ module.exports = {
   indexThumbs: indexThumbs,
   thumbExists: thumbExists,
   generateThumb: generateThumb,
-  emitThumbName: emitThumbName,
+  emitImgMetadata: emitImgMetadata,
   getOrientation: getOrientation,
   existingThumbs: () => existingThumbs,
 }

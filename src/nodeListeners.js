@@ -6,7 +6,7 @@ const actionMappings = {
   'target-dir-selection': 'ADD_TARGET_DIRS',
   'source-dir-contents': 'SET_SOURCE_JPGS',
   'drive-dirs': 'SET_DRIVE_DIRS',
-  'thumb-fileName': 'SET_THUMB_FILENAME',
+  'img-metadata': 'SET_IMG_METADATA',
   'thumbs-source-dir': 'SET_THUMBS_SOURCE_DIR',
   'jpg-orientation': 'SET_JPG_ORIENTATION'
 }
