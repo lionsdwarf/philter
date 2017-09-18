@@ -6,7 +6,7 @@ const {
   thumbExists,
   generateThumb,
   emitImgMetadata,
-  getOrientation,
+  getMetadata,
 } = require('./thumbnailsManager')
 
 const JPG_EXTENSION = '.jpg'
@@ -16,7 +16,7 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   fs.readdir(sourceDir, (err, dirContents) => {
 
     let jpgs = []
-    let jpgOrientation
+    let jpgMetadata
 
     dirContents.forEach( async fileName => {
 
@@ -29,8 +29,8 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
         } else {
           //if thumb exists, fetch img orientation from source img metadata
           const img = sharp(path.join(sourceDir, fileName))
-          jpgOrientation = await getOrientation(img)
-          emitImgMetadata(fileName, jpgOrientation, eventEmitter)
+          jpgMetadata = await getMetadata(img)
+          emitImgMetadata(fileName, jpgMetadata, eventEmitter)
         }
 
       }

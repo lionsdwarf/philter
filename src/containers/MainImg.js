@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state, ownProps) => {
   return {
     mainImg: state.sourceContents.mainImg,
-    jpgOrientations: state.sourceContents.jpgOrientations,
+    jpgsMetadata: state.sourceContents.jpgsMetadata,
     sourceDir: state.diskDirs.source,
     devEnv: state.thumbs.devEnv,
   }

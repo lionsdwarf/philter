@@ -26,7 +26,6 @@ export default class MainImgDisplay extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(this.rect)
     this.props.mainImg !== props.mainImg && this._setMainImg(props.mainImg)
   }
 
@@ -40,11 +39,12 @@ export default class MainImgDisplay extends Component {
   }
 
   _setImg = mainImg => {
+    console.log(this.props.jpgsMetadata[mainImg])
     const style = {
       'backgroundImage': `url('${this.src}')`,
     }
     const containerStyle = {
-      'transform': `rotate(${ rotateByOrientation(this.props.jpgOrientations[mainImg]) }deg)`,
+      'transform': `rotate(${ rotateByOrientation(this.props.jpgsMetadata[mainImg].orientation) }deg)`,
     }
     this._setContainerStyle(containerStyle)
     this._setImgStyle(style)

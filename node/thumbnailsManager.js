@@ -16,28 +16,28 @@ const LENGTH = 120
 
 async function generateThumb(sourceDir, fileName, eventEmitter) {
   const thumb = sharp(path.join(sourceDir, fileName))
-  const orientation = await getOrientation(thumb)
-  orientation === 1 || orientation === 3 ?
+  const metadata = await getMetadata(thumb)
+  metadata.orientation === 1 || metadata.orientation === 3 ?
     thumb.resize(LENGTH, WIDTH)
     :
     thumb.resize(WIDTH, LENGTH)
   thumb.rotate()
     .toFile(THUMBS_DIR + fileName)
     .then( (thumb, two) => {
-      emitImgMetadata(fileName, orientation, eventEmitter)
+      emitImgMetadata(fileName, metadata, eventEmitter)
     })
-  return orientation
+  return metadata
 }
 
-async function getOrientation(img) {
+async function getMetadata(img) {
   const metadata = await img.metadata()
-  return metadata.orientation
+  return metadata
 }
 
-const emitImgMetadata = (fileName, orientation, eventEmitter) => {
+const emitImgMetadata = (fileName, metadata, eventEmitter) => {
   const imgMetadata = {
     fileName: fileName,
-    orientation: orientation,
+    metadata: metadata,
   }
   eventEmitter.send('img-metadata', imgMetadata)
 }
@@ -57,6 +57,6 @@ module.exports = {
   thumbExists: thumbExists,
   generateThumb: generateThumb,
   emitImgMetadata: emitImgMetadata,
-  getOrientation: getOrientation,
+  getMetadata: getMetadata,
   existingThumbs: () => existingThumbs,
 }

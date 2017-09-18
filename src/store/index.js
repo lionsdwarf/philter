@@ -3,7 +3,7 @@ import {
   addFileName,
   stageDirToSync,
   unstageDir,
-  addJpgOrientation,
+  addJpgMetadata,
 } from './util'
 
 const diskDirs = (state = {
@@ -58,7 +58,7 @@ const thumbs = (state = {
 
 const sourceContents = (state = {
   jpgs: [],
-  jpgOrientations: {},
+  jpgsMetadata: {},
   mainImg: '',
 }, action) => {
   switch(action.type) {
@@ -67,7 +67,7 @@ const sourceContents = (state = {
     case 'SET_MAIN_IMG':
       return {...state, mainImg: action.payload}
     case 'SET_IMG_METADATA':
-      return {...state, jpgOrientations: addJpgOrientation(state.jpgOrientations, action.payload)}
+      return {...state, jpgsMetadata: addJpgMetadata(state.jpgsMetadata, action.payload)}
     default:
       return state
   }
