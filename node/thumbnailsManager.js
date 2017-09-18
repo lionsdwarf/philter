@@ -15,17 +15,16 @@ const LENGTH = 120
 
 async function generateThumb (sourceDir, fileName, eventEmitter) {
   const thumb = sharp(sourceDir + '/' + fileName)
-    thumb.metadata()
-    .then(function(metadata) {
-      metadata.orientation === 1 || metadata.orientation === 3 ?
-        thumb.resize(LENGTH, WIDTH)
-        :
-        thumb.resize(WIDTH, LENGTH)
-      thumb.rotate()
-        .toFile(THUMBS_DIR + fileName)
-        .then( (thumb, two) => {
-          emitThumbName(fileName, eventEmitter)
-        })
+  const metadata = await thumb.metadata()
+  const orientation = metadata.orientation
+  orientation === 1 || orientation === 3 ?
+    thumb.resize(LENGTH, WIDTH)
+    :
+    thumb.resize(WIDTH, LENGTH)
+  thumb.rotate()
+    .toFile(THUMBS_DIR + fileName)
+    .then( (thumb, two) => {
+      emitThumbName(fileName, eventEmitter)
     })
 }
 
