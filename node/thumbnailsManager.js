@@ -9,15 +9,23 @@ const {
 
 let existingThumbs = new Set()
 
-const THUMB_WIDTH = 120
-const THUMB_HEIGHT = 80
+//null dimension preserves aspect ratio
+const WIDTH = null
+const LENGTH = 120
 
 async function generateThumb (sourceDir, fileName, eventEmitter) {
-  sharp(sourceDir + '/' + fileName)
-    .resize(THUMB_WIDTH, THUMB_HEIGHT)
-    .toFile(THUMBS_DIR + fileName)
-    .then( thumb => {
-      emitThumbName(fileName, eventEmitter)
+  const thumb = sharp(sourceDir + '/' + fileName)
+    thumb.metadata()
+    .then(function(metadata) {
+      metadata.orientation === 1 || metadata.orientation === 3 ?
+        thumb.resize(LENGTH, WIDTH)
+        :
+        thumb.resize(WIDTH, LENGTH)
+      thumb.rotate()
+        .toFile(THUMBS_DIR + fileName)
+        .then( (thumb, two) => {
+          emitThumbName(fileName, eventEmitter)
+        })
     })
 }
 
