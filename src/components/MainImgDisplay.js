@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import '../styles/components/MainImgDisplay.css'
-import { MAIN_IMG_CONTAINER_HEIGHT } from '../App'
+import { 
+  MAIN_IMG_CONTAINER_HEIGHT,
+  MAIN_IMG_CONTAINER_WIDTH,
+} from '../App'
 
 const rotateByOrientation = orientation => {
   switch (orientation) {
@@ -16,10 +19,19 @@ const rotateByOrientation = orientation => {
   }
 }
 
-const getLayoutDimensions = metadata => {
+const getLandscapeDimensions = metadata => {
   const aspectRatio = metadata.width / metadata.height
-  const height = MAIN_IMG_CONTAINER_HEIGHT 
-  const width = height * aspectRatio
+  const width = MAIN_IMG_CONTAINER_HEIGHT * aspectRatio
+  return {
+    height: `${parseInt(MAIN_IMG_CONTAINER_HEIGHT)}px`,
+    width: `${parseInt(width)}px`,
+  }
+}
+
+const getPortraitDimensions = metadata => {
+  const aspectRatio = metadata.width / metadata.height
+  const width = MAIN_IMG_CONTAINER_HEIGHT
+  const height = width / aspectRatio
   return {
     height: `${parseInt(height)}px`,
     width: `${parseInt(width)}px`,
@@ -52,15 +64,19 @@ export default class MainImgDisplay extends Component {
 
   _setImg = mainImg => {
     const jpgMetadata = this.props.jpgsMetadata[mainImg]
-    const layoutDimensions = getLayoutDimensions(jpgMetadata)
+    const isLandscape = jpgMetadata.orientation === 1 || jpgMetadata.orientation === 3
+    const layoutDimensions = isLandscape ? getLandscapeDimensions(jpgMetadata) : getPortraitDimensions(jpgMetadata)
+
     const style = {
       backgroundImage: `url('${this.src}')`,
     }
     const containerStyle = {
       transform: `rotate(${ rotateByOrientation(jpgMetadata.orientation) }deg)`,
+      marginTop: isLandscape ? '10px' : '80px',
       height: layoutDimensions.height,
       width: layoutDimensions.width,
     }
+    
     this._setContainerStyle(containerStyle)
     this._setImgStyle(style)
   }

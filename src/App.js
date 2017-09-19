@@ -8,7 +8,8 @@ import { initListeners } from './nodeListeners'
 import { init } from './nodeActions'
 import './styles/App.css'
 
-export const MAIN_IMG_CONTAINER_HEIGHT = 575
+export const MAIN_IMG_CONTAINER_HEIGHT = 555
+export const MAIN_IMG_CONTAINER_WIDTH = 690
 
 export default class Philter extends Component {
 
@@ -18,6 +19,7 @@ export default class Philter extends Component {
   }
 
   render() {
+    console.log('a',this.props)
     return (
       <div className='Philter'>
 
@@ -31,7 +33,11 @@ export default class Philter extends Component {
 
         </nav>
 
-        <div className='imgDisplay' style={{height: `${MAIN_IMG_CONTAINER_HEIGHT}px`}}>
+        <div className='imgDisplay' style={{
+          height: `${MAIN_IMG_CONTAINER_HEIGHT}px`,
+          width: `${MAIN_IMG_CONTAINER_WIDTH}px`,
+          // paddingTop: this.props.sourceContents.jpgsMetadata[this.props.]
+        }}>
 
           <MainImg/>
 
