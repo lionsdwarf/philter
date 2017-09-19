@@ -46,7 +46,7 @@ const thumbs = (state = {
   switch(action.type) {
     case 'SET_THUMBS_SOURCE_DIR':
       return {...state, dir: action.payload.dir, devEnv: action.payload.devEnv}
-    case 'SET_IMG_METADATA':
+    case 'SET_THUMB':
       return {...state, fileNames: addFileName(state.fileNames, action.payload.fileName)}
     // case 'CLEAR_THUMB_FILENAMES':
     //   return {...state, fileNames: new Set()}
@@ -66,7 +66,9 @@ const sourceContents = (state = {
       return {...state, jpgs: action.payload}
     case 'SET_MAIN_IMG':
       return {...state, mainImg: action.payload}
-    case 'SET_IMG_METADATA':
+    case 'SET_JPG_METADATA':
+    console.log('ac;', action.payload)
+
       return {...state, jpgsMetadata: addJpgMetadata(state.jpgsMetadata, action.payload)}
     default:
       return state

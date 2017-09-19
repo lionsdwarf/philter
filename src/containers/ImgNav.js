@@ -2,10 +2,12 @@ import ImgNavItems from '../components/ImgNavItems'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('in', state.sourceContents.jpgsMetadata)  
   return {
     sourceJpgs: state.sourceContents.jpgs,
     thumbFileNames: state.thumbs.fileNames,
     filesToSync: state.filesToSync,
+    jpgsMetadata: state.sourceContents.jpgsMetadata,
     // diskTargetContents: state.diskDirs.targetContents,
     // driveTargetContents: state.driveDirs.targetContents,
     sourceDir: state.diskDirs.source,

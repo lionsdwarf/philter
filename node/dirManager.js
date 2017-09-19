@@ -5,8 +5,7 @@ const {
   existingThumbs,
   thumbExists,
   generateThumb,
-  emitImgMetadata,
-  getMetadata,
+  emitThumb,
 } = require('./thumbnailsManager')
 
 const JPG_EXTENSION = '.jpg'
@@ -16,27 +15,41 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   fs.readdir(sourceDir, (err, dirContents) => {
 
     let jpgs = []
-    let jpgMetadata
-
+    let img
     dirContents.forEach( async fileName => {
 
       if (isJPG(fileName)) {
+        
         jpgs.push(fileName)
 
         if (thumbsDirEmpty || !thumbExists(fileName)) {
-          generateThumb(sourceDir, fileName, eventEmitter)
+          
+          img = await generateThumb(sourceDir, fileName, eventEmitter)
 
         } else {
           //if thumb exists, fetch img orientation from source img metadata
-          const img = sharp(path.join(sourceDir, fileName))
-          jpgMetadata = await getMetadata(img)
-          emitImgMetadata(fileName, jpgMetadata, eventEmitter)
+          emitThumb(fileName, eventEmitter)
+
         }
+
+        if (!img) {
+          img = sharp(path.join(sourceDir, fileName))
+        }
+        emitMetadata(img, fileName, eventEmitter)
 
       }
 
     })
     eventEmitter.send('source-dir-contents', jpgs)
+  })
+}
+
+async function emitMetadata(img, fileName, eventEmitter) {
+  const metadata = await img.metadata()
+  delete metadata.exif
+  eventEmitter.send('jpg-metadata', {
+    fileName: fileName,
+    metadata: metadata,
   })
 }
 
