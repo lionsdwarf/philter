@@ -67,8 +67,6 @@ const sourceContents = (state = {
     case 'SET_MAIN_IMG':
       return {...state, mainImg: action.payload}
     case 'SET_JPG_METADATA':
-    console.log('ac;', action.payload)
-
       return {...state, jpgsMetadata: addJpgMetadata(state.jpgsMetadata, action.payload)}
     default:
       return state

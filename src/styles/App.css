@@ -10,10 +10,32 @@
 
 .imgDisplay {
   display: inline-block;
-  /*height: 93%;*/
-  /*height: 575px;*/
-  /*width: 75%;*/
-  top: 0;
-  left: 22%;
+  /*portrait:*/
+  /*width: 690px;*/
+  /*transform: rotate(270deg);*/
+
+  /*landscape:;*/
+  /*width: 740px;*/
+
+
+  height: 100%;
+  width: 73%;
+
+  top: 5px;
+  right: 10px;
   position: absolute;
 }
+
+.portrait {
+  width: 58%;
+}
+
+.portrait270 {
+  transform: rotate(270deg) translate(1%, -12%);
+}
+
+.portrait90 {
+  transform: rotate(90deg) translate(1%, -12%);
+}
+
+

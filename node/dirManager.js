@@ -15,9 +15,9 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   fs.readdir(sourceDir, (err, dirContents) => {
 
     let jpgs = []
-    let img
     dirContents.forEach( async fileName => {
 
+      let img
       if (isJPG(fileName)) {
         
         jpgs.push(fileName)

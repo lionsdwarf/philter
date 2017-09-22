@@ -1,8 +1,10 @@
 .MainImgDisplay {
+  /*portrait:*/
+  /*width: 556px;*/
+
   height: 100%;
   width: 100%;
   position: relative;
-  /*float: left;*/
   overflow: hidden;
 }
 
@@ -14,7 +16,7 @@
   background-repeat: no-repeat;
   background-position: center;
   /*background-size: 100% 100%;*/
-  background-size: cover;
+  background-size: contain;
   transition: transform .5s ease-out;
   transform: scale(1);
 }
