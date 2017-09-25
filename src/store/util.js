@@ -30,3 +30,9 @@ export const addJpgMetadata = (existingMetadata, jpg) => {
   jpgMetadata[jpg.fileName] = jpg.metadata
   return jpgMetadata
 }
+
+export const addTargetDirContents = (existingTargetContents, payload) => {
+  const targetContents = objectAssign(existingTargetContents, {})
+  targetContents[payload.dir] = new Set(payload.dirContents)
+  return targetContents
+}

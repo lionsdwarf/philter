@@ -44,6 +44,18 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   })
 }
 
+async function emitTargetDirContents(payload) {
+  fs.readdir(payload.dir, (err, dirContents) => {
+    const jpgs = dirContents.filter(
+      file => isJPG(file)
+    )
+    payload.eventEmitter.send('disk-target-dir-contents', {
+      dirContents: jpgs,
+      dir: payload.dir,
+    })
+  })
+}
+
 async function emitMetadata(img, fileName, eventEmitter) {
   const metadata = await img.metadata()
   delete metadata.exif
@@ -59,4 +71,5 @@ const isJPG = fileName => {
 
 module.exports = {
   fetchSourceDirContents: fetchSourceDirContents,
+  emitTargetDirContents: emitTargetDirContents,
 }

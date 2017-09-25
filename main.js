@@ -19,7 +19,8 @@ const {
   indexThumbs,
 } = require('./node/thumbnailsManager')
 const {
-  fetchSourceDirContents
+  fetchSourceDirContents,
+  emitTargetDirContents,
 } = require('./node/dirManager')
 const {
   syncFiles,
@@ -104,6 +105,10 @@ const selectTargetDir = event => {
     if (selectedDirs) {
       dirs.targets.push(selectedDirs[0])
       mainWindow.webContents.send('target-dir-selection', dirs.targets)
+      emitTargetDirContents({
+        eventEmitter: mainWindow.webContents,
+        dir: selectedDirs[0]
+      })
     }
   })
 }

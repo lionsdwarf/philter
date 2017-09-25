@@ -4,12 +4,13 @@ import {
   stageDirToSync,
   unstageDir,
   addJpgMetadata,
+  addTargetDirContents,
 } from './util'
 
 const diskDirs = (state = {
   source: '',
   targets: [],
-  targetContents: new Set(),
+  targetContents: {},
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_DIR':
@@ -17,7 +18,8 @@ const diskDirs = (state = {
     case 'ADD_TARGET_DIRS':
       return {...state, targets: action.payload}
     case 'SET_DISK_TARGET_DIR_CONTENTS':
-      return {...state, targetContents: new Set(action.payload)}
+    console.log(addTargetDirContents(state.targetContents, action.payload))
+      return {...state, targetContents: addTargetDirContents(state.targetContents, action.payload)}
     default:
       return state
   }
