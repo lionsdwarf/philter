@@ -28,9 +28,24 @@ const createDir = (event, dirName) => {
 const fetchDriveDirs = () => {
   drive.files.list({
     q: FOLDER_QUERY
-  }, (err, folderData) => {
-    folderData.files && eventEmitter.send('drive-dirs', folderData.files)
+  }, (err, foldersList) => {
+    getFolderContents(foldersList.files)
+    foldersList.files && eventEmitter.send('drive-dirs', foldersList.files)
   })
+}
+
+const getFolderContents = foldersList => {
+  for (let folder of foldersList) {
+    drive.files.list({
+      q: `'${folder.id}' in parents`
+    }, (err, folderContents) => {
+      folderContents.files && eventEmitter.send('drive-target-dir-contents', {
+        dirContents: folderContents,
+        dir: folder,
+      })
+    })
+    
+  }
 }
 
 const uploadFileToDrive = (sourceDir, targetDir, fileName) => {

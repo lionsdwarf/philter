@@ -9,7 +9,8 @@ const actionMappings = {
   'jpg-metadata': 'SET_JPG_METADATA',
   'thumbs-source-dir': 'SET_THUMBS_SOURCE_DIR',
   'thumb': 'SET_THUMB',
-  'disk-target-dir-contents': 'SET_DISK_TARGET_DIR_CONTENTS'
+  'disk-target-dir-contents': 'SET_DISK_TARGET_DIR_CONTENTS',
+  'drive-target-dir-contents': 'SET_DRIVE_TARGET_DIR_CONTENTS',
 }
 
 export const initListeners = dispatch => {
