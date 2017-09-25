@@ -10,17 +10,8 @@
 
 .imgDisplay {
   display: inline-block;
-  /*portrait:*/
-  /*width: 690px;*/
-  /*transform: rotate(270deg);*/
-
-  /*landscape:;*/
-  /*width: 740px;*/
-
-
   height: 100%;
   width: 73%;
-
   top: 5px;
   right: 10px;
   position: absolute;

@@ -8,12 +8,6 @@ import { initListeners } from './nodeListeners'
 import { init } from './nodeActions'
 import './styles/App.css'
 
-export const MAIN_IMG_CONTAINER_HEIGHT = 643
-export const MAIN_IMG_CONTAINER_WIDTH = 861
-
-const PORTRAIT_WIDTH = 675
-const PORTRAIT_HEIGHT = 518
-
 const classesByRotation = {
   270: 'portrait portrait270',
   90: 'portrait portrait90',
