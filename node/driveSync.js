@@ -39,8 +39,11 @@ const getFolderContents = foldersList => {
     drive.files.list({
       q: `'${folder.id}' in parents`
     }, (err, folderContents) => {
+      const fileNames = folderContents.files.map(
+        file => file.name
+      )
       folderContents.files && eventEmitter.send('drive-target-dir-contents', {
-        dirContents: folderContents,
+        dirContents: fileNames,
         dir: folder,
       })
     })

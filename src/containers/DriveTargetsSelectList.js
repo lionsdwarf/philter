@@ -7,6 +7,7 @@ const mapStateToProps = (state, ownProps) => {
     unstagedTargets: getUnstagedTargets(state.driveDirs.targets, state.filesToSync.drive, state.sourceContents.mainImg),
     filesToSync: state.filesToSync.drive,
     mainImg: state.sourceContents.mainImg,
+    targetContents: state.driveDirs.targetContents,
   }
 }
 
