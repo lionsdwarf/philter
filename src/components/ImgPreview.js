@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/components/ImgPreview.css'
 
 export default ({
   fileName, 
@@ -17,21 +18,11 @@ export default ({
   }
 
   return (
-    <div onClick={ () => setMainImg(sourceDir, fileName) } style={_s.ImgPreview}>
+    <div onClick={ () => setMainImg(sourceDir, fileName) } className='ImgPreview'>
       {
-        thumbExists && <img src={src} alt='thumb'/>
+        thumbExists && <img src={src} alt='thumb' className='thumb'/>
       }
-      <div style={_s.fileName}>{fileName}</div>
+      <div className='fileName'>{fileName}</div>
     </div>
   )
-}
-
-const _s = {
-  ImgPreview: {
-    padding: '20px',
-    display: 'inline-block',
-  },
-  fileName: {
-    'padding-top': '10px',
-  }
 }
