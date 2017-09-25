@@ -29,8 +29,8 @@ const fetchDriveDirs = () => {
   drive.files.list({
     q: FOLDER_QUERY
   }, (err, foldersList) => {
-    getFolderContents(foldersList.files)
     foldersList.files && eventEmitter.send('drive-dirs', foldersList.files)
+    getFolderContents(foldersList.files)
   })
 }
 

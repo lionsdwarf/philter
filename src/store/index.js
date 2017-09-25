@@ -32,7 +32,6 @@ const driveDirs = (state = {
     case 'SET_DRIVE_DIRS': 
       return {...state, targets: action.payload}
     case 'SET_DRIVE_TARGET_DIR_CONTENTS':
-    console.log(addTargetDirContents(state.targetContents, action.payload))
       return {...state, targetContents: addTargetDirContents(state.targetContents, action.payload)}
     default:
       return state
