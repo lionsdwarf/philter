@@ -51,7 +51,7 @@ const getFolderContents = foldersList => {
   }
 }
 
-const uploadFileToDrive = (sourceDir, targetDir, fileName) => {
+const uploadFileToDrive = (sourceDir, targetDir, fileName, eventEmitter) => {
   const sourceFile = path.join(sourceDir, fileName)
   drive.files.create({
     resource: {
@@ -63,8 +63,19 @@ const uploadFileToDrive = (sourceDir, targetDir, fileName) => {
       body: fs.createReadStream(sourceFile)
     }
   }, (err, result) => {
-    console.log('err', err)
-    console.log('result', result)
+    err ?
+      eventEmitter.send('drive-write-error', {
+        targetDir: targetDir.id,
+        fileName: fileName,
+        error: err,
+      })
+      :
+      eventEmitter.send('drive-write-success', {
+        targetDir: targetDir.id,
+        fileName: fileName,
+      })
+      console.log('err', err)
+      console.log('result', result)
   })
 }
 

@@ -12,8 +12,8 @@ const actionMappings = {
   'disk-target-dir-contents': 'SET_DISK_TARGET_DIR_CONTENTS',
   'drive-target-dir-contents': 'SET_DRIVE_TARGET_DIR_CONTENTS',
   'disk-write-success': 'SET_DISK_WRITE_SUCCESS',
-  'drive-write-success': 'SET_DRIVE_WRITE_SUCCESS',
   'disk-write-error': 'SET_DISK_WRITE_ERROR',
+  'drive-write-success': 'SET_DRIVE_WRITE_SUCCESS',
   'drive-write-error': 'SET_DRIVE_WRITE_ERROR',
 }
 

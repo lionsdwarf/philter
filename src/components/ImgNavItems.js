@@ -1,7 +1,6 @@
 import React from 'react'
 import ImgPreview from './ImgPreview'
-import StagedDiskTargets from './StagedDiskTargets'
-import StagedDriveTargets from './StagedDriveTargets'
+import StagedTargets from './StagedTargets'
 import '../styles/components/ImgNavItems.css'
 
 export default ({
@@ -30,20 +29,24 @@ export default ({
         />
 
         {
-          filesToSync.disk[fileName] && <StagedDiskTargets 
+          filesToSync.disk[fileName] && <StagedTargets 
             stagedTargets={filesToSync.disk[fileName]}
             fileName={fileName}
             unstageDir={unstageDir}
-            diskSuccesses={writeStatus.diskSuccesses}
-            diskErrors={writeStatus.diskErrors}
+            writeSuccesses={writeStatus.diskSuccesses}
+            writeErrors={writeStatus.diskErrors}
+            dirType='disk'
           />
         }
 
         {
-          filesToSync.drive[fileName] && <StagedDriveTargets 
+          filesToSync.drive[fileName] && <StagedTargets 
             stagedTargets={filesToSync.drive[fileName]}
             fileName={fileName}
             unstageDir={unstageDir}
+            writeSuccesses={writeStatus.driveSuccesses}
+            writeErrors={writeStatus.driveErrors}
+            dirType='drive'
           />
         }
 

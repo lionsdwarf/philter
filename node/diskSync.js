@@ -17,6 +17,7 @@ const copyFileToDisk = (sourceDir, targetDir, fileName, eventEmitter) => {
   })
 
   writeStream.on('error', (err) => {
+    console.log('writeStream error: ', err)
     eventEmitter.send('disk-write-error', {
       targetDir: targetDir,
       fileName: fileName,
@@ -25,6 +26,7 @@ const copyFileToDisk = (sourceDir, targetDir, fileName, eventEmitter) => {
   })
 
   readStream.on('error', (err) => {
+    console.log('readStream error: ', err)
     eventEmitter.send('disk-write-error', {
       targetDir: targetDir,
       fileName: fileName,

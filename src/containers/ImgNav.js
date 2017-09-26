@@ -10,8 +10,6 @@ const mapStateToProps = (state, ownProps) => {
     sourceDir: state.diskDirs.source,
     thumbsSourceDir: state.thumbs.dir,
     devEnv: state.thumbs.devEnv,
-    // jpgsMetadata: state.sourceContents.jpgsMetadata,
-    // writeErrors: state.diskDirs.writeErrors,
   }
 }
 
