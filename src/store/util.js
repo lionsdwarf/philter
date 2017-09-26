@@ -15,8 +15,8 @@ export const stageDirToSync = (prevStagedFiles, toStage) => {
   return stagedFiles
 }
 
-export const addWriteSuccess = (existingWriteSuccesses, payload) => {
-  const writeSuccesses = objectAssign({}, existingWriteSuccesses)
+export const addWriteStatus = (existingStatuses, payload) => {
+  const writeSuccesses = objectAssign({}, existingStatuses)
   if (!writeSuccesses[payload.targetDir]) {
     writeSuccesses[payload.targetDir] = new Set()
   } 

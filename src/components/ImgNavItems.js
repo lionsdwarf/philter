@@ -8,7 +8,7 @@ export default ({
   sourceJpgs, 
   thumbFileNames, 
   filesToSync, 
-  diskWriteSuccesses, 
+  writeStatus, 
   sourceDir, 
   thumbsSourceDir,
   devEnv,
@@ -34,7 +34,8 @@ export default ({
             stagedTargets={filesToSync.disk[fileName]}
             fileName={fileName}
             unstageDir={unstageDir}
-            writeSuccesses={diskWriteSuccesses}
+            diskSuccesses={writeStatus.diskSuccesses}
+            diskErrors={writeStatus.diskErrors}
           />
         }
 

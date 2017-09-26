@@ -2,12 +2,11 @@ import ImgNavItems from '../components/ImgNavItems'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('UNO',state)
   return {
     sourceJpgs: state.sourceContents.jpgs,
     thumbFileNames: state.thumbs.fileNames,
     filesToSync: state.filesToSync,
-    diskWriteSuccesses: state.diskDirs.writeSuccesses,
+    writeStatus: state.writeStatus,
     sourceDir: state.diskDirs.source,
     thumbsSourceDir: state.thumbs.dir,
     devEnv: state.thumbs.devEnv,

@@ -5,15 +5,13 @@ import {
   unstageDir,
   addJpgMetadata,
   addTargetDirContents,
-  addWriteSuccess,
+  addWriteStatus,
 } from './util'
 
 const diskDirs = (state = {
   source: '',
   targets: [],
   targetContents: {},
-  writeSuccesses: {},
-  writeErrors: {},
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_DIR':
@@ -22,8 +20,26 @@ const diskDirs = (state = {
       return {...state, targets: action.payload}
     case 'SET_DISK_TARGET_DIR_CONTENTS':
       return {...state, targetContents: addTargetDirContents(state.targetContents, action.payload)}
+    default:
+      return state
+  }
+}
+
+const writeStatus = (state = {
+  diskSuccesses: {},
+  diskErrors: {},
+  driveSuccesses: {},
+  driveErrors: {},
+}, action) => {
+  switch(action.type) {
     case 'SET_DISK_WRITE_SUCCESS':
-      return {...state, writeSuccesses: addWriteSuccess(state.writeSuccesses, action.payload)}
+      return {...state, diskSuccesses: addWriteStatus(state.diskSuccesses, action.payload)}
+    case 'SET_DISK_WRITE_ERROR':
+      return {...state, diskErrors: addWriteStatus(state.diskErrors, action.payload)}
+    case 'SET_DRIVE_WRITE_SUCCESS':
+      return {...state, driveSuccesses: addWriteStatus(state.driveSuccesses, action.payload)}
+    case 'SET_DRIVE_WRITE_ERROR':
+      return {...state, driveErrors: addWriteStatus(state.driveErrors, action.payload)}
     default:
       return state
   }
@@ -99,6 +115,7 @@ const filesToSync = (state = {
 
 export default combineReducers({
   diskDirs,
+  writeStatus,
   driveDirs,
   sourceContents,
   thumbs,

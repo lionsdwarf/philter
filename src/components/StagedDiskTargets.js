@@ -4,18 +4,20 @@ export default ({
   stagedTargets,
   unstageDir,
   fileName,
-  writeSuccesses,
+  diskSuccesses,
+  diskErrors,
 }) => {
- 
-  let targets = []
+  console.log(diskErrors)
+  const writeSuccess = target => diskSuccesses[target] && diskSuccesses[target].has(fileName)
+  const writeError = target => diskErrors[target] && diskErrors[target].has(fileName)
 
+  let targets = []
   stagedTargets.forEach(
     (target, i) => {
-      console.log(writeSuccesses)
       targets.push(
         <div key={i}>
-          <span onClick={ () => unstageDir('disk', target, fileName) } >{target}</span>
-          <span>{writeSuccesses[target] && writeSuccesses[target].has(fileName) ? '+' : '-'}</span>
+          <span style={{opacity: writeSuccess(target) && !writeError(target) ? '0.4' : '1'}} onClick={ () => unstageDir('disk', target, fileName) } >{target}</span>
+          <span>{ writeSuccess(target) && !writeError(target) ? '+' : ''}</span>
         </div>
       )
     }
