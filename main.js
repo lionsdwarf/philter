@@ -114,7 +114,7 @@ const selectTargetDir = event => {
 }
 
 const sync = (event, syncData) => {
-  syncFiles(syncData, dirs)
+  syncFiles(syncData, dirs, mainWindow.webContents)
 }
 
 const authDrive = () => {

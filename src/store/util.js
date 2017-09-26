@@ -15,6 +15,15 @@ export const stageDirToSync = (prevStagedFiles, toStage) => {
   return stagedFiles
 }
 
+export const addWriteSuccess = (existingWriteSuccesses, payload) => {
+  const writeSuccesses = objectAssign({}, existingWriteSuccesses)
+  if (!writeSuccesses[payload.targetDir]) {
+    writeSuccesses[payload.targetDir] = new Set()
+  } 
+  writeSuccesses[payload.targetDir].add(payload.fileName)
+  return writeSuccesses
+}
+
 export const unstageDir = (prevStagedFiles, toUnstage) => {
   const stagedFiles = objectAssign(prevStagedFiles, {})
   stagedFiles[toUnstage.fileName].delete(toUnstage.dir)
@@ -36,4 +45,3 @@ export const addTargetDirContents = (existingTargetContents, payload) => {
   targetContents[payload.dir.id || payload.dir] = new Set(payload.dirContents)
   return targetContents
 }
-

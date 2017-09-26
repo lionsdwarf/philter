@@ -8,7 +8,7 @@ export default ({
   targetContents,
 }) => {
   
-  const fileExistsInTarget = dir => targetContents[dir].has(mainImg)
+  const fileExistsInTarget = targetDir => targetContents[targetDir] && targetContents[targetDir].has(mainImg)
 
   return (
     <div>

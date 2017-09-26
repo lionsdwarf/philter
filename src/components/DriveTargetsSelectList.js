@@ -7,7 +7,7 @@ export default ({
   targetContents,
 }) => {
 
-  const fileExistsInTarget = dirId => targetContents[dirId].has(mainImg)
+  const fileExistsInTarget = targetId => targetContents[targetId].has(mainImg)
 
   return (
     <div>
@@ -22,7 +22,6 @@ export default ({
                 <div key={i} onClick={ () => stageDirToSync(mainImg, dir) }>{dir.name}</div>
             }
           )
-          
       }
 
     </div>

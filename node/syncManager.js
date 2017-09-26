@@ -11,17 +11,17 @@ const syncUtil = {
   drive: uploadFileToDrive,
 }
 
-const syncByTargetType = (filesObj, sourceDir, targetType) => {
+const syncByTargetType = (filesObj, sourceDir, targetType, eventEmitter) => {
   for(let fileName in filesObj) {
     for (let targetDir of filesObj[fileName]) {
-      syncUtil[targetType](sourceDir, targetDir, fileName)
+      syncUtil[targetType](sourceDir, targetDir, fileName, eventEmitter)
     }
   }
 }
 
-const syncFiles = (syncData, dirs) => {
+const syncFiles = (syncData, dirs, eventEmitter) => {
   for (let targetType in syncData.filesToSync) {
-    syncByTargetType(syncData.filesToSync[targetType], dirs.source, targetType)
+    syncByTargetType(syncData.filesToSync[targetType], dirs.source, targetType, eventEmitter)
   }
 }
 

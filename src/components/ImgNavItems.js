@@ -7,14 +7,13 @@ import '../styles/components/ImgNavItems.css'
 export default ({
   sourceJpgs, 
   thumbFileNames, 
-  unstageDir,
-  // diskTargetContents, 
-  // driveTargetContents, 
   filesToSync, 
-  setMainImg, 
+  diskWriteSuccesses, 
   sourceDir, 
   thumbsSourceDir,
   devEnv,
+  unstageDir,
+  setMainImg, 
 }) => <div style={{ 'display': sourceJpgs.length > 0 ? 'block' : 'none' }} className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
@@ -35,7 +34,7 @@ export default ({
             stagedTargets={filesToSync.disk[fileName]}
             fileName={fileName}
             unstageDir={unstageDir}
-            // existsInTarget={ diskTargetContents.has(fileName) }
+            writeSuccesses={diskWriteSuccesses}
           />
         }
 
@@ -44,7 +43,6 @@ export default ({
             stagedTargets={filesToSync.drive[fileName]}
             fileName={fileName}
             unstageDir={unstageDir}
-            // existsInTarget={ driveTargetContents.has(fileName) }
           />
         }
 

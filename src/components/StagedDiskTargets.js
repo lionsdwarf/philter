@@ -4,12 +4,22 @@ export default ({
   stagedTargets,
   unstageDir,
   fileName,
+  writeSuccesses,
 }) => {
+ 
   let targets = []
+
   stagedTargets.forEach(
     (target, i) => {
-      targets.push(<div key={i} onClick={ () => unstageDir('disk', target, fileName) } >{target}</div>)
+      console.log(writeSuccesses)
+      targets.push(
+        <div key={i}>
+          <span onClick={ () => unstageDir('disk', target, fileName) } >{target}</span>
+          <span>{writeSuccesses[target] && writeSuccesses[target].has(fileName) ? '+' : '-'}</span>
+        </div>
+      )
     }
   )
+
   return <div>{targets}</div>
 }

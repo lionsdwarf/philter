@@ -5,12 +5,15 @@ import {
   unstageDir,
   addJpgMetadata,
   addTargetDirContents,
+  addWriteSuccess,
 } from './util'
 
 const diskDirs = (state = {
   source: '',
   targets: [],
   targetContents: {},
+  writeSuccesses: {},
+  writeErrors: {},
 }, action) => {
   switch(action.type) {
     case 'SET_SOURCE_DIR':
@@ -19,6 +22,8 @@ const diskDirs = (state = {
       return {...state, targets: action.payload}
     case 'SET_DISK_TARGET_DIR_CONTENTS':
       return {...state, targetContents: addTargetDirContents(state.targetContents, action.payload)}
+    case 'SET_DISK_WRITE_SUCCESS':
+      return {...state, writeSuccesses: addWriteSuccess(state.writeSuccesses, action.payload)}
     default:
       return state
   }
@@ -80,9 +85,9 @@ const filesToSync = (state = {
 }, action) => {
   switch(action.type) {
     case 'STAGE_DISK_DIR_FOR_SYNC':
-      return {...state, disk: stageDirToSync(state.disk, action.payload, 'disk')}
+      return {...state, disk: stageDirToSync(state.disk, action.payload)}
     case 'STAGE_DRIVE_DIR_FOR_SYNC':
-      return {...state, drive: stageDirToSync(state.drive, action.payload, 'drive')}
+      return {...state, drive: stageDirToSync(state.drive, action.payload)}
     case 'UNSTAGE_DISK_DIR':
       return {...state, disk: unstageDir(state.disk, action.payload)}
     case 'UNSTAGE_DRIVE_DIR':
