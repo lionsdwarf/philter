@@ -42,7 +42,7 @@ export default class MainImgDisplay extends Component {
     const style = {
       backgroundImage: `url('${this.src}')`,
     }
-    this.props.rotateContainer(getRotation(jpgMetadata.orientation))
+    jpgMetadata && jpgMetadata.orientation && this.props.rotateContainer(getRotation(jpgMetadata.orientation))
     this._setImgStyle(style)
   }
 
