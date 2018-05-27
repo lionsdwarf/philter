@@ -1,5 +1,5 @@
 const electronOauth2 = require('electron-oauth2')
-const google = require('googleapis')
+const { google } = require('googleapis')
 const OAuth2 = google.auth.OAuth2
 const keytar = require('keytar')
 const {
