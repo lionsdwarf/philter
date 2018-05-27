@@ -40,7 +40,7 @@ function createWindow () {
     mainWindow.loadURL('http://localhost:3000')
     :
     mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'build','index.html'),
+      pathname: path.join(__dirname, 'public','index.html'),
       protocol: 'file:',
       slashes: true
     }))
