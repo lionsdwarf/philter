@@ -10,12 +10,14 @@ export default ({
   sourceDir
 }) => {
 
-  let src
-  if (devEnv && thumbExists) {
-    src = require('../../.thumbnails/' + fileName)
-  } else {
-    src = `../${thumbsSourceDir}${fileName}`
-  }
+  let src = `${process.env.PUBLIC_URL}${fileName}`;
+
+  // let src
+  // if (devEnv && thumbExists) {
+  //   src = require('../../.thumbnails/' + fileName)
+  // } else {
+  //   src = `../${thumbsSourceDir}${fileName}`
+  // }
 
   return (
     <div onClick={ () => setMainImg(sourceDir, fileName) } className='ImgPreview'>

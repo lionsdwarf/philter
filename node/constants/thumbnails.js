@@ -1,4 +1,5 @@
-const thumbs = '.thumbnails/'
+const thumbs = 'public/'
+// const thumbs = '.thumbnails/'
 
 module.exports = {
   THUMBS: thumbs,
