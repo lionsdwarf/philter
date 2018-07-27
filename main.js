@@ -135,7 +135,7 @@ const clearDiskDirs = () => {
 
 ipcMain.on('sync', sync)
 
-ipcMain.on('auth-drive', authDrive)
+// ipcMain.on('auth-drive', authDrive)
 
 ipcMain.on('create-drive-dir', createDriveDir)
 
