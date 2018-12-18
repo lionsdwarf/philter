@@ -31,11 +31,18 @@ const {
 } = require('./node/constants/thumbnails')
 
 function createWindow () {
+  devEnv = process.argv[3] === 'dev'  
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1400, height: 850})
+  mainWindow = new BrowserWindow({
+    width: 1400, 
+    height: 850, 
+    webPreferences: {
+      //need to load local resources when using dev server
+      webSecurity: !devEnv
+    }
+  })
 
   // and load the index.html of the app.
-  devEnv = process.argv[3] === 'dev'  
   devEnv ?
     mainWindow.loadURL('http://localhost:3000')
     :
