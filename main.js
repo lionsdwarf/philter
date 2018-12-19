@@ -31,7 +31,7 @@ const {
 } = require('./node/constants/thumbnails')
 
 function createWindow () {
-  devEnv = process.argv[3] === 'dev'  
+  devEnv = process.argv[3] === 'dev'
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1400, 
@@ -47,7 +47,7 @@ function createWindow () {
     mainWindow.loadURL('http://localhost:3000')
     :
     mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'public','index.html'),
+      pathname: path.join(__dirname, 'build','index.html'),
       protocol: 'file:',
       slashes: true
     }))

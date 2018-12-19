@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const sharp = require('sharp')
 const {
+  REL_THUMBS_DIR,
   THUMBS_DIR
 } = require('./constants/thumbnails')
 
@@ -18,7 +19,8 @@ async function generateThumb(sourceDir, fileName, eventEmitter) {
   const thumb = sharp(path.join(sourceDir, fileName))
   thumb.resize(LENGTH, WIDTH)
     .rotate()
-    .toFile('public/' + fileName)
+    // .toFile('build/' + fileName)
+    .toFile(path.join(THUMBS_DIR + fileName))
     // .toFile('.thumbnails/' + fileName)
     .then( (thumb, two) => {
       emitThumb(fileName, eventEmitter)
@@ -38,7 +40,7 @@ const thumbExists = (fileName) => {
 }
 
 const indexThumbs = () => {
-  fs.readdir(THUMBS_DIR, (err, dirContents) => {
+  fs.readdir(REL_THUMBS_DIR, (err, dirContents) => {
     existingThumbs = new Set(dirContents)
   })
 }
