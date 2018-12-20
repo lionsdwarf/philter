@@ -8,7 +8,7 @@ export default ({
 }) => <div className='dirSelect'>
   
   <div onClick={selectTargetDir} className='iconWrapper'>
-    <img src={folderDownload} alt='disk target'/>
+    <img src={`./${folderDownload}`} alt='disk target'/>
   </div>
 
 </div>

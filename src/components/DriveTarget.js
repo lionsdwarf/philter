@@ -55,7 +55,7 @@ export default class DriveDirManager extends Component {
     return (
       <div className='dirSelect'>
 
-        <img src={googleDrive} alt='google drive'/>
+        <img src={`./${googleDrive}`} alt='google drive'/>
 
         {
           this.state.postInTransit ?
@@ -66,7 +66,7 @@ export default class DriveDirManager extends Component {
                 onClick={this._toggleIsCreate}
                 className={`iconWrapper ${this.state.createDir ? 'rotate180' : ''}`}
               >
-                <img src={carat} alt='carat'/>
+                <img src={`./${carat}`} alt='carat'/>
               </div>
               <span onClick={this._toggleIsCreate}>Add directory</span>
             </div>

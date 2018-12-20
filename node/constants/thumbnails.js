@@ -1,6 +1,7 @@
-const thumbs = '.thumbnails/'
+const thumbs = `${process.argv[3] === 'dev' ? 'public' : 'build'}/.thumbs/`
+// const thumbs = '.thumbnails/'
 
 module.exports = {
-  THUMBS: thumbs,
-  THUMBS_DIR: './' + thumbs
+  THUMBS_DIR: thumbs,
+  REL_THUMBS_DIR: './' + thumbs
 }
