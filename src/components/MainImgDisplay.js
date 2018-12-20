@@ -77,11 +77,5 @@ export default class MainImgDisplay extends Component {
     )
   }
 
-  // render() {
-    
-  //   return (
-  //     <div className='MainImgDisplay' dangerouslySetInnerHTML={{__html: `<img src='file://${this.src}' />`}}></div>
-  //   )
-  // }
 }
 
