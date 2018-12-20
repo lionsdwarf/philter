@@ -19,9 +19,7 @@ async function generateThumb(sourceDir, fileName, eventEmitter) {
   const thumb = sharp(path.join(sourceDir, fileName))
   thumb.resize(LENGTH, WIDTH)
     .rotate()
-    // .toFile('build/' + fileName)
     .toFile(path.join(THUMBS_DIR + fileName))
-    // .toFile('.thumbnails/' + fileName)
     .then( (thumb, two) => {
       emitThumb(fileName, eventEmitter)
     })

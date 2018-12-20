@@ -27,7 +27,7 @@ const {
   createDriveDir,
 } = require('./node/syncManager')
 const {
-  THUMBS,
+  THUMBS_DIR,
 } = require('./node/constants/thumbnails')
 
 function createWindow () {
@@ -130,7 +130,7 @@ const authDrive = () => {
 
 const fetchThumbsSourceDir = () => {
   mainWindow.webContents.send('thumbs-source-dir', {
-    dir: THUMBS, 
+    dir: THUMBS_DIR, 
     devEnv: devEnv
   })
 }

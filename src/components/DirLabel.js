@@ -37,7 +37,7 @@ export default class DirLabel extends Component {
           onClick={ this._togglePathDisplay }
           className={`iconWrapper ${this.state.pathDisplay ? 'rotate270' : 'rotate90'}`}
         >
-          <img src={carat} alt='carat'/>
+          <img src={`./${carat}`} alt='carat'/>
         </div>
         
         <span>{ this.state.pathDisplay ? this.dirPath : '' }</span>
