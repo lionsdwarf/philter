@@ -1,3 +1,13 @@
 node_modules
 config.js
-build/
+.vscode
+
+# retain build/.thumbs directory structure only--ignore everything within these folders
+build/*
+!build/.thumbs
+build/.thumbs/*
+!build/.thumbs/.gitkeep
+
+# retain everything except the thumbnail files in public
+public/.thumbs/*
+!public/.thumbs/.gitkeep

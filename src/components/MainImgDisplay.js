@@ -28,11 +28,7 @@ export default class MainImgDisplay extends Component {
   }
 
   _setMainImg = mainImg => {
-    if (this.props.devEnv) {
-        this.src = require('../devPublic/P6102532.JPG')
-    } else {
-      this.src = `${this.props.sourceDir}/${mainImg}`
-    }
+    this.src = `${this.props.sourceDir}/${mainImg}`
     this._setImg(mainImg)
   }
 
@@ -40,7 +36,7 @@ export default class MainImgDisplay extends Component {
     const jpgMetadata = this.props.jpgsMetadata[mainImg]
     this.isLandscapeLayout = jpgMetadata && (jpgMetadata.orientation === 1 || jpgMetadata.orientation === 3)
     const style = {
-      backgroundImage: `url('${this.src}')`,
+      backgroundImage: `url('file://${this.src}')`,
     }
     jpgMetadata && jpgMetadata.orientation && this.props.rotateContainer(getRotation(jpgMetadata.orientation))
     this._setImgStyle(style)
@@ -63,7 +59,7 @@ export default class MainImgDisplay extends Component {
 
   _zoomPan = e => {
     const style = {
-      backgroundImage: `url('${this.src}')`,
+      backgroundImage: `url('file://${this.src}')`,
       transformOrigin: this._calcOriginTransformation(e),
     }
     this._setImgStyle(style)
@@ -80,5 +76,6 @@ export default class MainImgDisplay extends Component {
       </div>
     )
   }
+
 }
 

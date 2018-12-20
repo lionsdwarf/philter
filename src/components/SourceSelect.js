@@ -6,7 +6,7 @@ import { selectSourceDir } from '../nodeActions'
 export default () => <div className='dirSelect'>
   
   <div onClick={selectSourceDir} className='iconWrapper'>
-    <img src={camera} alt='camera icon'/>
+    <img src={`./${camera}`} alt='camera icon'/>
   </div>
 
 </div>

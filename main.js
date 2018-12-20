@@ -27,20 +27,27 @@ const {
   createDriveDir,
 } = require('./node/syncManager')
 const {
-  THUMBS,
+  THUMBS_DIR,
 } = require('./node/constants/thumbnails')
 
 function createWindow () {
+  devEnv = process.argv[3] === 'dev'
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1400, height: 850})
+  mainWindow = new BrowserWindow({
+    width: 1400, 
+    height: 850, 
+    webPreferences: {
+      //need to load local resources when using dev server
+      webSecurity: !devEnv
+    }
+  })
 
   // and load the index.html of the app.
-  devEnv = process.argv[3] === 'dev'  
   devEnv ?
     mainWindow.loadURL('http://localhost:3000')
     :
     mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'public','index.html'),
+      pathname: path.join(__dirname, 'build','index.html'),
       protocol: 'file:',
       slashes: true
     }))
@@ -121,13 +128,6 @@ const authDrive = () => {
   driveAuth.init(process.argv[2], mainWindow.webContents)
 }
 
-const fetchThumbsSourceDir = () => {
-  mainWindow.webContents.send('thumbs-source-dir', {
-    dir: THUMBS, 
-    devEnv: devEnv
-  })
-}
-
 const clearDiskDirs = () => {
   dirs.targets = []
   dirs.source = ''
@@ -135,14 +135,12 @@ const clearDiskDirs = () => {
 
 ipcMain.on('sync', sync)
 
-ipcMain.on('auth-drive', authDrive)
+// ipcMain.on('auth-drive', authDrive)
 
 ipcMain.on('create-drive-dir', createDriveDir)
 
 ipcMain.on('source-dir-selection', selectSourceDir)
 
 ipcMain.on('target-dir-selection', selectTargetDir)
-
-ipcMain.on('fetch-thumbs-source-dir', fetchThumbsSourceDir)
 
 ipcMain.on('clear-disk-dirs', clearDiskDirs)

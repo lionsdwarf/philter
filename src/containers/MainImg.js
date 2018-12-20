@@ -6,7 +6,6 @@ const mapStateToProps = (state, ownProps) => {
     mainImg: state.sourceContents.mainImg,
     jpgsMetadata: state.sourceContents.jpgsMetadata,
     sourceDir: state.diskDirs.source,
-    devEnv: state.thumbs.devEnv,
   }
 }
 

@@ -8,8 +8,6 @@ const mapStateToProps = (state, ownProps) => {
     filesToSync: state.filesToSync,
     writeStatus: state.writeStatus,
     sourceDir: state.diskDirs.source,
-    thumbsSourceDir: state.thumbs.dir,
-    devEnv: state.thumbs.devEnv,
   }
 }
 

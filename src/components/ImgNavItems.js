@@ -9,8 +9,6 @@ export default ({
   filesToSync, 
   writeStatus, 
   sourceDir, 
-  thumbsSourceDir,
-  devEnv,
   unstageDir,
   setMainImg, 
 }) => <div style={{ 'display': sourceJpgs.length > 0 ? 'block' : 'none' }} className='ImgNavItems'>
@@ -24,8 +22,6 @@ export default ({
           thumbExists={thumbFileNames.has(fileName)}
           sourceDir={sourceDir}
           setMainImg={setMainImg}
-          thumbsSourceDir={thumbsSourceDir}
-          devEnv={devEnv}
         />
 
         {
