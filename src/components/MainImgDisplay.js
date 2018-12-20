@@ -28,12 +28,7 @@ export default class MainImgDisplay extends Component {
   }
 
   _setMainImg = mainImg => {
-    // if (this.props.devEnv) {
-    //   this.src = require('../devPublic/P6102532.JPG')
-    // } else {
-      this.src = `${this.props.sourceDir}/${mainImg}`
-    // }
-    console.log(this.src)
+    this.src = `${this.props.sourceDir}/${mainImg}`
     this._setImg(mainImg)
   }
 

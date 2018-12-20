@@ -26,16 +26,11 @@ const authDrive = () => {
   ipcRenderer.send('auth-drive')
 }
 
-const fetchThumbsSourceDir = () => {
-  ipcRenderer.send('fetch-thumbs-source-dir')
-}
-
 const clearDiskDirs = () => {
   ipcRenderer.send('clear-disk-dirs')
 }
 
 export const init = () => {
   clearDiskDirs()
-  fetchThumbsSourceDir()
   authDrive()
 }

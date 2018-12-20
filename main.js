@@ -128,13 +128,6 @@ const authDrive = () => {
   driveAuth.init(process.argv[2], mainWindow.webContents)
 }
 
-const fetchThumbsSourceDir = () => {
-  mainWindow.webContents.send('thumbs-source-dir', {
-    dir: THUMBS_DIR, 
-    devEnv: devEnv
-  })
-}
-
 const clearDiskDirs = () => {
   dirs.targets = []
   dirs.source = ''
@@ -149,7 +142,5 @@ ipcMain.on('create-drive-dir', createDriveDir)
 ipcMain.on('source-dir-selection', selectSourceDir)
 
 ipcMain.on('target-dir-selection', selectTargetDir)
-
-ipcMain.on('fetch-thumbs-source-dir', fetchThumbsSourceDir)
 
 ipcMain.on('clear-disk-dirs', clearDiskDirs)

@@ -62,17 +62,10 @@ const driveDirs = (state = {
 
 const thumbs = (state = {
   fileNames: new Set(),
-  dir: '',
-  devEnv: false
 }, action) => {
   switch(action.type) {
-    case 'SET_THUMBS_SOURCE_DIR':
-      return {...state, dir: action.payload.dir, devEnv: action.payload.devEnv}
     case 'SET_THUMB':
       return {...state, fileNames: addFileName(state.fileNames, action.payload.fileName)}
-    // case 'CLEAR_THUMB_FILENAMES':
-    //   return {...state, fileNames: new Set()}
-    //   break
     default:
       return state
   }
