@@ -29,7 +29,6 @@ const fetchDriveDirs = () => {
   drive.files.list({
     q: FOLDER_QUERY
   }, (err, res) => {
-    console.log(res.data.files)
     res.data.files && eventEmitter.send('drive-dirs', res.data.files)
     res.data.files.length && getFolderContents(res.data.files)
   })
