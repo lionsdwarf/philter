@@ -14,21 +14,21 @@ let dirs = {
   targets: [],
 }
 
-const driveAuth = require('./node/driveAuth')
+const driveAuth = require('./src/driveAuth')
 const {
   indexThumbs,
-} = require('./node/thumbnailsManager')
+} = require('./src/thumbnailsManager')
 const {
   fetchSourceDirContents,
   emitTargetDirContents,
-} = require('./node/dirManager')
+} = require('./src/dirManager')
 const {
   syncFiles,
   createDriveDir,
-} = require('./node/syncManager')
+} = require('./src/syncManager')
 const {
   THUMBS_DIR,
-} = require('./node/constants/thumbnails')
+} = require('./src/constants/thumbnails')
 
 function createWindow () {
   devEnv = process.argv[3] === 'dev'
