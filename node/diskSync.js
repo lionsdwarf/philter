@@ -1,23 +1,31 @@
 const fs = require('fs')
 const path = require('path')
 
-const OLYMPUS_RAW_FILE_EXT = 'ORF'
+const OLY_RAW_FILE_EXT = '.ORF'
 
 const swapRawFileExtension = jpgFileName => {
-  return jpgFileName.substr(0, jpgFileName.length - 3) + OLYMPUS_RAW_FILE_EXT
+  return jpgFileName.substr(0, jpgFileName.length - 4) + OLY_RAW_FILE_EXT
 }
 
-//if raw file exists, write it to disk, otherwise write jpg
-const getSourceFileName = (sourceDir, jpgFileName) => {
+const isRawSibling = (sourceDir, jpgFileName) => {
   const rawFileName = swapRawFileExtension(jpgFileName)
   const rawFile = path.join(sourceDir, rawFileName)
-  return fs.existsSync(rawFile) ? rawFileName : jpgFileName
+  return fs.existsSync(rawFile)
+}
+// If RAW file exists, write both .jpg and RAW files to Disk, otherwise just write the .jpg
+const copyFileToDisk = (sourceDir, targetDir, fileName, eventEmitter) => {
+
+  writeFile(sourceDir, targetDir, fileName, eventEmitter)
+
+  if (isRawSibling(sourceDir, fileName)) {
+    writeFile(sourceDir, targetDir, swapRawFileExtension(fileName), eventEmitter)
+  }
+ 
 }
 
-const copyFileToDisk = (sourceDir, targetDir, fileName, eventEmitter) => {
-  const sourceFileName = getSourceFileName(sourceDir, fileName)
-  const sourceFile = path.join(sourceDir, sourceFileName)
-  const targetFile = path.join(targetDir, sourceFileName)
+const writeFile = (sourceDir, targetDir, fileName, eventEmitter) => {
+  const sourceFile = path.join(sourceDir, fileName)
+  const targetFile = path.join(targetDir, fileName)
   const readStream = fs.createReadStream(sourceFile)
   const writeStream = fs.createWriteStream(targetFile)
   
