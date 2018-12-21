@@ -28,9 +28,10 @@ const createDir = (event, dirName) => {
 const fetchDriveDirs = () => {
   drive.files.list({
     q: FOLDER_QUERY
-  }, (err, foldersList) => {
-    foldersList.files && eventEmitter.send('drive-dirs', foldersList.files)
-    getFolderContents(foldersList.files)
+  }, (err, res) => {
+    console.log(res.data.files)
+    res.data.files && eventEmitter.send('drive-dirs', res.data.files)
+    res.data.files.length && getFolderContents(res.data.files)
   })
 }
 
@@ -38,11 +39,11 @@ const getFolderContents = foldersList => {
   for (let folder of foldersList) {
     drive.files.list({
       q: `'${folder.id}' in parents`
-    }, (err, folderContents) => {
-      const fileNames = folderContents.files.map(
+    }, (err, res) => {
+      const fileNames = res.data.files.map(
         file => file.name
       )
-      folderContents.files && eventEmitter.send('drive-target-dir-contents', {
+      res.data.files && eventEmitter.send('drive-target-dir-contents', {
         dirContents: fileNames,
         dir: folder,
       })

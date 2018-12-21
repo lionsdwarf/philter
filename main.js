@@ -1,3 +1,4 @@
+require('dotenv').config()
 const electron = require('electron')
 const {
   app,
@@ -125,7 +126,7 @@ const sync = (event, syncData) => {
 }
 
 const authDrive = () => {
-  driveAuth.init(process.argv[2], mainWindow.webContents)
+  driveAuth.init(mainWindow.webContents)
 }
 
 const clearDiskDirs = () => {
@@ -135,7 +136,7 @@ const clearDiskDirs = () => {
 
 ipcMain.on('sync', sync)
 
-// ipcMain.on('auth-drive', authDrive)
+ipcMain.on('auth-drive', authDrive)
 
 ipcMain.on('create-drive-dir', createDriveDir)
 

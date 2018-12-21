@@ -1,5 +1,5 @@
+.env
 node_modules
-config.js
 .vscode
 
 # retain build/.thumbs directory structure only--ignore everything within these folders

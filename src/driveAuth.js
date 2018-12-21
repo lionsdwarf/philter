@@ -25,11 +25,10 @@ const options = {
   accessType: ACCESS_TYPE
 };
 
-const configureDriveApp = (configPath, eventEmitter) => {
-  driveApp = require(configPath).googleDrive
+const configureDriveApp = (eventEmitter) => {
   config = {
-    clientId: driveApp.clientId,
-    clientSecret: driveApp.clientSecret,
+    clientId: process.env.GOOGLE_DRIVE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_DRIVE_CLIENT_SECRET,
     authorizationUrl: AUTHORIZATION_URL,
     tokenUrl: TOKEN_URL,
     useBasicAuthorizationHeader: false,
@@ -37,16 +36,16 @@ const configureDriveApp = (configPath, eventEmitter) => {
   }
 }
 
-const establishConnection = (gDrive, eventEmitter) => {
+const establishConnection = (tokens, eventEmitter) => {
   const oauth2Client = new OAuth2(
-    gDrive.app.clientId,
-    gDrive.app.clientSecret,
+    process.env.GOOGLE_DRIVE_CLIENT_ID,
+    process.env.GOOGLE_DRIVE_CLIENT_SECRET,
     REDIRECT_URI
   )
 
   oauth2Client.setCredentials({
-    access_token: gDrive.tokens.accessToken,
-    refresh_token: gDrive.tokens.refreshToken
+    access_token: tokens.accessToken,
+    refresh_token: tokens.refreshToken
   })
 
   oauth2Client.generateAuthUrl({
@@ -61,13 +60,15 @@ const establishConnection = (gDrive, eventEmitter) => {
   driveSync.init(drive, eventEmitter)
 }
 
-async function getAccessToken(configPath, eventEmitter) {
-  configureDriveApp(configPath)
-  const tokens = await refreshAccessToken() || await initLogin()
-  const drive = establishConnection({
-    tokens: tokens,
-    app: driveApp
-  }, eventEmitter)
+async function getAccessToken(eventEmitter) {
+  let tokens
+  configureDriveApp()
+  try {
+    tokens = await refreshAccessToken() || await initLogin()
+  } catch (e) {
+    throw new Error(e)
+  }
+  establishConnection(tokens, eventEmitter)
 }
 
 //use refresh token to obtain access token
