@@ -15,7 +15,8 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
   fs.readdir(sourceDir, (err, dirContents) => {
 
     let jpgs = []
-    dirContents.forEach( async fileName => {
+    const validImages = filterDirContent(dirContents)
+    validImages.forEach( async fileName => {
 
       let img
       if (isJPG(fileName)) {
@@ -43,6 +44,10 @@ const fetchSourceDirContents = (sourceDir, eventEmitter) => {
     eventEmitter.send('source-dir-contents', jpgs)
   })
 }
+
+const isDotFile = fileName => fileName.substring(0, 1) === '.'
+ // Some SSDs maintain deleted files as dot files until overwritten. We ignore such files.
+ const filterDirContent = files => files.filter(fileName => !isDotFile(fileName))
 
 async function emitTargetDirContents(payload) {
   fs.readdir(payload.dir, (err, dirContents) => {
