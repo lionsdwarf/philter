@@ -9,7 +9,7 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
-let mainWindow, devEnv
+let windowMainImg, windowImgNav, devEnv
 let dirs = {
   source: '',
   targets: [],
@@ -31,11 +31,19 @@ const {
   THUMBS_DIR,
 } = require('./src/constants/thumbnails')
 
-function createWindow () {
-  devEnv = process.argv[3] === 'dev'
+function createWindows () {
+  devEnv = process.argv[2] === 'dev'
   // Create the browser window.
-  mainWindow = new BrowserWindow({
+  windowMainImg = new BrowserWindow({
     width: 1400, 
+    height: 850, 
+    webPreferences: {
+      //need to load local resources when using dev server
+      webSecurity: !devEnv
+    }
+  })
+  windowImgNav = new BrowserWindow({
+    width: 380, 
     height: 850, 
     webPreferences: {
       //need to load local resources when using dev server
@@ -44,24 +52,37 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  devEnv ?
-    mainWindow.loadURL('http://localhost:3000')
-    :
-    mainWindow.loadURL(url.format({
+  if(devEnv) {
+    windowMainImg.loadURL('http://localhost:3000?window=mainImg')
+    windowImgNav.loadURL('http://localhost:3000')
+  } else {
+    windowMainImg.loadURL(url.format({
+      pathname: path.join(__dirname, 'build','index.html?window=mainImg'),
+      protocol: 'file:',
+      slashes: true
+    }))
+    windowImgNav.loadURL(url.format({
       pathname: path.join(__dirname, 'build','index.html'),
       protocol: 'file:',
       slashes: true
     }))
+  }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // windowMainImg.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
+  windowMainImg.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null
+    windowMainImg = null
+  })
+  windowImgNav.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    windowImgNav = null
   })
 }
 
@@ -69,7 +90,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createWindow()
+  createWindows()
   indexThumbs()
 })
 
@@ -85,36 +106,36 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
+  if (windowMainImg === null) {
+    createWindows()
   }
 })
 
 const selectSourceDir = event => {
   //open chrome directory-select dialog
-  dialog.showOpenDialog(mainWindow, {
+  dialog.showOpenDialog(windowImgNav, {
     properties: ['openDirectory']
   }, 
   selectedDirs => {
     if (selectedDirs) {
       dirs.source = selectedDirs[0]
-      mainWindow.webContents.send('source-dir-selection', selectedDirs[0])
-      fetchSourceDirContents(selectedDirs[0], mainWindow.webContents)
+      windowImgNav.webContents.send('source-dir-selection', selectedDirs[0])
+      fetchSourceDirContents(selectedDirs[0], windowImgNav.webContents)
     }
   })
 }
 
 const selectTargetDir = event => {
   //open chrome directory-select dialog
-  dialog.showOpenDialog(mainWindow, {
+  dialog.showOpenDialog(windowImgNav, {
     properties: ['openDirectory']
   }, 
   selectedDirs => {
     if (selectedDirs) {
       dirs.targets.push(selectedDirs[0])
-      mainWindow.webContents.send('target-dir-selection', dirs.targets)
+      windowImgNav.webContents.send('target-dir-selection', dirs.targets)
       emitTargetDirContents({
-        eventEmitter: mainWindow.webContents,
+        eventEmitter: windowImgNav.webContents,
         dir: selectedDirs[0]
       })
     }
@@ -122,11 +143,11 @@ const selectTargetDir = event => {
 }
 
 const sync = (event, syncData) => {
-  syncFiles(syncData, dirs, mainWindow.webContents)
+  syncFiles(syncData, dirs, windowImgNav.webContents)
 }
 
 const authDrive = () => {
-  driveAuth.init(mainWindow.webContents)
+  driveAuth.init(windowImgNav.webContents)
 }
 
 const clearDiskDirs = () => {
