@@ -11,7 +11,7 @@ const {
 const JPG_EXTENSION = '.jpg'
 
 const fetchSourceDirContents = (sourceDir, eventEmitter) => {
-  const thumbsDirEmpty = existingThumbs().size == 0
+  const thumbsDirEmpty = existingThumbs().size === 0
   fs.readdir(sourceDir, (err, dirContents) => {
 
     let jpgs = []
