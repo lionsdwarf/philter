@@ -22,6 +22,13 @@ export const createDriveDir = (dirName) => {
   ipcRenderer.send('create-drive-dir', dirName)
 }
 
+export const setMainImg = (sourceDir, fileName) => {
+  ipcRenderer.send('set-main-img', {
+    sourceDir, 
+    fileName
+  })
+}
+
 const authDrive = () => {
   ipcRenderer.send('auth-drive')
 }

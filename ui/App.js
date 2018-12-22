@@ -34,27 +34,21 @@ export default class Philter extends Component {
   }
 
   render() {
-    const searchParams = new URLSearchParams(window.location.search)
-    console.log(searchParams.get('window'))
-    console.log(this.props)
     return (
       <div className='Philter'>
 
         {
-
-          searchParams.get('window') === 'mainImg' ? 
-            <div className={`imgDisplay ${this.state.containerClasses}`}>
-              <MainImg rotateContainer={ this._setRotation }/>
-            </div>
-            :
-            <nav className='nav'>
-              <Source/>
-              <ImgNav/>
-              <Targets/>
-              <SyncControl/>
-            </nav>
+            // <div className={`imgDisplay ${this.state.containerClasses}`}>
+            //   <MainImg rotateContainer={ this._setRotation }/>
+            // </div>
         }
 
+        <nav className='nav'>
+          <Source/>
+          <ImgNav/>
+          <Targets/>
+          <SyncControl/>
+        </nav>
         
       </div>
     );

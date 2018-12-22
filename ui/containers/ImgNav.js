@@ -1,5 +1,6 @@
 import ImgNavItems from '../components/ImgNavItems'
 import { connect } from 'react-redux'
+import { setMainImg } from '../nodeActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch, state) => {
     setMainImg: (sourceDir, fileName) => dispatch({
       type: 'SET_MAIN_IMG',
       payload: fileName
-    })
+    }) && setMainImg(sourceDir, fileName)
   }
 }
 

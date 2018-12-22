@@ -16,9 +16,7 @@ let dirs = {
 }
 
 const driveAuth = require('./src/driveAuth')
-const {
-  indexThumbs,
-} = require('./src/thumbnailsManager')
+const { indexThumbs } = require('./src/thumbnailsManager')
 const {
   fetchSourceDirContents,
   emitTargetDirContents,
@@ -46,18 +44,21 @@ function createWindows () {
     width: 380, 
     height: 850, 
     webPreferences: {
-      //need to load local resources when using dev server
       webSecurity: !devEnv
     }
   })
 
   // and load the index.html of the app.
   if(devEnv) {
-    windowMainImg.loadURL('http://localhost:3000?window=mainImg')
+    windowMainImg.loadURL(url.format({
+      pathname: path.join(__dirname, 'src', 'ui','index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
     windowImgNav.loadURL('http://localhost:3000')
   } else {
     windowMainImg.loadURL(url.format({
-      pathname: path.join(__dirname, 'build','index.html?window=mainImg'),
+      pathname: path.join(__dirname, 'src', 'ui','index.html'),
       protocol: 'file:',
       slashes: true
     }))
@@ -155,6 +156,7 @@ const clearDiskDirs = () => {
   dirs.source = ''
 }
 
+
 ipcMain.on('sync', sync)
 
 ipcMain.on('auth-drive', authDrive)
@@ -166,3 +168,5 @@ ipcMain.on('source-dir-selection', selectSourceDir)
 ipcMain.on('target-dir-selection', selectTargetDir)
 
 ipcMain.on('clear-disk-dirs', clearDiskDirs)
+
+ipcMain.on('set-main-img', (e, payload) =>  windowMainImg.webContents.send('set-main-img', payload))
