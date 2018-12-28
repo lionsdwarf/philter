@@ -1,0 +1,69 @@
+
+  /*@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700);*/
+/*
+  body {
+    background: #fff;
+    color: #000;
+    margin: 0;
+  }
+
+  .tiles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }*/
+
+  body {
+    margin: 0;
+  }
+
+  .tiles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+/*  .tile {
+    position: relative;
+    float: left;
+    width: 33.333%;
+    height: 100%;
+    overflow: hidden;
+  }*/
+
+  .tile {
+    position: relative;
+    float: left;
+    width: 73.333%;
+    height: 100%;
+    overflow: hidden;
+    /*
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: transform .5s ease-out;
+    transform: scale(1);*/
+  }
+
+  .photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: transform .5s ease-out;
+  }
+
+  .mainImg:hover {
+    transform: scale(4);
+  }
