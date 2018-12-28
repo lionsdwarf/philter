@@ -10,7 +10,8 @@ export default ({
   writeStatus, 
   sourceDir, 
   unstageDir,
-  setMainImg, 
+  setMainImg,
+  jpgsMetadata, 
 }) => <div style={{ 'display': sourceJpgs.length > 0 ? 'block' : 'none' }} className='ImgNavItems'>
   {
     sourceJpgs.map( (fileName, i) => 
@@ -22,6 +23,7 @@ export default ({
           thumbExists={thumbFileNames.has(fileName)}
           sourceDir={sourceDir}
           setMainImg={setMainImg}
+          jpgsMetadata={jpgsMetadata}
         />
 
         {

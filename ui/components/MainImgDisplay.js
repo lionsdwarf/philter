@@ -35,7 +35,6 @@ export default class MainImgDisplay extends Component {
   _setImg = mainImg => {
     const jpgMetadata = this.props.jpgsMetadata[mainImg]
     this.isLandscapeLayout = jpgMetadata && (jpgMetadata.orientation === 1 || jpgMetadata.orientation === 3)
-    console.log('src', this.src)
     const style = {
       backgroundImage: `url('file://${this.src}')`,
     }

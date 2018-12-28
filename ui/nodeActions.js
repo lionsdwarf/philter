@@ -22,10 +22,11 @@ export const createDriveDir = (dirName) => {
   ipcRenderer.send('create-drive-dir', dirName)
 }
 
-export const setMainImg = (sourceDir, fileName) => {
+export const setMainImg = (sourceDir, fileName, jpgMetadata) => {
   ipcRenderer.send('set-main-img', {
     sourceDir, 
-    fileName
+    fileName,
+    jpgMetadata,
   })
 }
 

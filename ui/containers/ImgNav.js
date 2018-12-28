@@ -9,10 +9,11 @@ const mapStateToProps = (state, ownProps) => {
     filesToSync: state.filesToSync,
     writeStatus: state.writeStatus,
     sourceDir: state.diskDirs.source,
+    jpgsMetadata: state.sourceContents.jpgsMetadata
   }
 }
 
-const mapDispatchToProps = (dispatch, state) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     unstageDir: (dirType, dir, fileName) => dispatch({
       type: `UNSTAGE_${dirType.toUpperCase()}_DIR`,
@@ -21,10 +22,10 @@ const mapDispatchToProps = (dispatch, state) => {
         dir: dir,
       }
     }),
-    setMainImg: (sourceDir, fileName) => dispatch({
+    setMainImg: (sourceDir, fileName, jpgMetadata) => dispatch({
       type: 'SET_MAIN_IMG',
       payload: fileName
-    }) && setMainImg(sourceDir, fileName)
+    }) && setMainImg(sourceDir, fileName, jpgMetadata)
   }
 }
 

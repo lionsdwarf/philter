@@ -5,11 +5,12 @@ export default ({
   fileName, 
   thumbExists, 
   setMainImg, 
-  sourceDir
+  sourceDir,
+  jpgsMetadata,
 }) => {
 
   return (
-    <div onClick={ () => {setMainImg(sourceDir, fileName)} } className='ImgPreview'>
+    <div onClick={ () => {setMainImg(sourceDir, fileName, jpgsMetadata[fileName])} } className='ImgPreview'>
       {
         thumbExists && <img src={`.thumbs/${fileName}`} alt='thumb' className='thumb'/>
       }

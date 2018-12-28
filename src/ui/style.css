@@ -3,7 +3,7 @@ body {
   background-color: rgb(38,38,38)
 }
 
-#inspect {
+.inspect {
   display: inline-block;
   height: 99%;
   width: 100%;
@@ -12,14 +12,24 @@ body {
   position: absolute;
 }
 
-#img-wrapper {
+.portrait270 {
+  width: 57%;
+  transform: rotate(270deg) translate(1%, -12%);
+}
+
+.portrait90 {
+  width: 57%;
+  transform: rotate(90deg) translate(1%, -12%);
+}
+
+.img-wrapper {
   height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
-#img {
+.img {
   top: 0;
   left: 0;
   height: 100%;
@@ -29,6 +39,6 @@ body {
   transition: transform .5s ease-out;
 }
 
-#img:hover {
+.img:hover {
   transform: scale(4);
 }
