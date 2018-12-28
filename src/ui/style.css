@@ -20,11 +20,12 @@
   }
 
   .tiles {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: inline-block;
+    height: 98%;
     width: 100%;
-    height: 100%;
+    top: 5px;
+    right: 10px;
+    position: absolute;
   }
 
 /*  .tile {
@@ -36,12 +37,13 @@
   }*/
 
   .tile {
-    position: relative;
-    float: left;
-    width: 73.333%;
     height: 100%;
+    width: 100%;
+    position: relative;
     overflow: hidden;
-    /*
+  }
+
+  .photo {
     top: 0;
     left: 0;
     height: 100%;
@@ -49,21 +51,9 @@
     background-position: center;
     background-size: contain;
     transition: transform .5s ease-out;
-    transform: scale(1);*/
+   
   }
 
-  .photo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    transition: transform .5s ease-out;
-  }
-
-  .mainImg:hover {
+  .photo:hover {
     transform: scale(4);
   }
