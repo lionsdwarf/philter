@@ -1,59 +1,34 @@
+body {
+  margin: 0;
+  background-color: rgb(38,38,38)
+}
 
-  /*@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700);*/
-/*
-  body {
-    background: #fff;
-    color: #000;
-    margin: 0;
-  }
+#inspect {
+  display: inline-block;
+  height: 99%;
+  width: 100%;
+  top: 5px;
+  right: 10px;
+  position: absolute;
+}
 
-  .tiles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }*/
+#img-wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 
-  body {
-    margin: 0;
-  }
+#img {
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform .5s ease-out;
+}
 
-  .tiles {
-    display: inline-block;
-    height: 98%;
-    width: 100%;
-    top: 5px;
-    right: 10px;
-    position: absolute;
-  }
-
-/*  .tile {
-    position: relative;
-    float: left;
-    width: 33.333%;
-    height: 100%;
-    overflow: hidden;
-  }*/
-
-  .tile {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .photo {
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    transition: transform .5s ease-out;
-   
-  }
-
-  .photo:hover {
-    transform: scale(4);
-  }
+#img:hover {
+  transform: scale(4);
+}
